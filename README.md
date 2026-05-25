@@ -1,5 +1,5 @@
-# Jensen C-V8 Online Manual v3 OCR
+# Jensen C-V8 Online Manual v3.1
 
-Includes rendered page scans, an in-app viewer, and a lightweight OCR/search text index.
+Adds visible OCR text panel and OCR search hits.
 
-Deploy to Vercel as Vite. Do not upload node_modules.
+Do not commit node_modules.
