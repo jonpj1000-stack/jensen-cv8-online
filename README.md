@@ -1,22 +1,5 @@
-# Jensen C-V8 Archive
+# Jensen C-V8 Online Manual
 
-A mobile-friendly searchable Jensen C-V8 owner manual archive built with React and Vite.
+Vite/React searchable manual archive.
 
-## Run locally
-
-```bash
-npm install
-npm run dev
-```
-
-## Build for Vercel
-
-```bash
-npm run build
-```
-
-The owner manual PDF is stored at:
-
-```text
-public/manuals/jensen_cv8_owners_manual.pdf
-```
+Vercel framework preset: Vite.
