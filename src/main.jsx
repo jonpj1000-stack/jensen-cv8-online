@@ -1,92 +1,141 @@
 import React, { useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Search, BookOpen, Gauge, Zap, Battery, Disc3, Car, Settings, Fan, Wrench, ExternalLink, Menu, X, FileText, ZoomIn, ZoomOut, ChevronLeft, ChevronRight } from 'lucide-react';
-import { ocrPages } from './ocrIndex.js';
+import { Search, BookOpen, FileText, Wrench, ExternalLink, Menu, X, ZoomIn, ZoomOut, ChevronLeft, ChevronRight, ClipboardList, AlertTriangle } from 'lucide-react';
+import { manualPages } from './manualPages.js';
 import './styles.css';
 
-const sections = [
-  { id:'dashboard', title:'Dashboard & Controls', pages:[4], icon:Gauge, tags:'dashboard instruments controls switches gauges warning lights', summary:'The dashboard diagram identifies the instruments, warning lights, heater controls, lighting switches, ignition, gear selector and auxiliary controls.', source:'Instruction Book, page 4, Fig. 1: Instruments and Controls list items 1–29.', steps:['Use the numbered dashboard diagram before removing anything.','Confirm whether the fault is the switch, bulb, sender, gauge or wiring.','Check bulbs and holders before assuming a deeper electrical fault.','Preserve original switch positions for period-correct restoration.'] },
-  { id:'specs', title:'Specifications & Capacities', pages:[5,6], icon:Settings, tags:'specifications capacity timing plug gap compression oil dimensions', summary:'Quick-reference data includes engine dimensions, firing order, capacities, gear ratios, tyre pressure, alignment, ignition timing and plug gap.', source:'Instruction Book, pages 5–6: General Dimensions and Data for Quick Reference.', facts:['Firing order: 1-8-4-3-6-5-7-2.','Spark plug gap: .035 in.','Ignition timing: 10° before T.D.C. at 500 r.p.m.','Tyres: Dunlop 670 x 15 road speed.','Tyre pressure: 24 p.s.i. all round.','Sump capacity: 7 pints Imperial / 8 pints U.S. / 3.6 litres.'] },
-  { id:'engine', title:'Motor, Starting & Running', pages:[6,7,8,9], icon:Car, tags:'engine motor starting running gearbox transmission overdrive towing', summary:'The manual gives conservative running-in advice and starting guidance for automatic and manual transmission cars.', source:'Instruction Book, pages 6–9: Starting Up and General Running Hints, Starting Car Engine, Gearbox Operation, Towing and Overdrive.', steps:['For automatic cars, select Neutral before starting.','Apply the handbrake before starting.','Depress the accelerator slowly to one-third travel before starting.','Release the key immediately when the engine fires.','If flooded, press the accelerator fully and crank briefly.','During running-in, avoid prolonged high-speed cruising and monitor oil pressure and temperature.'] },
-  { id:'lubrication', title:'Lubrication & Maintenance', pages:[10,11], icon:Wrench, tags:'lubrication maintenance grease oil service miles', summary:'The lubrication plan covers the first 1,000-mile service and recurring 1,000, 2,000, 4,000 and 8,000-mile checks.', source:'Instruction Book, pages 10–11: Lubrication and Maintenance schedule and Fig. 3 lubrication chart.', steps:['At first 1,000 miles, drain/refill axle and check controls, fluids, belt, electrical system, tyres, lights and brakes.','Every 1,000 miles, grease king pins, propeller shaft and steering idler.','Every 2,000 miles, check brake fluid level.','Every 4,000 miles, grease steering rack and check transmission/rear axle items.','Every 8,000 miles, clean/check air cleaner, distributor, crankcase ventilator, choke piston and plugs.'] },
-  { id:'electrical', title:'Electrical Equipment', pages:[12,13], icon:Zap, tags:'electrical lucas lamps headlamps wipers washer map light', summary:'Most electrical equipment is Lucas. The manual separately notes that ignition, charging and starter systems are Autolite.', source:'Instruction Book, pages 12–13: Electrical Equipment.', facts:['Headlamp flasher is operated by pulling the trafficator control lever backwards.','The screenwiper is a two-speed heavy-duty type.','Map light bulb access is by removing the central instrument panel.','Gear quadrant light access is from the left-hand side of the panel.'] },
-  { id:'battery', title:'Battery & Charging', pages:[12], icon:Battery, tags:'battery charging positive earth autolite lucas', summary:'The manual specifies a 12-volt Lucas battery and identifies the car as positive earth.', source:'Instruction Book, page 12: Battery, Positive Earth.', steps:['Confirm positive-earth polarity before connecting accessories.','Keep the battery firmly secured.','Check electrolyte level every four weeks.','Top up with distilled water where appropriate.','Keep terminals clean and tight.'] },
-  { id:'fuses', title:'Fuses', pages:[12], icon:Fan, tags:'fuse fuses fusebox 35 amp', summary:'Both the main and auxiliary fuses are 35 amp. The fuse box is forward and below the right-hand side of the fascia panel.', source:'Instruction Book, page 12: Fuses.', steps:['Locate the fuse box below the right-hand side of the fascia.','Inspect the 35 amp main and auxiliary fuses.','Do not increase fuse rating if a fuse blows repeatedly.','Trace repeated failures to a short or overloaded circuit.'] },
-  { id:'brakes', title:'Brakes & Brake Servo', pages:[13], icon:Disc3, tags:'brakes servo dunlop brake fluid handbrake vacuum', summary:'The car uses Dunlop hydraulic disc brakes on all wheels with vacuum servo assistance. The handbrake is separate from the hydraulic system.', source:'Instruction Book, page 13: Brakes and Brake Servo.', steps:['Check brake fluid about every 2,000 miles.','Use Dunlop Disc Brake Fluid or compatible specialist-approved fluid.','Lubricate the brake servo every 12,000 miles.','Do not drill the main frame tubes because they are vacuum reservoirs.','If servo trouble occurs, the manual recommends manufacturer servicing.'] },
-  { id:'fuel', title:'Fuel System & Carburetter', pages:[14,15,16], icon:Gauge, tags:'fuel carburetter carter idle fast idle choke throttle linkage', summary:'The fuel section covers the tank, lines, filters, mechanical pump and Carter carburetter, including idle and fast idle adjustment.', source:'Instruction Book, pages 14–16, Figs. 4–7: Fuel System, Idle Speed Adjustment, Fast Idle Speed Adjustment and Throttle Linkage.', steps:['Warm the engine thoroughly before idle adjustment.','Ensure the choke valve is fully open.','Set idle to about 500 r.p.m. using the idle speed screw.','Adjust mixture screws for highest r.p.m., then re-check idle.','Use Fig. 6 for fast idle screw/cam relationship.'] },
-  { id:'tyres', title:'Tyres, Wheels & Alignment', pages:[17,18,19], icon:Disc3, tags:'tyres tires wheels alignment bearings toe-in castor camber', summary:'The manual specifies Dunlop 670 x 15 RS tyres at 24 psi all round, checked cold, plus alignment and front wheel bearing guidance.', source:'Instruction Book, pages 17–19: Care of Tyres, Tyre and Wheel Balance, Front Suspension, Alignment and Bearings.', facts:['Standard tyre: Dunlop 670 x 15 RS.','Correct pressure: 24 p.s.i. all round.','Town use only: rear pressures may be dropped to 22 p.s.i.','Sustained high speed above 90 m.p.h.: increase to 30 p.s.i.','Toe-in should be 1/8 inch.'] },
-  { id:'cooling', title:'Cooling, Electric Fans & Heater', pages:[20], icon:Fan, tags:'cooling fan radiator heater ventilation antifreeze coolant topping up', summary:'The manual covers automatic electric radiator fans, heater controls, coolant circulation and topping up the pressurised cooling system.', source:'Instruction Book, page 20: Electric Cooling Fans, Heating and Ventilation, Cooling System, Topping Up.', steps:['Do not remove the header tank cap when hot.','Check coolant weekly when cold.','Top up to about 1 inch below the top of the header tank.','Confirm electric fans operate automatically above normal temperature.','Use fascia heater and air intake controls for airflow.'] }
+const topicalSections = [
+  { title:'Dashboard & Controls', pages:[4], tags:'dashboard instruments controls switches gauges warning lights' },
+  { title:'Specifications & Capacities', pages:[5,6], tags:'specifications capacity timing plug gap compression oil dimensions' },
+  { title:'Motor, Starting & Running', pages:[7,8,9], tags:'engine motor starting running gearbox transmission overdrive towing' },
+  { title:'Lubrication & Maintenance', pages:[10,11,25,26,27,28], tags:'lubrication maintenance grease oil service miles' },
+  { title:'Electrical, Battery & Fuses', pages:[12,13], tags:'electrical lucas autolite battery positive earth fuse fuses bulbs lamps wiper' },
+  { title:'Brakes & Servo', pages:[13], tags:'brakes servo dunlop brake fluid handbrake vacuum' },
+  { title:'Fuel System & Carburetter', pages:[15,16], tags:'fuel carburetter carter idle fast idle choke throttle linkage' },
+  { title:'Tyres, Wheels & Alignment', pages:[17,18,19], tags:'tyres tires wheels alignment bearings toe-in castor camber' },
+  { title:'Cooling, Heating & Rear Axle', pages:[20,21], tags:'cooling fan radiator heater ventilation antifreeze coolant rear axle powr-lok drive belt' },
+  { title:'Interior & Owner Information', pages:[2,3,22,23,31,32], tags:'owner warranty seats upholstery vehicle particulars chassis engine key' }
 ];
 
-const diagrams = [['Instruments and Controls',4],['Lubrication Chart',11],['Carter Carburetter Views',14],['Fast Idle Adjustment',16],['Throttle Linkage',16],['Accelerator Pedal Adjustment',17],['Front Wheel Bearing Section',19]];
+function highlight(text, q) {
+  if (!q.trim()) return text;
+  const parts = text.split(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'ig'));
+  return parts.map((part, i) => part.toLowerCase() === q.toLowerCase() ? <mark key={i}>{part}</mark> : part);
+}
 
 function App() {
-  const [query,setQuery]=useState('');
-  const [active,setActive]=useState('dashboard');
-  const [drawer,setDrawer]=useState(false);
-  const [workshop,setWorkshop]=useState(false);
-  const [viewerPage,setViewerPage]=useState(4);
-  const [zoom,setZoom]=useState(100);
-  const [tab,setTab]=useState('summary');
+  const [query, setQuery] = useState('');
+  const [pageNo, setPageNo] = useState(4);
+  const [zoom, setZoom] = useState(100);
+  const [drawer, setDrawer] = useState(false);
+  const [mode, setMode] = useState('page');
 
-  const filtered=useMemo(()=>{const q=query.toLowerCase().trim(); if(!q)return sections; return sections.filter(s=>[s.title,s.tags,s.summary,s.source,...(s.steps||[]),...(s.facts||[])].join(' ').toLowerCase().includes(q));},[query]);
-  const ocrResults=useMemo(()=>{const q=query.toLowerCase().trim(); if(!q)return []; return ocrPages.filter(p=>(p.title+' '+p.text).toLowerCase().includes(q));},[query]);
-  const section=sections.find(s=>s.id===active)||sections[0];
-  const Icon=section.icon;
-  const currentOcr=ocrPages.find(p=>p.page===viewerPage) || ocrPages[0];
-  const openPdf=(page)=>window.open(`/manuals/jensen_cv8_owners_manual.pdf#page=${page}`,'_blank');
-  const jumpToPage=(page)=>{setViewerPage(page); setTab('scan');};
+  const page = manualPages.find(p => p.page === pageNo) || manualPages[0];
+  const searchResults = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return [];
+    return manualPages
+      .map(p => {
+        const hay = `${p.title} ${p.text} ${p.summary}`.toLowerCase();
+        const score = (hay.match(new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g')) || []).length;
+        return { ...p, score };
+      })
+      .filter(p => p.score > 0)
+      .sort((a,b) => b.score - a.score);
+  }, [query]);
 
-  return <div className={workshop?'app workshop':'app'}>
+  const openPdf = (p = pageNo) => window.open(`/manuals/jensen_cv8_owners_manual.pdf#page=${p}`, '_blank');
+  const goPage = (p) => { setPageNo(Math.max(1, Math.min(manualPages.length, p))); setDrawer(false); };
+
+  const pageList = <aside className={drawer ? 'sidebar open' : 'sidebar'}>
+    <div className="mobileClose"><strong>Manual Pages</strong><button onClick={() => setDrawer(false)}><X size={20}/></button></div>
+    <div className="searchBox">
+      <label><Search size={16}/> Search OCR text</label>
+      <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Try brake fluid, 35 amp, tyre pressure..." />
+    </div>
+    {query && <div className="resultsBox">
+      <strong>{searchResults.length} OCR result{searchResults.length === 1 ? '' : 's'}</strong>
+      {searchResults.slice(0,8).map(r => <button key={r.page} onClick={() => goPage(r.page)}>p{r.page}: {r.title}<small>{r.score} hit{r.score === 1 ? '' : 's'}</small></button>)}
+    </div>}
+    <h3>Topics</h3>
+    <nav className="topics">
+      {topicalSections.map(s => <button key={s.title} onClick={() => goPage(s.pages[0])}><BookOpen size={16}/><span>{s.title}</span><small>p{s.pages.join(',')}</small></button>)}
+    </nav>
+    <h3>All pages</h3>
+    <nav>
+      {manualPages.map(p => <button key={p.page} className={p.page === pageNo ? 'selected' : ''} onClick={() => goPage(p.page)}><FileText size={16}/><span>Page {p.page}</span><small>{p.title}</small></button>)}
+    </nav>
+  </aside>;
+
+  return <div className="app">
     <header>
-      <button className="hamburger" onClick={()=>setDrawer(true)}><Menu/></button>
+      <button className="hamburger" onClick={() => setDrawer(true)}><Menu /></button>
       <div className="badge">J</div>
-      <div><p>Jensen Model C-V8</p><h1>Searchable Manual Archive</h1></div>
-      <button className="mode" onClick={()=>setWorkshop(!workshop)}>{workshop?'Normal Mode':'Workshop Mode'}</button>
-      <button className="openPdf" onClick={()=>openPdf(viewerPage)}>Open PDF</button>
+      <div className="headText"><p>Jensen Model C-V8</p><h1>Searchable Manual Archive</h1></div>
+      <button className="openPdf" onClick={() => openPdf()}>Open PDF</button>
     </header>
+
     <div className="layout">
-      <aside className={drawer?'sidebar open':'sidebar'}>
-        <div className="mobileClose"><strong>Contents</strong><button onClick={()=>setDrawer(false)}><X size={20}/></button></div>
-        <div className="searchBox"><label><Search size={16}/> Instant search</label><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Try fuses, brakes, idle..." /></div>
-        {ocrResults.length > 0 && <div className="ocrHits"><strong>OCR hits</strong>{ocrResults.slice(0,6).map(r=><button key={r.page} onClick={()=>jumpToPage(r.page)}>p{r.page}: {r.title}</button>)}</div>}
-        <nav>{filtered.map(s=>{const I=s.icon; return <button key={s.id} className={s.id===section.id?'selected':''} onClick={()=>{setActive(s.id);setViewerPage(s.pages[0]);setDrawer(false)}}><I size={17}/><span>{s.title}</span><small>p{s.pages.join(',')}</small></button>})}</nav>
-      </aside>
+      {pageList}
       <main>
-        <div className="tabs"><button className={tab==='summary'?'active':''} onClick={()=>setTab('summary')}>Manual Summary</button><button className={tab==='scan'?'active':''} onClick={()=>setTab('scan')}>Scanned Page Viewer</button><button className={tab==='ocr'?'active':''} onClick={()=>setTab('ocr')}>OCR Text</button></div>
+        <div className="tabs">
+          <button className={mode==='page'?'active':''} onClick={() => setMode('page')}><FileText size={16}/> Page Text</button>
+          <button className={mode==='scan'?'active':''} onClick={() => setMode('scan')}><BookOpen size={16}/> Scan Viewer</button>
+          <button className={mode==='checklist'?'active':''} onClick={() => setMode('checklist')}><ClipboardList size={16}/> Checklist</button>
+        </div>
 
-        {tab==='summary' && <section className="card hero">
-          <div className="pageBadge"><Icon size={16}/> Pages {section.pages.join(', ')}</div>
-          <h2>{section.title}</h2><p>{section.summary}</p>
-          <div className="buttons">{section.pages.map(p=><button key={p} onClick={()=>jumpToPage(p)}>View scan p{p} <ExternalLink size={14}/></button>)}</div>
-          <div className="source"><strong>Source reference</strong><p>{section.source}</p></div>
-          {section.facts&&<div className="facts">{section.facts.map(f=><div key={f}>{f}</div>)}</div>}
-          {section.steps&&<div className="checklist"><h3>Repair / diagnostic checklist</h3>{section.steps.map((step,i)=><div className="step" key={step}><span>{i+1}</span><p>{step}</p></div>)}</div>}
+        <section className="card pageHeader">
+          <div className="kicker">Instruction Book - Page {page.page}</div>
+          <h2>{page.title}</h2>
+          <p>{page.summary}</p>
+          <div className="warn"><AlertTriangle size={18}/><span>OCR is a working transcription. Always verify specifications, wiring, torque values and safety procedures against the original scanned page.</span></div>
+          <div className="buttons">
+            <button onClick={() => goPage(pageNo - 1)}><ChevronLeft size={16}/> Previous page</button>
+            <button onClick={() => goPage(pageNo + 1)}>Next page <ChevronRight size={16}/></button>
+            <button onClick={() => openPdf(page.page)}>Open original scan <ExternalLink size={16}/></button>
+          </div>
+        </section>
+
+        {mode === 'page' && <section className="card">
+          <h3 className="sectionTitle">OCR Text Version</h3>
+          <pre className="ocrText">{highlight(page.text || 'No readable OCR text was extracted from this page. It may be a blank page, diagram-heavy page, or poor scan.', query)}</pre>
         </section>}
 
-        {tab==='scan' && <section className="card viewer">
-          <div className="viewerTop"><h2>Scanned Page {viewerPage}</h2><div><button onClick={()=>setViewerPage(Math.max(1,viewerPage-1))}><ChevronLeft size={16}/> Prev</button><button onClick={()=>setViewerPage(Math.min(20,viewerPage+1))}>Next <ChevronRight size={16}/></button><button onClick={()=>setZoom(Math.max(60,zoom-20))}><ZoomOut size={16}/></button><button onClick={()=>setZoom(Math.min(180,zoom+20))}><ZoomIn size={16}/></button></div></div>
-          <iframe title="manual pdf" src={`/manuals/jensen_cv8_owners_manual.pdf#page=${viewerPage}&zoom=${zoom}`} />
-          <button className="pdfFallback" onClick={()=>openPdf(viewerPage)}>Open page {viewerPage} in browser PDF viewer</button>
+        {mode === 'scan' && <section className="card viewer">
+          <div className="viewerTop">
+            <h3>Original Scanned Page {page.page}</h3>
+            <div>
+              <button onClick={() => setZoom(Math.max(60, zoom-20))}><ZoomOut size={16}/></button>
+              <button onClick={() => setZoom(Math.min(180, zoom+20))}><ZoomIn size={16}/></button>
+            </div>
+          </div>
+          <iframe title="manual pdf" src={`/manuals/jensen_cv8_owners_manual.pdf#page=${page.page}&zoom=${zoom}`} />
         </section>}
 
-        {tab==='ocr' && <section className="card ocrPanel">
-          <div className="warn"><FileText size={18}/><span>OCR text is a searchable working layer. Always verify against the scanned page before doing mechanical or electrical work.</span></div>
-          <div className="viewerTop"><h2>OCR Text — Page {viewerPage}</h2><div><button onClick={()=>setViewerPage(Math.max(1,viewerPage-1))}><ChevronLeft size={16}/> Prev</button><button onClick={()=>setViewerPage(Math.min(20,viewerPage+1))}>Next <ChevronRight size={16}/></button><button onClick={()=>jumpToPage(viewerPage)}>View scan</button></div></div>
-          <h3>{currentOcr.title}</h3>
-          <p>{currentOcr.text}</p>
-          <div className="allOcr">
-            <h3>All OCR pages</h3>
-            {ocrPages.map(p=><button key={p.page} onClick={()=>setViewerPage(p.page)} className={p.page===viewerPage?'picked':''}>p{p.page} — {p.title}</button>)}
+        {mode === 'checklist' && <section className="card">
+          <h3 className="sectionTitle">Plain-English Checklist / Notes from This Page</h3>
+          {page.checklist && page.checklist.length ? (
+            <ol className="checklist">{page.checklist.map((item, i) => <li key={item}><span>{i+1}</span><p>{item}</p></li>)}</ol>
+          ) : (
+            <div className="emptyChecklist">
+              <Wrench size={24}/>
+              <p>No specific repair checklist has been generated for this page yet. Use the OCR text and scan for reference, or add a page-specific checklist as more manuals are loaded.</p>
+            </div>
+          )}
+        </section>}
+
+        {query && <section className="card">
+          <h3 className="sectionTitle">Search Results from OCR Text</h3>
+          <div className="searchResults">
+            {searchResults.map(r => <button key={r.page} onClick={() => goPage(r.page)}>
+              <strong>Page {r.page}: {r.title}</strong>
+              <span>{r.text.slice(0, 260)}...</span>
+            </button>)}
           </div>
         </section>}
-
-        <section className="card">
-          <h2 className="galleryTitle">Diagrams & Schematics Gallery</h2>
-          <div className="gallery">{diagrams.map(([name,page])=><button key={name} onClick={()=>jumpToPage(page)}><BookOpen size={30}/><strong>{name}</strong><span>Open scanned page {page}</span></button>)}</div>
-        </section>
       </main>
     </div>
-  </div>;
+  </div>
 }
+
 createRoot(document.getElementById('root')).render(<App />);

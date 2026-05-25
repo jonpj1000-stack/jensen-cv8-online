@@ -1,5 +1,5 @@
-# Jensen C-V8 Online Manual v3.1
+# Jensen C-V8 Online Manual v4
 
-Adds visible OCR text panel and OCR search hits.
+Adds page-by-page OCR text and page-specific checklist notes.
 
 Do not commit node_modules.
