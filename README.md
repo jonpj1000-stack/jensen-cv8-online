@@ -1,5 +1,5 @@
-# Jensen C-V8 Online Manual
+# Jensen C-V8 Online Manual v3 OCR
 
-Vite/React searchable manual archive.
+Includes rendered page scans, an in-app viewer, and a lightweight OCR/search text index.
 
-Vercel framework preset: Vite.
+Deploy to Vercel as Vite. Do not upload node_modules.
