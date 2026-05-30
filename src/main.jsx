@@ -146,6 +146,18 @@ function App() {
     }
   });
 
+  // On first load, fetch the committed corrections file and merge it under
+  // any localStorage edits (localStorage wins so in-progress work is kept).
+  useEffect(() => {
+    fetch('/ocr-corrections.json')
+      .then(r => r.ok ? r.json() : {})
+      .then(committed => {
+        if (!committed || !Object.keys(committed).length) return;
+        setOcrEdits(prev => ({ ...committed, ...prev }));
+      })
+      .catch(() => {});
+  }, []);
+
   useEffect(() => {
     localStorage.setItem('jensen-model', selectedModel);
   }, [selectedModel]);
@@ -269,6 +281,29 @@ function App() {
     a.click();
 
     URL.revokeObjectURL(url);
+  };
+
+  const importOcrEdits = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'application/json,.json';
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        try {
+          const imported = JSON.parse(ev.target.result);
+          if (typeof imported === 'object' && imported !== null) {
+            setOcrEdits(prev => ({ ...prev, ...imported }));
+          }
+        } catch {
+          alert('Could not read the file — make sure it is a valid jensen-ocr-edits.json export.');
+        }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
   };
 
   const pageList = (
@@ -450,8 +485,8 @@ function App() {
               <div className="warn">
                 <AlertTriangle size={18} />
                 <span>
-                  OCR edits are saved in this browser only. Export your corrections
-                  before clearing browser data or changing devices.
+                  OCR edits are saved locally and loaded from the committed corrections file.
+                  Export your edits, save the file as <code>public/ocr-corrections.json</code>, and commit to make them permanent for all devices.
                 </span>
               </div>
             )}
@@ -529,6 +564,10 @@ function App() {
 
                 <button onClick={exportOcrEdits}>
                   <Download size={16} /> Export OCR fixes
+                </button>
+
+                <button onClick={importOcrEdits}>
+                  <Save size={16} /> Import OCR fixes
                 </button>
 
                 {hasLocalEdit && (
