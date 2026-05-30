@@ -38,6 +38,84 @@ const topicalSections = [
   { title: 'Interior & Owner Information', pages: [2, 3, 22, 23, 31, 32], tags: 'owner warranty seats upholstery vehicle particulars chassis engine key' }
 ];
 
+// ─── Section groupings ───────────────────────────────────────────────────────
+// Explicit page → section mapping for each manual. Pages not listed fall back
+// to their raw title. isContinuation = true for all pages after the first in
+// a section — used to show "Section Name (cont.)" in the sidebar + page header.
+
+const baseSectionDefs = [
+  { title: 'Cover',                          pages: [1] },
+  { title: 'Introduction',                   pages: [2, 3] },
+  { title: 'Dashboard & Controls',           pages: [4] },
+  { title: 'Specifications & Dimensions',    pages: [5, 6] },
+  { title: 'Starting, Gearbox & Towing',     pages: [7, 8, 9] },
+  { title: 'Lubrication & Maintenance',      pages: [10, 11] },
+  { title: 'Electrical Equipment',           pages: [12, 13] },
+  { title: 'Brakes & Servo',                 pages: [14] },
+  { title: 'Fuel System & Carburettor',      pages: [15, 16, 17] },
+  { title: 'Tyres, Wheels & Alignment',      pages: [18, 19] },
+  { title: 'Cooling, Heating & Rear Axle',   pages: [20, 21] },
+  { title: 'Interior & Owner Information',   pages: [22, 23, 24] },
+  { title: 'Service Lubrication',            pages: [25, 26, 27, 28] },
+  { title: 'Index',                          pages: [29] },
+  { title: 'Vehicle Particulars',            pages: [31, 32] },
+];
+
+const mk3SectionDefs = [
+  { title: 'Handbook Cover',                     pages: [1] },
+  { title: 'Vehicle Particulars',                pages: [3] },
+  { title: 'Foreword',                           pages: [5] },
+  { title: 'General Dimensions & Data',          pages: [7, 8] },
+  { title: 'Instruments & Controls Diagram',     pages: [9] },
+  { title: 'Controls & Instruments',             pages: [11, 12, 13] },
+  { title: 'Starting Up & Running',              pages: [15, 16, 17, 18] },
+  { title: 'Engine Lubrication System',          pages: [19] },
+  { title: 'Lubrication Diagram',                pages: [20] },
+  { title: 'Maintenance Schedule',               pages: [21, 22] },
+  { title: 'Fuel System & Carburettor',          pages: [23, 24, 25, 26, 27] },
+  { title: 'Ignition',                           pages: [29, 30] },
+  { title: 'Cooling System',                     pages: [31, 32] },
+  { title: 'Transmission & Propeller Shaft',     pages: [33, 34] },
+  { title: 'Steering & Suspension',              pages: [35, 36, 37] },
+  { title: 'Brake Servo Unit',                   pages: [38] },
+  { title: 'Wheels & Tyres',                     pages: [39, 40] },
+  { title: 'Bodywork & Seats',                   pages: [41, 42] },
+  { title: 'Spare Wheel',                        pages: [43] },
+  { title: 'Cabin Heating & Ventilation',        pages: [45, 46] },
+  { title: 'Electrical System',                  pages: [47, 48] },
+  { title: 'Lights',                             pages: [49, 50] },
+  { title: 'Tool Kit & Equipment',               pages: [51, 52, 53] },
+  { title: 'Service Lubrication',                pages: [55, 56, 57, 58] },
+  { title: 'Index',                              pages: [59, 60] },
+];
+
+function buildSectionLookup(defs) {
+  const map = new Map();
+  for (const section of defs) {
+    section.pages.forEach((page, idx) => {
+      map.set(page, {
+        sectionTitle: section.title,
+        isContinuation: idx > 0,
+      });
+    });
+  }
+  return map;
+}
+
+const baseSectionLookup = buildSectionLookup(baseSectionDefs);
+const mk3SectionLookup  = buildSectionLookup(mk3SectionDefs);
+
+function getSectionInfo(pageNum, model) {
+  const lookup = model === 'mk3' ? mk3SectionLookup : baseSectionLookup;
+  return lookup.get(pageNum) || null;
+}
+
+function getDisplayTitle(pageNum, model, fallbackTitle) {
+  const info = getSectionInfo(pageNum, model);
+  if (!info) return fallbackTitle;
+  return info.isContinuation ? `${info.sectionTitle} (cont.)` : info.sectionTitle;
+}
+
 const modelLabels = {
   all: 'All Models',
   mk1: 'Mk I',
@@ -439,20 +517,27 @@ function App() {
 
       <h3>All Pages</h3>
       <nav>
-        {visibleManualPages.map(p => (
-          <button
-            key={p.page}
-            className={p.page === pageNo ? 'selected' : ''}
-            onClick={() => goPage(p.page)}
-          >
-            <FileText size={16} />
-            <span>Page {p.page}</span>
-            <small>
-              {p.title}
-              {ocrEdits[`${selectedModel}:${p.page}`] ? ' · edited' : ''}
-            </small>
-          </button>
-        ))}
+        {visibleManualPages.map(p => {
+          const displayTitle = getDisplayTitle(p.page, selectedModel, p.title);
+          const sInfo = getSectionInfo(p.page, selectedModel);
+          return (
+            <button
+              key={p.page}
+              className={[
+                p.page === pageNo ? 'selected' : '',
+                sInfo?.isContinuation ? 'continuation' : ''
+              ].join(' ').trim()}
+              onClick={() => goPage(p.page)}
+            >
+              <FileText size={16} />
+              <span>Page {p.page}</span>
+              <small>
+                {displayTitle}
+                {ocrEdits[`${selectedModel}:${p.page}`] ? ' · edited' : ''}
+              </small>
+            </button>
+          );
+        })}
       </nav>
     </aside>
   );
@@ -554,7 +639,12 @@ function App() {
 
           <section className="card pageHeader">
             <div className="kicker">Instruction Book · Page {page.page}</div>
-            <h2>{page.title}</h2>
+            <h2>{getDisplayTitle(page.page, selectedModel, page.title)}</h2>
+            {getSectionInfo(page.page, selectedModel)?.isContinuation && (
+              <p className="continuationNote">
+                ↩ Continued from <strong>{getSectionInfo(page.page, selectedModel).sectionTitle}</strong>
+              </p>
+            )}
             <p>{page.summary}</p>
 
             <div className="tagRow">
@@ -600,7 +690,7 @@ function App() {
                     {pageCategory === 'informational' && 'Informational page'}
                     {pageCategory === 'diagram' && 'Diagram / image page'}
                   </p>
-                  <h3>{page.title}</h3>
+                  <h3>{getDisplayTitle(page.page, selectedModel, page.title)}</h3>
                 </div>
                 <button onClick={() => setMode('scan')}>View scan</button>
               </div>
