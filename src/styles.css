@@ -256,54 +256,55 @@
   font-family:SFMono-Regular,Menlo,Monaco,Consolas,monospace;
 }
 
-/* ---------- MODEL SELECTOR FIX ---------- */
+//* ---------- HERO MODEL SELECTOR FIX ---------- */
 
-.hero .modelCard {
-  margin-top: 1rem;
-  padding: 1.25rem 1.35rem;
-  border-radius: 24px;
-  background: #f7f1e6;
-  color: #172033;
+.hero > div:nth-child(2) {
+  margin-top: 1rem !important;
+  padding: 1.25rem 1.35rem !important;
+  border-radius: 24px !important;
+  background: #f7f1e6 !important;
+  color: #172033 !important;
+  box-shadow: 0 18px 45px rgba(0,0,0,.18);
 }
 
-.hero .modelCard .modelEyebrow {
-  margin: 0 0 0.7rem;
-  color: #8a6a2f;
-  opacity: 1;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.22em;
+.hero > div:nth-child(2) p {
+  margin: 0 0 .75rem !important;
+  color: #172033 !important;
+  opacity: 1 !important;
+  font-size: .9rem !important;
+  line-height: 1.4 !important;
 }
 
-.hero .modelCard .modelLabel {
-  display: block;
-  margin-bottom: 0.45rem;
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: #253044;
+.hero > div:nth-child(2) p:first-child {
+  color: #8a6a2f !important;
+  font-size: .72rem !important;
+  font-weight: 800 !important;
+  letter-spacing: .22em !important;
+  text-transform: uppercase !important;
 }
 
-.hero .modelCard .modelSelect {
-  width: 100%;
-  height: 44px;
-  padding: 0 0.9rem;
-  border-radius: 12px;
-  border: 1px solid #cbb98f;
-  background: #fffaf2;
-  color: #172033;
-  font-size: 0.95rem;
-  font-weight: 700;
-  outline: none;
+.hero > div:nth-child(2) label {
+  display: block !important;
+  margin-bottom: .45rem !important;
+  color: #253044 !important;
+  font-size: .85rem !important;
+  font-weight: 800 !important;
 }
 
-.hero .modelCard .modelCurrent {
-  margin: 0.75rem 0 0;
-  color: #5d5343;
-  opacity: 1;
-  font-size: 0.9rem;
-  line-height: 1.4;
+.hero > div:nth-child(2) select {
+  width: 100% !important;
+  height: 46px !important;
+  padding: 0 .9rem !important;
+  border-radius: 12px !important;
+  border: 1px solid #cbb98f !important;
+  background: #fffaf2 !important;
+  color: #172033 !important;
+  font-size: .95rem !important;
+  font-weight: 700 !important;
+  outline: none !important;
+  appearance: auto !important;
 }
 
-.hero .modelCard .modelCurrent strong {
-  color: #172033;
+.hero > div:nth-child(2) strong {
+  color: #172033 !important;
 }
