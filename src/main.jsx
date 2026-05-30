@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   Search,
@@ -16,7 +16,10 @@ import {
   AlertTriangle,
   Gauge,
   Layers,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Save,
+  Download,
+  Copy
 } from 'lucide-react';
 import { manualPages } from './manualPages.js';
 import './styles.css';
@@ -51,10 +54,32 @@ function App() {
   const [zoom, setZoom] = useState(100);
   const [drawer, setDrawer] = useState(false);
   const [mode, setMode] = useState('cards');
+  const [copied, setCopied] = useState(false);
+
+  const [ocrEdits, setOcrEdits] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('jensen-ocr-edits') || '{}');
+    } catch {
+      return {};
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('jensen-ocr-edits', JSON.stringify(ocrEdits));
+  }, [ocrEdits]);
 
   const page = manualPages.find(p => p.page === pageNo) || manualPages[0];
-
+  const currentText = ocrEdits[page.page] ?? page.text ?? '';
+  const hasLocalEdit = Object.prototype.hasOwnProperty.call(ocrEdits, page.page);
+  const editedPageCount = Object.keys(ocrEdits).length;
   const pagesWithChecklists = manualPages.filter(p => p.checklist && p.checklist.length).length;
+
+  const enhancedPages = useMemo(() => {
+    return manualPages.map(p => ({
+      ...p,
+      text: ocrEdits[p.page] ?? p.text ?? ''
+    }));
+  }, [ocrEdits]);
 
   const searchResults = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -62,7 +87,7 @@ function App() {
 
     const safeQuery = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-    return manualPages
+    return enhancedPages
       .map(p => {
         const hay = `${p.title} ${p.text} ${p.summary}`.toLowerCase();
         const score = (hay.match(new RegExp(safeQuery, 'g')) || []).length;
@@ -70,7 +95,7 @@ function App() {
       })
       .filter(p => p.score > 0)
       .sort((a, b) => b.score - a.score);
-  }, [query]);
+  }, [query, enhancedPages]);
 
   const openPdf = (p = pageNo) => {
     window.open(`/manuals/jensen_cv8_owners_manual.pdf#page=${p}`, '_blank');
@@ -79,6 +104,41 @@ function App() {
   const goPage = (p) => {
     setPageNo(Math.max(1, Math.min(manualPages.length, p)));
     setDrawer(false);
+    setCopied(false);
+  };
+
+  const updateCurrentOcr = (value) => {
+    setOcrEdits({
+      ...ocrEdits,
+      [page.page]: value
+    });
+  };
+
+  const resetCurrentOcr = () => {
+    const next = { ...ocrEdits };
+    delete next[page.page];
+    setOcrEdits(next);
+  };
+
+  const copyCurrentText = async () => {
+    await navigator.clipboard.writeText(currentText);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1600);
+  };
+
+  const exportOcrEdits = () => {
+    const blob = new Blob(
+      [JSON.stringify(ocrEdits, null, 2)],
+      { type: 'application/json' }
+    );
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'jensen-ocr-edits.json';
+    a.click();
+
+    URL.revokeObjectURL(url);
   };
 
   const pageList = (
@@ -130,7 +190,10 @@ function App() {
           >
             <FileText size={16} />
             <span>Page {p.page}</span>
-            <small>{p.title}</small>
+            <small>
+              {p.title}
+              {ocrEdits[p.page] ? ' · edited' : ''}
+            </small>
           </button>
         ))}
       </nav>
@@ -164,8 +227,8 @@ function App() {
               <p className="eyebrow">Garage-friendly manual app</p>
               <h2>Search the Jensen C-V8 manual like it was built for the driveway.</h2>
               <p>
-                Plain-English summaries, repair checklists, OCR text, source-page buttons,
-                and the original scanned manual in one place.
+                Plain-English summaries, repair checklists, editable OCR text,
+                source-page buttons, and the original scanned manual in one place.
               </p>
             </div>
 
@@ -173,7 +236,7 @@ function App() {
               <div><strong>{manualPages.length}</strong><span>manual pages</span></div>
               <div><strong>{topicalSections.length}</strong><span>sections</span></div>
               <div><strong>{pagesWithChecklists}</strong><span>checklists</span></div>
-              <div><strong>0</strong><span>external libraries</span></div>
+              <div><strong>{editedPageCount}</strong><span>OCR edits</span></div>
             </div>
 
             <div className="heroSearch">
@@ -190,6 +253,9 @@ function App() {
           <div className="tabs">
             <button className={mode === 'cards' ? 'active' : ''} onClick={() => setMode('cards')}>
               <Layers size={16} /> Repair Card
+            </button>
+            <button className={mode === 'edit' ? 'active' : ''} onClick={() => setMode('edit')}>
+              <Save size={16} /> Edit OCR
             </button>
             <button className={mode === 'page' ? 'active' : ''} onClick={() => setMode('page')}>
               <FileText size={16} /> OCR Text
@@ -211,13 +277,14 @@ function App() {
               <span><Gauge size={14} /> Jensen C-V8</span>
               <span>Manual p. {page.page}</span>
               <span>{page.checklist?.length || 0} checklist items</span>
+              {hasLocalEdit && <span>OCR edited locally</span>}
             </div>
 
             <div className="warn">
               <AlertTriangle size={18} />
               <span>
-                OCR is a working transcription. Verify specifications, wiring, torque values
-                and safety procedures against the original scanned page.
+                OCR edits are saved in this browser only. Export your corrections
+                before clearing browser data or changing devices.
               </span>
             </div>
 
@@ -258,13 +325,59 @@ function App() {
             </section>
           )}
 
+          {mode === 'edit' && (
+            <section className="card">
+              <div className="editorHeader">
+                <div>
+                  <h3 className="sectionTitle">Edit OCR Text - Page {page.page}</h3>
+                  <p className="helperText">
+                    Correct the OCR errors here. Changes autosave locally and are used by search immediately.
+                  </p>
+                </div>
+
+                <div className="editorStatus">
+                  {hasLocalEdit ? 'Edited locally' : 'Using original OCR'}
+                </div>
+              </div>
+
+              <textarea
+                className="ocrEditor"
+                value={currentText}
+                onChange={(e) => updateCurrentOcr(e.target.value)}
+                spellCheck="false"
+              />
+
+              <div className="buttons">
+                <button onClick={copyCurrentText}>
+                  <Copy size={16} /> {copied ? 'Copied' : 'Copy text'}
+                </button>
+
+                <button onClick={exportOcrEdits}>
+                  <Download size={16} /> Export OCR fixes
+                </button>
+
+                {hasLocalEdit && (
+                  <button onClick={resetCurrentOcr}>
+                    Reset this page
+                  </button>
+                )}
+
+                <button onClick={() => setMode('scan')}>
+                  View scan <ImageIcon size={16} />
+                </button>
+              </div>
+            </section>
+          )}
+
           {mode === 'page' && (
             <section className="card">
               <h3 className="sectionTitle">OCR text from this page</h3>
-              <p className="helperText">Use this for quick searching only. Verify details against the scan.</p>
+              <p className="helperText">
+                This view uses your corrected OCR text if you have edited this page.
+              </p>
               <pre className="ocrText">
                 {highlight(
-                  page.text || 'No readable OCR text was extracted from this page.',
+                  currentText || 'No readable OCR text was extracted from this page.',
                   query
                 )}
               </pre>

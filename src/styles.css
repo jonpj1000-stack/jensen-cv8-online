@@ -176,3 +176,34 @@
     height:38px;
   }
 }
+
+.editorHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+.editorStatus{
+  background:#0b3d2e;
+  color:white;
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:13px;
+  font-weight:800;
+}
+
+.ocrEditor{
+  width:100%;
+  min-height:65vh;
+  border:1px solid #d7caa8;
+  border-radius:18px;
+  padding:18px;
+  font-size:15px;
+  line-height:1.6;
+  resize:vertical;
+  background:white;
+  color:#17211d;
+  font-family:SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+}
