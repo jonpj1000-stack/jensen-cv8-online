@@ -37,6 +37,13 @@ const topicalSections = [
   { title: 'Interior & Owner Information', pages: [2, 3, 22, 23, 31, 32], tags: 'owner warranty seats upholstery vehicle particulars chassis engine key' }
 ];
 
+const modelLabels = {
+  all: 'All Models',
+  mk1: 'Mk I',
+  mk2: 'Mk II',
+  mk3: 'Mk III'
+};
+
 function highlight(text, q) {
   if (!q.trim()) return text;
 
@@ -53,12 +60,8 @@ function App() {
   const [pageNo, setPageNo] = useState(4);
   const [zoom, setZoom] = useState(100);
   const [selectedModel, setSelectedModel] = useState(() => {
-  return localStorage.getItem('jensen-model') || 'all';
-});
-
-useEffect(() => {
-  localStorage.setItem('jensen-model', selectedModel);
-}, [selectedModel]);
+    return localStorage.getItem('jensen-model') || 'all';
+  });
   const [drawer, setDrawer] = useState(false);
   const [mode, setMode] = useState('cards');
   const [copied, setCopied] = useState(false);
@@ -72,6 +75,10 @@ useEffect(() => {
   });
 
   useEffect(() => {
+    localStorage.setItem('jensen-model', selectedModel);
+  }, [selectedModel]);
+
+  useEffect(() => {
     localStorage.setItem('jensen-ocr-edits', JSON.stringify(ocrEdits));
   }, [ocrEdits]);
 
@@ -80,6 +87,7 @@ useEffect(() => {
   const hasLocalEdit = Object.prototype.hasOwnProperty.call(ocrEdits, page.page);
   const editedPageCount = Object.keys(ocrEdits).length;
   const pagesWithChecklists = manualPages.filter(p => p.checklist && p.checklist.length).length;
+  const selectedModelLabel = modelLabels[selectedModel] || modelLabels.all;
 
   const enhancedPages = useMemo(() => {
     return manualPages.map(p => ({
@@ -209,227 +217,24 @@ useEffect(() => {
 
   return (
     <div className="app">
-      import React, { useEffect, useMemo, useState } from 'react';
-import { createRoot } from 'react-dom/client';
-import {
-  Search,
-  BookOpen,
-  FileText,
-  Wrench,
-  ExternalLink,
-  Menu,
-  X,
-  ZoomIn,
-  ZoomOut,
-  ChevronLeft,
-  ChevronRight,
-  ClipboardList,
-  AlertTriangle,
-  Gauge,
-  Layers,
-  Image as ImageIcon,
-  Save,
-  Download,
-  Copy
-} from 'lucide-react';
-import { manualPages } from './manualPages.js';
-import './styles.css';
+      <header className="topBar">
+        <button className="hamburger" onClick={() => setDrawer(true)}>
+          <Menu />
+        </button>
 
-function highlight(text, q) {
-  if (!q.trim()) return text;
-
-  const safeQuery = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const parts = text.split(new RegExp(`(${safeQuery})`, 'ig'));
-
-  return parts.map((part, i) =>
-    part.toLowerCase() === q.toLowerCase() ? <mark key={i}>{part}</mark> : part
-  );
-}
-
-function App() {
-  const [query, setQuery] = useState('');
-  const [pageNo, setPageNo] = useState(4);
-  const [zoom, setZoom] = useState(100);
-  const [selectedModel, setSelectedModel] = useState(() => {
-  return localStorage.getItem('jensen-model') || 'all';
-});
-
-useEffect(() => {
-  localStorage.setItem('jensen-model', selectedModel);
-}, [selectedModel]);
-  const [drawer, setDrawer] = useState(false);
-  const [mode, setMode] = useState('cards');
-  const [copied, setCopied] = useState(false);
-
-  const [ocrEdits, setOcrEdits] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem('jensen-ocr-edits') || '{}');
-    } catch {
-      return {};
-    }
-  });
-
-  useEffect(() => {
-    localStorage.setItem('jensen-ocr-edits', JSON.stringify(ocrEdits));
-  }, [ocrEdits]);
-
-  const page = manualPages.find(p => p.page === pageNo) || manualPages[0];
-  const currentText = ocrEdits[page.page] ?? page.text ?? '';
-  const hasLocalEdit = Object.prototype.hasOwnProperty.call(ocrEdits, page.page);
-  const editedPageCount = Object.keys(ocrEdits).length;
-  const pagesWithChecklists = manualPages.filter(p => p.checklist && p.checklist.length).length;
-
-  const enhancedPages = useMemo(() => {
-    return manualPages.map(p => ({
-      ...p,
-      text: ocrEdits[p.page] ?? p.text ?? ''
-    }));
-  }, [ocrEdits]);
-
-  const searchResults = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return [];
-
-    const safeQuery = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
-    return enhancedPages
-      .map(p => {
-        const hay = `${p.title} ${p.text} ${p.summary}`.toLowerCase();
-        const score = (hay.match(new RegExp(safeQuery, 'g')) || []).length;
-        return { ...p, score };
-      })
-      .filter(p => p.score > 0)
-      .sort((a, b) => b.score - a.score);
-  }, [query, enhancedPages]);
-
-  const openPdf = (p = pageNo) => {
-    window.open(`/manuals/jensen_cv8_owners_manual.pdf#page=${p}`, '_blank');
-  };
-
-  const goPage = (p) => {
-    setPageNo(Math.max(1, Math.min(manualPages.length, p)));
-    setDrawer(false);
-    setCopied(false);
-  };
-
-  const updateCurrentOcr = (value) => {
-    setOcrEdits({
-      ...ocrEdits,
-      [page.page]: value
-    });
-  };
-
-  const resetCurrentOcr = () => {
-    const next = { ...ocrEdits };
-    delete next[page.page];
-    setOcrEdits(next);
-  };
-
-  const copyCurrentText = async () => {
-    await navigator.clipboard.writeText(currentText);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1600);
-  };
-
-  const exportOcrEdits = () => {
-    const blob = new Blob(
-      [JSON.stringify(ocrEdits, null, 2)],
-      { type: 'application/json' }
-    );
-
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'jensen-ocr-edits.json';
-    a.click();
-
-    URL.revokeObjectURL(url);
-  };
-
-  const pageList = (
-    <aside className={drawer ? 'sidebar open' : 'sidebar'}>
-      <div className="mobileClose">
-        <strong>Manual Library</strong>
-        <button onClick={() => setDrawer(false)}><X size={20} /></button>
-      </div>
-
-      <div className="searchBox">
-        <label><Search size={16} /> Search manual</label>
-        <input
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          placeholder="Try: ballast resistor, brake fluid, tyre pressure..."
-        />
-      </div>
-
-      {query && (
-        <div className="resultsBox">
-          <strong>{searchResults.length} result{searchResults.length === 1 ? '' : 's'}</strong>
-          {searchResults.slice(0, 8).map(r => (
-            <button key={r.page} onClick={() => goPage(r.page)}>
-              p{r.page}: {r.title}
-              <small>{r.score} hit{r.score === 1 ? '' : 's'}</small>
-            </button>
-          ))}
+        <div className="brand">
+          <img src="/jensen-logo.png" alt="Jensen logo" />
+          <div>
+            <p>Jensen C-V8</p>
+            <h1>Online Manual</h1>
+            <small>{selectedModelLabel}</small>
+          </div>
         </div>
-      )}
 
-      <h3>Manual Sections</h3>
-      <nav className="topics">
-        {topicalSections.map(s => (
-          <button key={s.title} onClick={() => goPage(s.pages[0])}>
-            <BookOpen size={16} />
-            <span>{s.title}</span>
-            <small>p{s.pages.join(', ')}</small>
-          </button>
-        ))}
-      </nav>
-
-      <h3>All Pages</h3>
-      <nav>
-        {manualPages.map(p => (
-          <button
-            key={p.page}
-            className={p.page === pageNo ? 'selected' : ''}
-            onClick={() => goPage(p.page)}
-          >
-            <FileText size={16} />
-            <span>Page {p.page}</span>
-            <small>
-              {p.title}
-              {ocrEdits[p.page] ? ' · edited' : ''}
-            </small>
-          </button>
-        ))}
-      </nav>
-    </aside>
-  );
-
-  return (
-    <div className="app">
-<header className="topBar">
-  <button className="hamburger" onClick={() => setDrawer(true)}>
-    <Menu />
-  </button>
-
-  <div className="brand">
-    <img src="/jensen-logo.png" alt="Jensen logo" />
-    <div>
-      <p>Jensen C-V8</p>
-      <h1>Online Manual</h1>
-      <small>
-        {selectedModel === 'all' && 'All Models'}
-        {selectedModel === 'mk1' && 'Mk I'}
-        {selectedModel === 'mk2' && 'Mk II'}
-        {selectedModel === 'mk3' && 'Mk III'}
-      </small>
-    </div>
-  </div>
-
-  <button className="openPdf" onClick={() => openPdf()}>
-    Open PDF
-  </button>
-</header>
+        <button className="openPdf" onClick={() => openPdf()}>
+          Open PDF
+        </button>
+      </header>
 
       <div className="layout">
         {pageList}
@@ -444,36 +249,31 @@ useEffect(() => {
                 source-page buttons, and the original scanned manual in one place.
               </p>
             </div>
-<div className="card" style={{ marginTop: '1rem' }}>
-  <p className="eyebrow">Your Car</p>
 
-  <select
-    value={selectedModel}
-    onChange={(e) => setSelectedModel(e.target.value)}
-    style={{
-      width: '100%',
-      padding: '12px',
-      borderRadius: '10px',
-      marginTop: '8px'
-    }}
-  >
-    <option value="all">All Jensen C-V8 Models</option>
-    <option value="mk1">Jensen C-V8 Mk I</option>
-    <option value="mk2">Jensen C-V8 Mk II</option>
-    <option value="mk3">Jensen C-V8 Mk III</option>
-  </select>
+            <div className="card" style={{ marginTop: '1rem' }}>
+              <p className="eyebrow">Your Car</p>
 
-  <p style={{ marginTop: '10px', opacity: 0.8 }}>
-    Current selection:
-    {' '}
-    <strong>
-      {selectedModel === 'all' && 'All Models'}
-      {selectedModel === 'mk1' && 'Mk I'}
-      {selectedModel === 'mk2' && 'Mk II'}
-      {selectedModel === 'mk3' && 'Mk III'}
-    </strong>
-  </p>
-</div>
+              <select
+                value={selectedModel}
+                onChange={(e) => setSelectedModel(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  borderRadius: '10px',
+                  marginTop: '8px'
+                }}
+              >
+                <option value="all">All Jensen C-V8 Models</option>
+                <option value="mk1">Jensen C-V8 Mk I</option>
+                <option value="mk2">Jensen C-V8 Mk II</option>
+                <option value="mk3">Jensen C-V8 Mk III</option>
+              </select>
+
+              <p style={{ marginTop: '10px', opacity: 0.8 }}>
+                Current selection: <strong>{selectedModelLabel}</strong>
+              </p>
+            </div>
+
             <div className="heroStats">
               <div><strong>{manualPages.length}</strong><span>manual pages</span></div>
               <div><strong>{topicalSections.length}</strong><span>sections</span></div>
@@ -517,259 +317,7 @@ useEffect(() => {
 
             <div className="tagRow">
               <span><Gauge size={14} /> Jensen C-V8</span>
-              <span>Manual p. {page.page}</span>
-              <span>{page.checklist?.length || 0} checklist items</span>
-              {hasLocalEdit && <span>OCR edited locally</span>}
-            </div>
-
-            <div className="warn">
-              <AlertTriangle size={18} />
-              <span>
-                OCR edits are saved in this browser only. Export your corrections
-                before clearing browser data or changing devices.
-              </span>
-            </div>
-
-            <div className="buttons">
-              <button onClick={() => goPage(pageNo - 1)}><ChevronLeft size={16} /> Previous</button>
-              <button onClick={() => goPage(pageNo + 1)}>Next <ChevronRight size={16} /></button>
-              <button onClick={() => openPdf(page.page)}>Open original scan <ExternalLink size={16} /></button>
-            </div>
-          </section>
-
-          {mode === 'cards' && (
-            <section className="card repairCard">
-              <div className="repairCardTop">
-                <div>
-                  <p className="eyebrow">Repair summary</p>
-                  <h3>{page.title}</h3>
-                </div>
-                <button onClick={() => setMode('scan')}>View scan</button>
-              </div>
-
-              <p>{page.summary}</p>
-
-              {page.checklist && page.checklist.length ? (
-                <ol className="checklist compact">
-                  {page.checklist.slice(0, 5).map((item, i) => (
-                    <li key={item}>
-                      <span>{i + 1}</span>
-                      <p>{item}</p>
-                    </li>
-                  ))}
-                </ol>
-              ) : (
-                <div className="emptyChecklist">
-                  <Wrench size={24} />
-                  <p>No repair checklist has been generated for this page yet.</p>
-                </div>
-              )}
-            </section>
-          )}
-
-          {mode === 'edit' && (
-            <section className="card">
-              <div className="editorHeader">
-                <div>
-                  <h3 className="sectionTitle">Edit OCR Text - Page {page.page}</h3>
-                  <p className="helperText">
-                    Correct the OCR errors here. Changes autosave locally and are used by search immediately.
-                  </p>
-                </div>
-
-                <div className="editorStatus">
-                  {hasLocalEdit ? 'Edited locally' : 'Using original OCR'}
-                </div>
-              </div>
-
-              <textarea
-                className="ocrEditor"
-                value={currentText}
-                onChange={(e) => updateCurrentOcr(e.target.value)}
-                spellCheck="false"
-              />
-
-              <div className="buttons">
-                <button onClick={copyCurrentText}>
-                  <Copy size={16} /> {copied ? 'Copied' : 'Copy text'}
-                </button>
-
-                <button onClick={exportOcrEdits}>
-                  <Download size={16} /> Export OCR fixes
-                </button>
-
-                {hasLocalEdit && (
-                  <button onClick={resetCurrentOcr}>
-                    Reset this page
-                  </button>
-                )}
-
-                <button onClick={() => setMode('scan')}>
-                  View scan <ImageIcon size={16} />
-                </button>
-              </div>
-            </section>
-          )}
-
-          {mode === 'page' && (
-            <section className="card">
-              <h3 className="sectionTitle">OCR text from this page</h3>
-              <p className="helperText">
-                This view uses your corrected OCR text if you have edited this page.
-              </p>
-              <pre className="ocrText">
-                {highlight(
-                  currentText || 'No readable OCR text was extracted from this page.',
-                  query
-                )}
-              </pre>
-            </section>
-          )}
-
-          {mode === 'scan' && (
-            <section className="card viewer">
-              <div className="viewerTop">
-                <h3>Original scanned page {page.page}</h3>
-                <div>
-                  <button onClick={() => setZoom(Math.max(60, zoom - 20))}><ZoomOut size={16} /></button>
-                  <button onClick={() => setZoom(Math.min(180, zoom + 20))}><ZoomIn size={16} /></button>
-                </div>
-              </div>
-              <iframe
-                title="manual pdf"
-                src={`/manuals/jensen_cv8_owners_manual.pdf#page=${page.page}&zoom=${zoom}`}
-              />
-            </section>
-          )}
-
-          {mode === 'checklist' && (
-            <section className="card">
-              <h3 className="sectionTitle">Plain-English checklist</h3>
-              {page.checklist && page.checklist.length ? (
-                <ol className="checklist">
-                  {page.checklist.map((item, i) => (
-                    <li key={item}>
-                      <span>{i + 1}</span>
-                      <p>{item}</p>
-                    </li>
-                  ))}
-                </ol>
-              ) : (
-                <div className="emptyChecklist">
-                  <Wrench size={24} />
-                  <p>No specific repair checklist has been generated for this page yet.</p>
-                </div>
-              )}
-            </section>
-          )}
-
-          {query && (
-            <section className="card">
-              <h3 className="sectionTitle">Search results from OCR text</h3>
-              <div className="searchResults">
-                {searchResults.map(r => (
-                  <button key={r.page} onClick={() => goPage(r.page)}>
-                    <strong>Page {r.page}: {r.title}</strong>
-                    <span>{r.text.slice(0, 260)}...</span>
-                  </button>
-                ))}
-              </div>
-            </section>
-          )}
-        </main>
-      </div>
-    </div>
-  );
-}
-
-createRoot(document.getElementById('root')).render(<App />);
-
-      <div className="layout">
-        {pageList}
-
-        <main>
-          <section className="hero">
-            <div>
-              <p className="eyebrow">Garage-friendly manual app</p>
-              <h2>Search the Jensen C-V8 manual like it was built for the driveway.</h2>
-              <p>
-                Plain-English summaries, repair checklists, editable OCR text,
-                source-page buttons, and the original scanned manual in one place.
-              </p>
-            </div>
-<div className="card" style={{ marginTop: '1rem' }}>
-  <p className="eyebrow">Your Car</p>
-
-  <select
-    value={selectedModel}
-    onChange={(e) => setSelectedModel(e.target.value)}
-    style={{
-      width: '100%',
-      padding: '12px',
-      borderRadius: '10px',
-      marginTop: '8px'
-    }}
-  >
-    <option value="all">All Jensen C-V8 Models</option>
-    <option value="mk1">Jensen C-V8 Mk I</option>
-    <option value="mk2">Jensen C-V8 Mk II</option>
-    <option value="mk3">Jensen C-V8 Mk III</option>
-  </select>
-
-  <p style={{ marginTop: '10px', opacity: 0.8 }}>
-    Current selection:
-    {' '}
-    <strong>
-      {selectedModel === 'all' && 'All Models'}
-      {selectedModel === 'mk1' && 'Mk I'}
-      {selectedModel === 'mk2' && 'Mk II'}
-      {selectedModel === 'mk3' && 'Mk III'}
-    </strong>
-  </p>
-</div>
-            <div className="heroStats">
-              <div><strong>{manualPages.length}</strong><span>manual pages</span></div>
-              <div><strong>{topicalSections.length}</strong><span>sections</span></div>
-              <div><strong>{pagesWithChecklists}</strong><span>checklists</span></div>
-              <div><strong>{editedPageCount}</strong><span>OCR edits</span></div>
-            </div>
-
-            <div className="heroSearch">
-              <Search size={18} />
-              <input
-                value={query}
-                onChange={e => setQuery(e.target.value)}
-                placeholder="Try: no start, brake servo, 35 amp fuse, tyre pressure..."
-              />
-              {query && <button onClick={() => setQuery('')}>Clear</button>}
-            </div>
-          </section>
-
-          <div className="tabs">
-            <button className={mode === 'cards' ? 'active' : ''} onClick={() => setMode('cards')}>
-              <Layers size={16} /> Repair Card
-            </button>
-            <button className={mode === 'edit' ? 'active' : ''} onClick={() => setMode('edit')}>
-              <Save size={16} /> Edit OCR
-            </button>
-            <button className={mode === 'page' ? 'active' : ''} onClick={() => setMode('page')}>
-              <FileText size={16} /> OCR Text
-            </button>
-            <button className={mode === 'scan' ? 'active' : ''} onClick={() => setMode('scan')}>
-              <ImageIcon size={16} /> Scan Viewer
-            </button>
-            <button className={mode === 'checklist' ? 'active' : ''} onClick={() => setMode('checklist')}>
-              <ClipboardList size={16} /> Checklist
-            </button>
-          </div>
-
-          <section className="card pageHeader">
-            <div className="kicker">Instruction Book · Page {page.page}</div>
-            <h2>{page.title}</h2>
-            <p>{page.summary}</p>
-
-            <div className="tagRow">
-              <span><Gauge size={14} /> Jensen C-V8</span>
+              <span>{selectedModelLabel}</span>
               <span>Manual p. {page.page}</span>
               <span>{page.checklist?.length || 0} checklist items</span>
               {hasLocalEdit && <span>OCR edited locally</span>}
