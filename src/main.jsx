@@ -116,6 +116,30 @@ const mk3Pages = normaliseManualPages(
   MK3_PDF
 );
 
+const GENERIC_SUMMARY = 'OCR text extracted from this scanned manual page';
+
+const INFORMATIONAL_TITLES = [
+  'foreword', 'introduction', 'handbook of instructions', 'vehicle particulars',
+  'warranty', 'index', 'contents', 'cover', 'title page', 'jensen'
+];
+
+function classifyPage(page) {
+  if (page.isImageOnly || page.type === 'diagram') return 'diagram';
+  if (!page.text?.trim()) return 'diagram';
+
+  const titleLower = (page.title || '').toLowerCase();
+  if (INFORMATIONAL_TITLES.some(kw => titleLower.includes(kw))) return 'informational';
+
+  // A checklist is only meaningful if items are real instructions (not short OCR fragments)
+  const hasRealChecklist = Array.isArray(page.checklist) &&
+    page.checklist.length > 0 &&
+    page.checklist.some(item => item.length > 35);
+
+  if (hasRealChecklist) return 'repair';
+
+  return 'reference';
+}
+
 function highlight(text, q) {
   if (!q.trim()) return text;
 
@@ -196,6 +220,7 @@ function App() {
   }, [activeManualPages, pageNo]);
 
   const page = visibleManualPages.find(p => p.page === pageNo) || visibleManualPages[0] || activeManualPages[0];
+  const pageCategory = classifyPage(page);
   const editKey = `${selectedModel}:${page?.page || 1}`;
   const currentText = ocrEdits[editKey] ?? page.text ?? '';
   const hasLocalEdit = Object.prototype.hasOwnProperty.call(ocrEdits, editKey);
@@ -240,6 +265,13 @@ function App() {
 
     if (targetPage) {
       setPageNo(targetPage.page);
+      // Auto-switch to the most appropriate tab for the new page
+      const cat = classifyPage(targetPage);
+      if (cat === 'diagram') setMode('scan');
+      else if (cat === 'repair') setMode('cards');
+      else if (cat === 'informational') setMode('page');
+      // reference pages: stay on current tab, or default to 'page'
+      else if (mode === 'cards') setMode('page');
     }
 
     setDrawer(false);
@@ -444,7 +476,7 @@ function App() {
 
           <div className="tabs">
             <button className={mode === 'cards' ? 'active' : ''} onClick={() => setMode('cards')}>
-              <Layers size={16} /> Repair Card
+              <Layers size={16} /> {pageCategory === 'repair' ? 'Repair Card' : 'Overview'}
             </button>
             <button className={mode === 'edit' ? 'active' : ''} onClick={() => setMode('edit')}>
               <Save size={16} /> Edit OCR
@@ -502,27 +534,82 @@ function App() {
             <section className="card repairCard">
               <div className="repairCardTop">
                 <div>
-                  <p className="eyebrow">Repair summary</p>
+                  <p className="eyebrow">
+                    {pageCategory === 'repair' && 'Repair summary'}
+                    {pageCategory === 'reference' && 'Reference data'}
+                    {pageCategory === 'informational' && 'Informational page'}
+                    {pageCategory === 'diagram' && 'Diagram / image page'}
+                  </p>
                   <h3>{page.title}</h3>
                 </div>
                 <button onClick={() => setMode('scan')}>View scan</button>
               </div>
 
-              <p>{page.summary}</p>
+              {pageCategory === 'repair' && (
+                <>
+                  <p>{page.summary}</p>
+                  {page.checklist && page.checklist.length ? (
+                    <ol className="checklist compact">
+                      {page.checklist.slice(0, 5).map((item, i) => (
+                        <li key={item}>
+                          <span>{i + 1}</span>
+                          <p>{item}</p>
+                        </li>
+                      ))}
+                    </ol>
+                  ) : (
+                    <div className="emptyChecklist">
+                      <Wrench size={24} />
+                      <p>No repair checklist has been generated for this page yet.</p>
+                    </div>
+                  )}
+                </>
+              )}
 
-              {page.checklist && page.checklist.length ? (
-                <ol className="checklist compact">
-                  {page.checklist.slice(0, 5).map((item, i) => (
-                    <li key={item}>
-                      <span>{i + 1}</span>
-                      <p>{item}</p>
-                    </li>
-                  ))}
-                </ol>
-              ) : (
+              {pageCategory === 'reference' && (
+                <>
+                  {page.summary && !page.summary.startsWith(GENERIC_SUMMARY) && (
+                    <p>{page.summary}</p>
+                  )}
+                  <div className="emptyChecklist">
+                    <FileText size={24} />
+                    <p>
+                      This is a reference data page — specifications, capacities or tables.
+                      {' '}
+                      <button className="inlineLink" onClick={() => setMode('page')}>View OCR text</button>
+                      {' '}or{' '}
+                      <button className="inlineLink" onClick={() => setMode('scan')}>open the original scan</button>.
+                    </p>
+                  </div>
+                </>
+              )}
+
+              {pageCategory === 'informational' && (
+                <>
+                  {page.summary && !page.summary.startsWith(GENERIC_SUMMARY) && (
+                    <p>{page.summary}</p>
+                  )}
+                  <div className="emptyChecklist">
+                    <BookOpen size={24} />
+                    <p>
+                      This is an informational page — no repair steps apply.
+                      {' '}
+                      <button className="inlineLink" onClick={() => setMode('page')}>Read the OCR text</button>
+                      {' '}or{' '}
+                      <button className="inlineLink" onClick={() => setMode('scan')}>view the original scan</button>.
+                    </p>
+                  </div>
+                </>
+              )}
+
+              {pageCategory === 'diagram' && (
                 <div className="emptyChecklist">
-                  <Wrench size={24} />
-                  <p>{page.isImageOnly ? 'This is a diagram/image page. Use the original scan rather than an OCR checklist.' : 'No repair checklist has been generated for this page yet.'}</p>
+                  <ImageIcon size={24} />
+                  <p>
+                    This is a diagram or image-only page. Use the{' '}
+                    <button className="inlineLink" onClick={() => setMode('scan')}>scan viewer</button>
+                    {' '}to see the original page.
+                  </p>
                 </div>
               )}
             </section>
