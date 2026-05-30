@@ -255,3 +255,55 @@
   color:#17211d;
   font-family:SFMono-Regular,Menlo,Monaco,Consolas,monospace;
 }
+
+/* ---------- MODEL SELECTOR FIX ---------- */
+
+.hero .modelCard {
+  margin-top: 1rem;
+  padding: 1.25rem 1.35rem;
+  border-radius: 24px;
+  background: #f7f1e6;
+  color: #172033;
+}
+
+.hero .modelCard .modelEyebrow {
+  margin: 0 0 0.7rem;
+  color: #8a6a2f;
+  opacity: 1;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+}
+
+.hero .modelCard .modelLabel {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #253044;
+}
+
+.hero .modelCard .modelSelect {
+  width: 100%;
+  height: 44px;
+  padding: 0 0.9rem;
+  border-radius: 12px;
+  border: 1px solid #cbb98f;
+  background: #fffaf2;
+  color: #172033;
+  font-size: 0.95rem;
+  font-weight: 700;
+  outline: none;
+}
+
+.hero .modelCard .modelCurrent {
+  margin: 0.75rem 0 0;
+  color: #5d5343;
+  opacity: 1;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.hero .modelCard .modelCurrent strong {
+  color: #172033;
+}
