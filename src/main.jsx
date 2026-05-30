@@ -21,7 +21,8 @@ import {
   Download,
   Copy
 } from 'lucide-react';
-import { manualPages } from './manualPages.js';
+import { manualPages as baseManualPages } from './manualPages.js';
+import { mk3ManualPages } from './data/mk3ManualPages.js';
 import './styles.css';
 
 const topicalSections = [
@@ -43,6 +44,35 @@ const modelLabels = {
   mk2: 'Mk II',
   mk3: 'Mk III'
 };
+
+const BASE_PDF = '/manuals/jensen_cv8_owners_manual.pdf';
+const MK3_PDF = '/manuals/jensen-cv8-mk3-instruction-manual.pdf';
+
+function normaliseManualPages(pages, fallbackModel, fallbackModelLabel, fallbackPdf) {
+  return pages.map((p) => ({
+    ...p,
+    model: p.model || fallbackModel,
+    modelLabel: p.modelLabel || fallbackModelLabel,
+    sourcePdf: p.sourcePdf || fallbackPdf,
+    text: p.text ?? p.ocrText ?? '',
+    summary: p.summary ?? p.plainEnglish ?? '',
+    title: p.title || `Page ${p.page}`
+  }));
+}
+
+const basePages = normaliseManualPages(
+  baseManualPages,
+  'base',
+  'Jensen C-V8',
+  BASE_PDF
+);
+
+const mk3Pages = normaliseManualPages(
+  mk3ManualPages,
+  'mk3',
+  'Jensen C-V8 Mk III',
+  MK3_PDF
+);
 
 function highlight(text, q) {
   if (!q.trim()) return text;
@@ -82,19 +112,45 @@ function App() {
     localStorage.setItem('jensen-ocr-edits', JSON.stringify(ocrEdits));
   }, [ocrEdits]);
 
-  const page = manualPages.find(p => p.page === pageNo) || manualPages[0];
-  const currentText = ocrEdits[page.page] ?? page.text ?? '';
-  const hasLocalEdit = Object.prototype.hasOwnProperty.call(ocrEdits, page.page);
-  const editedPageCount = Object.keys(ocrEdits).length;
-  const pagesWithChecklists = manualPages.filter(p => p.checklist && p.checklist.length).length;
   const selectedModelLabel = modelLabels[selectedModel] || modelLabels.all;
 
+  const activeManualPages = useMemo(() => {
+    if (selectedModel === 'mk3') return mk3Pages;
+    return basePages;
+  }, [selectedModel]);
+
+  const activeTopicalSections = useMemo(() => {
+    const maxPage = activeManualPages.length;
+    return topicalSections
+      .map(section => ({
+        ...section,
+        pages: section.pages.filter(page => page <= maxPage)
+      }))
+      .filter(section => section.pages.length);
+  }, [activeManualPages]);
+
+  useEffect(() => {
+    if (pageNo > activeManualPages.length) {
+      setPageNo(activeManualPages.length || 1);
+    }
+  }, [activeManualPages, pageNo]);
+
+  const page = activeManualPages.find(p => p.page === pageNo) || activeManualPages[0];
+  const editKey = `${selectedModel}:${page.page}`;
+  const currentText = ocrEdits[editKey] ?? page.text ?? '';
+  const hasLocalEdit = Object.prototype.hasOwnProperty.call(ocrEdits, editKey);
+  const editedPageCount = Object.keys(ocrEdits).filter(key => key.startsWith(`${selectedModel}:`)).length;
+  const pagesWithChecklists = activeManualPages.filter(p => p.checklist && p.checklist.length).length;
+
   const enhancedPages = useMemo(() => {
-    return manualPages.map(p => ({
-      ...p,
-      text: ocrEdits[p.page] ?? p.text ?? ''
-    }));
-  }, [ocrEdits]);
+    return activeManualPages.map(p => {
+      const key = `${selectedModel}:${p.page}`;
+      return {
+        ...p,
+        text: ocrEdits[key] ?? p.text ?? ''
+      };
+    });
+  }, [ocrEdits, activeManualPages, selectedModel]);
 
   const searchResults = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -113,11 +169,13 @@ function App() {
   }, [query, enhancedPages]);
 
   const openPdf = (p = pageNo) => {
-    window.open(`/manuals/jensen_cv8_owners_manual.pdf#page=${p}`, '_blank');
+    const targetPage = activeManualPages.find(item => item.page === p) || page;
+    const pdfPath = targetPage?.sourcePdf || (selectedModel === 'mk3' ? MK3_PDF : BASE_PDF);
+    window.open(`${pdfPath}#page=${p}`, '_blank');
   };
 
   const goPage = (p) => {
-    setPageNo(Math.max(1, Math.min(manualPages.length, p)));
+    setPageNo(Math.max(1, Math.min(activeManualPages.length, p)));
     setDrawer(false);
     setCopied(false);
   };
@@ -125,13 +183,13 @@ function App() {
   const updateCurrentOcr = (value) => {
     setOcrEdits({
       ...ocrEdits,
-      [page.page]: value
+      [editKey]: value
     });
   };
 
   const resetCurrentOcr = () => {
     const next = { ...ocrEdits };
-    delete next[page.page];
+    delete next[editKey];
     setOcrEdits(next);
   };
 
@@ -186,7 +244,7 @@ function App() {
 
       <h3>Manual Sections</h3>
       <nav className="topics">
-        {topicalSections.map(s => (
+        {activeTopicalSections.map(s => (
           <button key={s.title} onClick={() => goPage(s.pages[0])}>
             <BookOpen size={16} />
             <span>{s.title}</span>
@@ -197,7 +255,7 @@ function App() {
 
       <h3>All Pages</h3>
       <nav>
-        {manualPages.map(p => (
+        {activeManualPages.map(p => (
           <button
             key={p.page}
             className={p.page === pageNo ? 'selected' : ''}
@@ -207,7 +265,7 @@ function App() {
             <span>Page {p.page}</span>
             <small>
               {p.title}
-              {ocrEdits[p.page] ? ' · edited' : ''}
+              {ocrEdits[`${selectedModel}:${p.page}`] ? ' · edited' : ''}
             </small>
           </button>
         ))}
@@ -275,8 +333,8 @@ function App() {
             </div>
 
             <div className="heroStats">
-              <div><strong>{manualPages.length}</strong><span>manual pages</span></div>
-              <div><strong>{topicalSections.length}</strong><span>sections</span></div>
+              <div><strong>{activeManualPages.length}</strong><span>manual pages</span></div>
+              <div><strong>{activeTopicalSections.length}</strong><span>sections</span></div>
               <div><strong>{pagesWithChecklists}</strong><span>checklists</span></div>
               <div><strong>{editedPageCount}</strong><span>OCR edits</span></div>
             </div>
@@ -438,7 +496,7 @@ function App() {
               </div>
               <iframe
                 title="manual pdf"
-                src={`/manuals/jensen_cv8_owners_manual.pdf#page=${page.page}&zoom=${zoom}`}
+                src={`${page.sourcePdf || (selectedModel === 'mk3' ? MK3_PDF : BASE_PDF)}#page=${page.page}&zoom=${zoom}`}
               />
             </section>
           )}
