@@ -235,19 +235,6 @@ import {
 import { manualPages } from './manualPages.js';
 import './styles.css';
 
-const topicalSections = [
-  { title: 'Dashboard & Controls', pages: [4], tags: 'dashboard instruments controls switches gauges warning lights' },
-  { title: 'Specifications & Capacities', pages: [5, 6], tags: 'specifications capacity timing plug gap compression oil dimensions' },
-  { title: 'Motor, Starting & Running', pages: [7, 8, 9], tags: 'engine motor starting running gearbox transmission overdrive towing' },
-  { title: 'Lubrication & Maintenance', pages: [10, 11, 25, 26, 27, 28], tags: 'lubrication maintenance grease oil service miles' },
-  { title: 'Electrical, Battery & Fuses', pages: [12, 13], tags: 'electrical lucas autolite battery positive earth fuse fuses bulbs lamps wiper' },
-  { title: 'Brakes & Servo', pages: [13], tags: 'brakes servo dunlop brake fluid handbrake vacuum' },
-  { title: 'Fuel System & Carburetter', pages: [15, 16], tags: 'fuel carburetter carter idle fast idle choke throttle linkage' },
-  { title: 'Tyres, Wheels & Alignment', pages: [17, 18, 19], tags: 'tyres tires wheels alignment bearings toe-in castor camber' },
-  { title: 'Cooling, Heating & Rear Axle', pages: [20, 21], tags: 'cooling fan radiator heater ventilation antifreeze coolant rear axle powr-lok drive belt' },
-  { title: 'Interior & Owner Information', pages: [2, 3, 22, 23, 31, 32], tags: 'owner warranty seats upholstery vehicle particulars chassis engine key' }
-];
-
 function highlight(text, q) {
   if (!q.trim()) return text;
 
@@ -420,26 +407,29 @@ useEffect(() => {
 
   return (
     <div className="app">
-      <header className="topBar">
-        <button className="hamburger" onClick={() => setDrawer(true)}><Menu /></button>
+<header className="topBar">
+  <button className="hamburger" onClick={() => setDrawer(true)}>
+    <Menu />
+  </button>
 
-        <div className="brand">
-          <img src="/jensen-logo.png" alt="Jensen logo" />
-        <div>
-  <p>Jensen C-V8</p>
-  <h1>Online Manual</h1>
-  <small>
-    {selectedModel === 'all' && 'All Models'}
-    {selectedModel === 'mk1' && 'Mk I'}
-    {selectedModel === 'mk2' && 'Mk II'}
-    {selectedModel === 'mk3' && 'Mk III'}
-  </small>
-</div>
+  <div className="brand">
+    <img src="/jensen-logo.png" alt="Jensen logo" />
+    <div>
+      <p>Jensen C-V8</p>
+      <h1>Online Manual</h1>
+      <small>
+        {selectedModel === 'all' && 'All Models'}
+        {selectedModel === 'mk1' && 'Mk I'}
+        {selectedModel === 'mk2' && 'Mk II'}
+        {selectedModel === 'mk3' && 'Mk III'}
+      </small>
+    </div>
+  </div>
 
-        <button className="openPdf" onClick={() => openPdf()}>
-          Open PDF
-        </button>
-      </header>
+  <button className="openPdf" onClick={() => openPdf()}>
+    Open PDF
+  </button>
+</header>
 
       <div className="layout">
         {pageList}
