@@ -301,18 +301,25 @@ function App() {
   };
 
   const exportOcrEdits = () => {
-    const blob = new Blob(
-      [JSON.stringify(ocrEdits, null, 2)],
-      { type: 'application/json' }
-    );
-
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'jensen-ocr-edits.json';
-    a.click();
-
-    URL.revokeObjectURL(url);
+    // Fetch the committed corrections file and merge it with current edits
+    // so the export always contains everything — committed + any newer browser edits.
+    // Current browser edits (ocrEdits) win over the file on conflicts.
+    fetch('/ocr-corrections.json')
+      .then(r => r.ok ? r.json() : {})
+      .catch(() => ({}))
+      .then(committed => {
+        const merged = { ...committed, ...ocrEdits };
+        const blob = new Blob(
+          [JSON.stringify(merged, null, 2)],
+          { type: 'application/json' }
+        );
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'jensen-ocr-edits.json';
+        a.click();
+        URL.revokeObjectURL(url);
+      });
   };
 
   const importOcrEdits = () => {
