@@ -123,6 +123,60 @@ const INFORMATIONAL_TITLES = [
   'warranty', 'index', 'contents', 'cover', 'title page', 'jensen'
 ];
 
+// Checklist items that start with an action verb are real repair steps.
+// Items that are sentence fragments, titles, or continuations are not.
+const IMPERATIVE_VERBS = /^(check|inspect|change|replace|drain|fill|remove|install|adjust|clean|tighten|loosen|ensure|apply|add|use|do not|never|always|confirm|photograph|identify|select|engage|depress|set|verify|refit|recheck|run|start|allow|push|pull|turn|disconnect|connect|torque|grease|lubricate|bleed|test|reset|secure|re-?tighten|re-?fit|re-?check)/i;
+
+function hasQualityChecklist(checklist) {
+  if (!Array.isArray(checklist) || checklist.length < 2) return false;
+  const qualityItems = checklist.filter(item =>
+    item.length > 35 && IMPERATIVE_VERBS.test(item)
+  );
+  return qualityItems.length >= 2;
+}
+
+// Extract genuinely useful sentences from OCR text:
+// service intervals, specifications, and clear action instructions.
+function extractKeyFacts(text) {
+  if (!text || text.length < 40) return [];
+
+  // Split into sentences on full stops followed by whitespace or newline
+  const sentences = text
+    .replace(/\n+/g, ' ')
+    .split(/(?<=[.!?])\s+/)
+    .map(s => s.trim())
+    .filter(s => s.length > 25 && s.length < 300);
+
+  const seen = new Set();
+  const results = [];
+
+  for (const s of sentences) {
+    const key = s.slice(0, 40).toLowerCase();
+    if (seen.has(key)) continue;
+
+    const isUseful =
+      // Service intervals: "every 4,000 miles", "every 3 months"
+      /every\s+[\d,]+\s*(miles?|km|months?|years?|hours?)/i.test(s) ||
+      // Specific pressures, temperatures, tolerances
+      /\d+[\s-]*(p\.?s\.?i\.?|psi|rpm|r\.p\.m|°|degrees?|mm|ins?\.)\b/i.test(s) ||
+      // "should be changed/checked/drained/replaced/inspected"
+      /should\s+be\s+(changed|checked|drained|replaced|inspected|cleaned|adjusted|refilled|topped|removed|fitted)/i.test(s) ||
+      // "must be" / "must not"
+      /must\s+(be|not)\s+/i.test(s) ||
+      // "do not" warnings
+      /\bdo not\b|\bnever\b/i.test(s) ||
+      // Imperative action sentences
+      IMPERATIVE_VERBS.test(s);
+
+    if (isUseful) {
+      seen.add(key);
+      results.push(s);
+    }
+  }
+
+  return results.slice(0, 8); // cap at 8 key facts
+}
+
 function classifyPage(page) {
   if (page.isImageOnly || page.type === 'diagram') return 'diagram';
   if (!page.text?.trim()) return 'diagram';
@@ -130,12 +184,11 @@ function classifyPage(page) {
   const titleLower = (page.title || '').toLowerCase();
   if (INFORMATIONAL_TITLES.some(kw => titleLower.includes(kw))) return 'informational';
 
-  // A checklist is only meaningful if items are real instructions (not short OCR fragments)
-  const hasRealChecklist = Array.isArray(page.checklist) &&
-    page.checklist.length > 0 &&
-    page.checklist.some(item => item.length > 35);
+  if (hasQualityChecklist(page.checklist)) return 'repair';
 
-  if (hasRealChecklist) return 'repair';
+  // Even without a quality checklist, if there are extractable key facts it's repair/reference
+  const facts = extractKeyFacts(page.text);
+  if (facts.length > 0) return 'repair';
 
   return 'reference';
 }
@@ -552,26 +605,50 @@ function App() {
                 <button onClick={() => setMode('scan')}>View scan</button>
               </div>
 
-              {pageCategory === 'repair' && (
-                <>
-                  <p>{page.summary}</p>
-                  {page.checklist && page.checklist.length ? (
-                    <ol className="checklist compact">
-                      {page.checklist.slice(0, 5).map((item, i) => (
-                        <li key={item}>
-                          <span>{i + 1}</span>
-                          <p>{item}</p>
-                        </li>
-                      ))}
-                    </ol>
-                  ) : (
-                    <div className="emptyChecklist">
-                      <Wrench size={24} />
-                      <p>No repair checklist has been generated for this page yet.</p>
-                    </div>
-                  )}
-                </>
-              )}
+              {pageCategory === 'repair' && (() => {
+                const qualityChecklist = hasQualityChecklist(page.checklist);
+                const keyFacts = qualityChecklist ? [] : extractKeyFacts(currentText);
+                return (
+                  <>
+                    {page.summary && !page.summary.startsWith(GENERIC_SUMMARY) && (
+                      <p>{page.summary}</p>
+                    )}
+                    {qualityChecklist ? (
+                      <>
+                        <p className="helperText">Repair steps for this page:</p>
+                        <ol className="checklist compact">
+                          {page.checklist.filter(item => IMPERATIVE_VERBS.test(item)).slice(0, 6).map((item, i) => (
+                            <li key={item}>
+                              <span>{i + 1}</span>
+                              <p>{item}</p>
+                            </li>
+                          ))}
+                        </ol>
+                      </>
+                    ) : keyFacts.length > 0 ? (
+                      <>
+                        <p className="helperText">Key service facts extracted from this page:</p>
+                        <ul className="keyFacts">
+                          {keyFacts.map((fact, i) => (
+                            <li key={i}>
+                              <span><Wrench size={14} /></span>
+                              <p>{fact}</p>
+                            </li>
+                          ))}
+                        </ul>
+                        <p className="helperText dimText">
+                          These are extracted directly from the OCR text. Correct any OCR errors in the <button className="inlineLink" onClick={() => setMode('edit')}>Edit OCR tab</button> to improve accuracy.
+                        </p>
+                      </>
+                    ) : (
+                      <div className="emptyChecklist">
+                        <Wrench size={24} />
+                        <p>No repair checklist has been generated for this page yet. <button className="inlineLink" onClick={() => setMode('page')}>View the OCR text</button> for the full content.</p>
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
 
               {pageCategory === 'reference' && (
                 <>
