@@ -256,7 +256,7 @@
   font-family:SFMono-Regular,Menlo,Monaco,Consolas,monospace;
 }
 
-//* ---------- HERO MODEL SELECTOR FIX ---------- */
+/* ---------- HERO MODEL SELECTOR FIX ---------- */
 
 .hero > div:nth-child(2) {
   margin-top: 1rem !important;
