@@ -48,16 +48,58 @@ const modelLabels = {
 const BASE_PDF = '/manuals/jensen_cv8_owners_manual.pdf';
 const MK3_PDF = '/manuals/jensen-cv8-mk3-instruction-manual.pdf';
 
+function getPageType(p) {
+  const title = String(p.title || '').toLowerCase();
+  const text = String(p.text ?? p.ocrText ?? '').trim();
+
+  if (p.hidden || p.type === 'blank' || title === 'blank page') return 'blank';
+  if (p.type) return p.type;
+  if (!text) return 'diagram';
+
+  return 'text';
+}
+
 function normaliseManualPages(pages, fallbackModel, fallbackModelLabel, fallbackPdf) {
-  return pages.map((p) => ({
-    ...p,
-    model: p.model || fallbackModel,
-    modelLabel: p.modelLabel || fallbackModelLabel,
-    sourcePdf: p.sourcePdf || fallbackPdf,
-    text: p.text ?? p.ocrText ?? '',
-    summary: p.summary ?? p.plainEnglish ?? '',
-    title: p.title || `Page ${p.page}`
-  }));
+  return pages.map((p) => {
+    const text = p.text ?? p.ocrText ?? '';
+    const type = getPageType({ ...p, text });
+    const isBlank = type === 'blank';
+    const isImageOnly = type === 'diagram' || p.isImageOnly === true;
+
+    return {
+      ...p,
+      type,
+      hidden: isBlank || p.hidden === true,
+      isImageOnly,
+      model: p.model || fallbackModel,
+      modelLabel: p.modelLabel || fallbackModelLabel,
+      sourcePdf: p.sourcePdf || fallbackPdf,
+      sourcePage: p.sourcePage || p.page,
+      text,
+      summary: p.summary ?? p.plainEnglish ?? (isImageOnly ? 'Image-only reference page. Use the original scan for this page.' : ''),
+      title: p.title || `Page ${p.page}`
+    };
+  });
+}
+
+function getVisiblePages(pages) {
+  return pages.filter(p => !p.hidden);
+}
+
+function getNearestVisiblePage(pages, targetPage, direction = 1) {
+  const visible = getVisiblePages(pages);
+  if (!visible.length) return null;
+
+  const exact = visible.find(p => p.page === targetPage);
+  if (exact) return exact;
+
+  const sorted = [...visible].sort((a, b) => a.page - b.page);
+
+  if (direction >= 0) {
+    return sorted.find(p => p.page >= targetPage) || sorted[sorted.length - 1];
+  }
+
+  return [...sorted].reverse().find(p => p.page <= targetPage) || sorted[0];
 }
 
 const basePages = normaliseManualPages(
@@ -119,38 +161,44 @@ function App() {
     return basePages;
   }, [selectedModel]);
 
+  const visibleManualPages = useMemo(() => {
+    return getVisiblePages(activeManualPages);
+  }, [activeManualPages]);
+
   const activeTopicalSections = useMemo(() => {
-    const maxPage = activeManualPages.length;
+    const visiblePageNumbers = new Set(visibleManualPages.map(p => p.page));
+
     return topicalSections
       .map(section => ({
         ...section,
-        pages: section.pages.filter(page => page <= maxPage)
+        pages: section.pages.filter(page => visiblePageNumbers.has(page))
       }))
       .filter(section => section.pages.length);
-  }, [activeManualPages]);
+  }, [visibleManualPages]);
 
   useEffect(() => {
-    if (pageNo > activeManualPages.length) {
-      setPageNo(activeManualPages.length || 1);
+    const nearest = getNearestVisiblePage(activeManualPages, pageNo, 1);
+    if (nearest && nearest.page !== pageNo) {
+      setPageNo(nearest.page);
     }
   }, [activeManualPages, pageNo]);
 
-  const page = activeManualPages.find(p => p.page === pageNo) || activeManualPages[0];
-  const editKey = `${selectedModel}:${page.page}`;
+  const page = visibleManualPages.find(p => p.page === pageNo) || visibleManualPages[0] || activeManualPages[0];
+  const editKey = `${selectedModel}:${page?.page || 1}`;
   const currentText = ocrEdits[editKey] ?? page.text ?? '';
   const hasLocalEdit = Object.prototype.hasOwnProperty.call(ocrEdits, editKey);
   const editedPageCount = Object.keys(ocrEdits).filter(key => key.startsWith(`${selectedModel}:`)).length;
-  const pagesWithChecklists = activeManualPages.filter(p => p.checklist && p.checklist.length).length;
+  const pagesWithChecklists = visibleManualPages.filter(p => p.checklist && p.checklist.length).length;
 
   const enhancedPages = useMemo(() => {
-    return activeManualPages.map(p => {
+    return visibleManualPages.map(p => {
       const key = `${selectedModel}:${p.page}`;
       return {
         ...p,
         text: ocrEdits[key] ?? p.text ?? ''
       };
     });
-  }, [ocrEdits, activeManualPages, selectedModel]);
+  }, [ocrEdits, visibleManualPages, selectedModel];
 
   const searchResults = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -171,14 +219,23 @@ function App() {
   const openPdf = (p = pageNo) => {
     const targetPage = activeManualPages.find(item => item.page === p) || page;
     const pdfPath = targetPage?.sourcePdf || (selectedModel === 'mk3' ? MK3_PDF : BASE_PDF);
-    window.open(`${pdfPath}#page=${p}`, '_blank');
+    const sourcePage = targetPage?.sourcePage || targetPage?.page || p;
+    window.open(`${pdfPath}#page=${sourcePage}`, '_blank');
   };
 
-  const goPage = (p) => {
-    setPageNo(Math.max(1, Math.min(activeManualPages.length, p)));
+  const goPage = (p, direction = 1) => {
+    const targetPage = getNearestVisiblePage(activeManualPages, p, direction);
+
+    if (targetPage) {
+      setPageNo(targetPage.page);
+    }
+
     setDrawer(false);
     setCopied(false);
   };
+
+  const goPreviousPage = () => goPage(pageNo - 1, -1);
+  const goNextPage = () => goPage(pageNo + 1, 1);
 
   const updateCurrentOcr = (value) => {
     setOcrEdits({
@@ -255,7 +312,7 @@ function App() {
 
       <h3>All Pages</h3>
       <nav>
-        {activeManualPages.map(p => (
+        {visibleManualPages.map(p => (
           <button
             key={p.page}
             className={p.page === pageNo ? 'selected' : ''}
@@ -333,7 +390,7 @@ function App() {
             </div>
 
             <div className="heroStats">
-              <div><strong>{activeManualPages.length}</strong><span>manual pages</span></div>
+              <div><strong>{visibleManualPages.length}</strong><span>manual pages</span></div>
               <div><strong>{activeTopicalSections.length}</strong><span>sections</span></div>
               <div><strong>{pagesWithChecklists}</strong><span>checklists</span></div>
               <div><strong>{editedPageCount}</strong><span>OCR edits</span></div>
@@ -381,17 +438,27 @@ function App() {
               {hasLocalEdit && <span>OCR edited locally</span>}
             </div>
 
-            <div className="warn">
-              <AlertTriangle size={18} />
-              <span>
-                OCR edits are saved in this browser only. Export your corrections
-                before clearing browser data or changing devices.
-              </span>
-            </div>
+            {page.isImageOnly ? (
+              <div className="warn">
+                <ImageIcon size={18} />
+                <span>
+                  This is an image-only reference page. It stays in the app and opens in the scan viewer,
+                  but it is not treated as editable OCR text.
+                </span>
+              </div>
+            ) : (
+              <div className="warn">
+                <AlertTriangle size={18} />
+                <span>
+                  OCR edits are saved in this browser only. Export your corrections
+                  before clearing browser data or changing devices.
+                </span>
+              </div>
+            )}
 
             <div className="buttons">
-              <button onClick={() => goPage(pageNo - 1)}><ChevronLeft size={16} /> Previous</button>
-              <button onClick={() => goPage(pageNo + 1)}>Next <ChevronRight size={16} /></button>
+              <button onClick={goPreviousPage}><ChevronLeft size={16} /> Previous</button>
+              <button onClick={goNextPage}>Next <ChevronRight size={16} /></button>
               <button onClick={() => openPdf(page.page)}>Open original scan <ExternalLink size={16} /></button>
             </div>
           </section>
@@ -420,7 +487,7 @@ function App() {
               ) : (
                 <div className="emptyChecklist">
                   <Wrench size={24} />
-                  <p>No repair checklist has been generated for this page yet.</p>
+                  <p>{page.isImageOnly ? 'This is a diagram/image page. Use the original scan rather than an OCR checklist.' : 'No repair checklist has been generated for this page yet.'}</p>
                 </div>
               )}
             </section>
@@ -441,12 +508,19 @@ function App() {
                 </div>
               </div>
 
-              <textarea
-                className="ocrEditor"
-                value={currentText}
-                onChange={(e) => updateCurrentOcr(e.target.value)}
-                spellCheck="false"
-              />
+              {page.isImageOnly ? (
+                <div className="emptyChecklist">
+                  <ImageIcon size={24} />
+                  <p>This page is image-only, so there is no OCR text to edit. Use the scan viewer for the original page image.</p>
+                </div>
+              ) : (
+                <textarea
+                  className="ocrEditor"
+                  value={currentText}
+                  onChange={(e) => updateCurrentOcr(e.target.value)}
+                  spellCheck="false"
+                />
+              )}
 
               <div className="buttons">
                 <button onClick={copyCurrentText}>
@@ -478,7 +552,7 @@ function App() {
               </p>
               <pre className="ocrText">
                 {highlight(
-                  currentText || 'No readable OCR text was extracted from this page.',
+                  currentText || (page.isImageOnly ? 'This is an image-only reference page. Open the scan viewer to see the original page.' : 'No readable OCR text was extracted from this page.'),
                   query
                 )}
               </pre>
@@ -496,7 +570,7 @@ function App() {
               </div>
               <iframe
                 title="manual pdf"
-                src={`${page.sourcePdf || (selectedModel === 'mk3' ? MK3_PDF : BASE_PDF)}#page=${page.page}&zoom=${zoom}`}
+                src={`${page.sourcePdf || (selectedModel === 'mk3' ? MK3_PDF : BASE_PDF)}#page=${page.sourcePage || page.page}&zoom=${zoom}`}
               />
             </section>
           )}
@@ -516,7 +590,7 @@ function App() {
               ) : (
                 <div className="emptyChecklist">
                   <Wrench size={24} />
-                  <p>No specific repair checklist has been generated for this page yet.</p>
+                  <p>{page.isImageOnly ? 'This is a diagram/image page. Use the original scan rather than an OCR checklist.' : 'No specific repair checklist has been generated for this page yet.'}</p>
                 </div>
               )}
             </section>

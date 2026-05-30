@@ -14,7 +14,10 @@ export const mk3ManualPages = [
       "the necessary adjustments which may be required",
       "The full Chassis Serial Number must be quoted in all"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p02",
@@ -27,7 +30,10 @@ export const mk3ManualPages = [
     "plainEnglish": "Blank or spacer page in the scanned manual.",
     "ocrText": "",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "blank",
+    "hidden": true,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p03",
@@ -40,7 +46,10 @@ export const mk3ManualPages = [
     "plainEnglish": "Owner record page for chassis, engine, key, registration and delivery details.",
     "ocrText": "VEHICLE PARTICULARS\nKEY Nos. :\nIgnition, Shroud and Do0E << rveernenn\nBoot and Cubby Locker emer nennnrymmnennnn\nSEORUE TRATION OO i se\nORIGINAL DATE OF\nDELIVERY FROM WORKS...\n\n2",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p04",
@@ -53,7 +62,10 @@ export const mk3ManualPages = [
     "plainEnglish": "Blank or spacer page in the scanned manual.",
     "ocrText": "",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "blank",
+    "hidden": true,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p05",
@@ -71,7 +83,10 @@ export const mk3ManualPages = [
       "the instructions given in this handbook should be observed.",
       "connection with service matters should be addressed to the Service"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p06",
@@ -84,7 +99,10 @@ export const mk3ManualPages = [
     "plainEnglish": "Blank or spacer page in the scanned manual.",
     "ocrText": "",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "blank",
+    "hidden": true,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p07",
@@ -99,7 +117,10 @@ export const mk3ManualPages = [
     "checklist": [
       "{Dipstick top level must not be exceeded)."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p08",
@@ -114,7 +135,10 @@ export const mk3ManualPages = [
     "checklist": [
       "DIL SUMP CAPACITY It is important that sump should not be filled"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p09",
@@ -122,12 +146,15 @@ export const mk3ManualPages = [
     "modelLabel": "Jensen C-V8 Mk III",
     "page": 9,
     "sourcePage": 9,
-    "title": "INSTRUMENTS AND CONTROLS",
-    "summary": "Dashboard, switchgear and instrument descriptions, including ignition, lights, wipers, gauges and warning lamps.",
-    "plainEnglish": "Dashboard, switchgear and instrument descriptions, including ignition, lights, wipers, gauges and warning lamps.",
+    "title": "Instruments and controls diagram",
+    "summary": "Instrument panel layout diagram showing gauges, switches, warning lights and dashboard controls.",
+    "plainEnglish": "Instrument panel layout diagram showing gauges, switches, warning lights and dashboard controls.",
     "ocrText": "INSTRUMENTS AND CONTROLS\ntera counter —_\nWikia enresaroRe exe\na\nSiam Woleoe wana BERT\nGe enecauee Gauce\nSroeaaen\nfed ive VOTnCATION OUTLET\nSoe am :\nRecme evar\nae G1}\nman brine connor oo\nfeee-— TT 1| LA\n'love socken CD ami\na SS SF EY Cr\n—+ @ Oe § |// ORS\nmMmeAS=\nTt w ttf |\nltr Lp\nNH | //]\ncaren oosren min\nATR Setecnoh cowraa\nMate ee a\na\neens Tartan RanTET\nFane Liouts conTnoL\nVanbecesn ype oun\n'kre remenaruse Cowra\ntSireoenes\nean seuecTon\nfeanan oo\nfaut geen wane era —————\ntoe ruet wnnve ger ——\nTonner 8 neab Alp Tagen CORTRGT\nPermol rai Uo-retesee suarcat\nFig?\n' |",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "diagram",
+    "hidden": false,
+    "isImageOnly": true
   },
   {
     "id": "mk3-p10",
@@ -140,7 +167,10 @@ export const mk3ManualPages = [
     "plainEnglish": "Blank or spacer page in the scanned manual.",
     "ocrText": "",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "blank",
+    "hidden": true,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p11",
@@ -158,7 +188,10 @@ export const mk3ManualPages = [
       "Adjustment is effected by the black sleeve immedi",
       "As soon as the engine starts the key should be"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p12",
@@ -176,7 +209,10 @@ export const mk3ManualPages = [
       "the speed of the wipers, The higher speed should not be used on",
       "should be pushed in to engage the hands."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p13",
@@ -195,7 +231,10 @@ export const mk3ManualPages = [
       "The switch works in a CLOCKWISE direction only, and should not",
       "6000 RPM and engine speeds in this sector should not be"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p14",
@@ -208,7 +247,10 @@ export const mk3ManualPages = [
     "plainEnglish": "Blank or spacer page in the scanned manual.",
     "ocrText": "",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "blank",
+    "hidden": true,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p15",
@@ -227,7 +269,10 @@ export const mk3ManualPages = [
       "high engine speed should be avoided during early life of the new",
       "Car so that all parts will become adjusted to their position without"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p16",
@@ -246,7 +291,10 @@ export const mk3ManualPages = [
       "are provided to enable the driver to enfarce a gear change as and",
       "The driver should, therfore, first familiarise himself with the"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p17",
@@ -265,7 +313,10 @@ export const mk3ManualPages = [
       "Coasting must be avoided at all times, otherwise the gearbox may",
       "suffer serious damage due to lack of lubrication."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p18",
@@ -273,15 +324,18 @@ export const mk3ManualPages = [
     "modelLabel": "Jensen C-V8 Mk III",
     "page": 18,
     "sourcePage": 18,
-    "title": "Optional Manual Transmission",
-    "summary": "Automatic gearbox operation, selector use, driving speeds, towing and push-start guidance.",
-    "plainEnglish": "Automatic gearbox operation, selector use, driving speeds, towing and push-start guidance.",
+    "title": "Optional manual transmission gear-change diagram",
+    "summary": "Manual gearbox shift-pattern diagram and clutch note. Best viewed as the original scan.",
+    "plainEnglish": "Manual gearbox shift-pattern diagram and clutch note. Best viewed as the original scan.",
     "ocrText": "Fig 2\nOptional Manual Transmission\nThe change speed arrangement being conventional, it is not\nProposed to describe the method of engaging and changing gear,\nbut @ plan showing the gear lever positions is shown above.\nClutch\n\nThe clutch is hydraulically operated and normally requires no\nadjustment. If attention is required the work should be carried out\nby @n officially appointed Jensen Distributor or Dealer.",
     "checklist": [
       "The change speed arrangement being conventional, it is not",
       "If attention is required the work should be carried out"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "diagram",
+    "hidden": false,
+    "isImageOnly": true
   },
   {
     "id": "mk3-p19",
@@ -300,7 +354,10 @@ export const mk3ManualPages = [
       "pump, The valve gear is lubricated by oilways through the cam",
       "shaft, while the qudgeon-pins are splash lubricated."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p20",
@@ -308,9 +365,9 @@ export const mk3ManualPages = [
     "modelLabel": "Jensen C-V8 Mk III",
     "page": 20,
     "sourcePage": 20,
-    "title": "Ea ae",
-    "summary": "Lubrication system, oil draining, filter changing and lubrication/maintenance schedule information.",
-    "plainEnglish": "Lubrication system, oil draining, filter changing and lubrication/maintenance schedule information.",
+    "title": "Lubrication and maintenance diagram",
+    "summary": "Lubrication and maintenance diagram plus first 1,000 mile service points. Best viewed as the original scan.",
+    "plainEnglish": "Lubrication and maintenance diagram plus first 1,000 mile service points. Best viewed as the original scan.",
     "ocrText": "|\nao\" H 08\npo ' Zr\n| ——, a\nna ee in\nEa ae\nw—S4 ee a\na) Sr Se ee\nott ig et\noe a ==\nRee | Aor — 5-02\nothe Se\nEAS et\na oe\n|\n[| hivbi\nOh)\ncon 5 UR [i] com\nx a = sie\n| 7 —-3) -\nFig 3\nLUBRICATION AND MAINTENANCE\nFIRST 1,000 MILES SERVICE\nPR following special service is necessary sfter the car has covered tho\n1,000 miles,\nDrain and refill axle. Tighten driving belt i\n'Check contect breakers, and adjust if goon\n'necessary. Check 'system.\nCheck staring and front end geometry. Check tyre pressures.\n'Check hydraulic reservoirs for fluid. pers fights.\nbraking system.\n'Check water level and connections and tighten if necessary.",
     "checklist": [
       "LUBRICATION AND MAINTENANCE",
@@ -319,7 +376,10 @@ export const mk3ManualPages = [
       "'Check hydraulic reservoirs for fluid.",
       "'Check water level and connections and tighten if necessary."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "diagram",
+    "hidden": false,
+    "isImageOnly": true
   },
   {
     "id": "mk3-p21",
@@ -338,7 +398,10 @@ export const mk3ManualPages = [
       "C5 — Sump—Orain and Refill,",
       "C7 — Rear Axle—Check and Top Up."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p22",
@@ -357,7 +420,10 @@ export const mk3ManualPages = [
       "\"HS — Propeller Shatt Joints—Clean and Repack,",
       "*H6 — Goarbox—Drain and Refill '"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p23",
@@ -376,7 +442,10 @@ export const mk3ManualPages = [
       "The filter between the tank and pump should be replaced",
       "adjustment normally necessary will be to the idling speed settings."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p24",
@@ -389,7 +458,10 @@ export const mk3ManualPages = [
     "plainEnglish": "OCR text extracted from the Mk III instruction manual for searching and editing.",
     "ocrText": "STE. uP ASTON\n'COVER PLATE\nACCILERATCR PUMP\ncnoet 'muniosp sea\nOPERATING ACCELERATOR PIMP\nne crone \\*Fo crt atm\nvat cums our\nCHORE VACUM e bia\n\" aviuitina\nDIAPHRAGA A — | SCRW\nLN os rs 4\nPatt 1 a= a Oe ray\nian. get pf\na Sa 6\nSECONDARY of) ) Gg a\nCee ae ~ ws me\nCPERATING (AAs ' NJ\nae e) oo wy i\nNeste\nri f C15\n\" wacko Srost hase\nDIAPHRAGM\ncod na irs\nMAROTTE, feng\ndrama — \\ mae Hsorne\not maa AONISTING SCHEWS\nPRIMARY THEOTTIE ba alge\nSHAST ASM {OUTER VACUUM ADVANCE\nTse rine Nesas\nFig 4\nSTEF.UP PISTON COveR PATE\nACOLLIRATOR PUMP UNK bad\nrae\nACCELERATOR FUME im \"\nhe A jo\nxe a\ngs Tr\nee Oo A THROTILE AND\nSa 'hain EOD\nea\n7 en &,\n.,. —\nSN\nTHROTHE vi =—\neves » 7\n. Fast Dut\nconmuteras\nrast ime Seen FAST IGLE CAM, =\nADASIING schEW ELEVATING i865\ncurs wie snico MY Or at\nADIVETING SCREW\nFig 5",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p25",
@@ -408,7 +480,10 @@ export const mk3ManualPages = [
       "(v) Readjust the speed screw to obtain correct idle",
       "After the proper idle speed has been obtained, check transmission"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p26",
@@ -427,7 +502,10 @@ export const mk3ManualPages = [
       "system against throttle valve laver stop, adjust rod ts]",
       "| Then adjust rod end out three (3) full turns and replace"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p27",
@@ -446,7 +524,10 @@ export const mk3ManualPages = [
       "The air cleaner is held on top of the carburettor by one wing nut.",
       "Every 8,000 miles the air cleaner element should be cleaned."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p28",
@@ -459,7 +540,10 @@ export const mk3ManualPages = [
     "plainEnglish": "Blank or spacer page in the scanned manual.",
     "ocrText": "",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "blank",
+    "hidden": true,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p29",
@@ -478,7 +562,10 @@ export const mk3ManualPages = [
       "block should also be thinly coated with grease.",
       "the points should be cleaned and checked."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p30",
@@ -491,7 +578,10 @@ export const mk3ManualPages = [
     "plainEnglish": "Blank or spacer page in the scanned manual.",
     "ocrText": "",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "blank",
+    "hidden": true,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p31",
@@ -510,7 +600,10 @@ export const mk3ManualPages = [
       "water should be added to bring the level in the radiator up to the",
       "The radiator should not be over"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p32",
@@ -523,7 +616,10 @@ export const mk3ManualPages = [
     "plainEnglish": "Cooling system description and service guidance, including coolant, fans and temperature warnings.",
     "ocrText": "| Electric Fans\n\n| There is no engine driven cooling fan, but in its place two electric\n\n| fans which operate only when required to maintain optimum\nengine operating temperature.\nThese fans are mounted on the cross tube behind the radiator\nand are controlled by @ thermostatic switch in the bottom of the\nradiator.\nThey are not wired through the ignition circuit and will therefore\ncontinue running, if necessary, even after the engine has been\nswitched off. (This is because the water temperature actually rises\nduring the last few seconds of s journey, owing to the car being\nstopped and there being no air flow through the radiator. The fans\nwill only run for a very short time, and then switch themselves off),\nThe fans are protected by a fuse in the Relay Box at the rear of the\n'engine compartment.\n\n|",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p33",
@@ -542,7 +638,10 @@ export const mk3ManualPages = [
       "the handbrake should be firmly applied, and, with the engine",
       "The dipstick and oil filler pipe are located behind the right hand"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p34",
@@ -561,7 +660,10 @@ export const mk3ManualPages = [
       "inspected every 8,000 miles (or 6 months) for external leakage",
       "otherwise it is not necessary to relubricate at all, If the car has"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p35",
@@ -580,7 +682,10 @@ export const mk3ManualPages = [
       "The front wheels should have",
       "If adjustment is necossary it is made at the tie-rods."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p36",
@@ -599,7 +704,10 @@ export const mk3ManualPages = [
       "2) The hub cap should be removed by turning it anti",
       "3) ~The cotter pin should be removed,"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p37",
@@ -618,7 +726,10 @@ export const mk3ManualPages = [
       "If required, Dunlop Disc Brake Fluid should be added to a level haif",
       "rubber dust seal which should be removed before topping up."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p38",
@@ -634,7 +745,10 @@ export const mk3ManualPages = [
       "entered the system, it must be bled ta restore proper working,",
       "instructions given should be carefully followed."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p39",
@@ -650,7 +764,10 @@ export const mk3ManualPages = [
       "front and rear, should be increased to 30 p.s.i.",
       "3) Harsh acceleration, Wheel spin should be avoided."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p40",
@@ -669,7 +786,10 @@ export const mk3ManualPages = [
       "2) The handbrake should be applied.",
       "3) The ave plate should be removed using the screwdriver"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p41",
@@ -686,7 +806,10 @@ export const mk3ManualPages = [
       "The email equere panel at the front of the shroud must be unlocked",
       "should be pulled forward, and the shroud lifted with bath hands."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p42",
@@ -705,7 +828,10 @@ export const mk3ManualPages = [
       "Rake adjustment of the backs is effected by turning a knob on the",
       "To release the buckle, the buckle flap should be fifted through"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p43",
@@ -724,7 +850,10 @@ export const mk3ManualPages = [
       "The car should always be cleaned using « liberal supply of clean",
       "It is essential not to 'dry clean' the car, as this will produce"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p44",
@@ -737,7 +866,10 @@ export const mk3ManualPages = [
     "plainEnglish": "Blank or spacer page in the scanned manual.",
     "ocrText": "",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "blank",
+    "hidden": true,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p45",
@@ -750,7 +882,10 @@ export const mk3ManualPages = [
     "plainEnglish": "Dashboard, switchgear and instrument descriptions, including ignition, lights, wipers, gauges and warning lamps.",
     "ocrText": "Cabin Heating and Ventilation Systems\nHeating System\nA powerful and comprehensive heating system of 44 Kw output is\nfitted, and this allows any combination of temperature end air\nflow to be selected and maintained.\nThe car interior is heated by fresh air drawn from outside the car\nand passed over a radiator matrix supplied with hot water from the\nengine. Therefore the heater will not be fully effective until the\nengine has reched its normal operating temperature,\nControls\nThere are three main heater controls :—\n\n1) Air cut-off control. This is mounted on the scuttle\nbelow the Leigh Btls and controls the air | passing\ninto the heater. This valve is opened by moving the\nknob down,\n\n2) Distribution control. This is on the left nand side of\nthe central facia lower, flanking the grille, Its position\ndetermines whether air from the heater is directed\ntowards the windscreen, or into the car interior. With the\ncontrol at \"INT\", air flow is directed into the front and\nrear footwells and also through the grille in the facia\nlower. If the control is set to DEMIST', flow is directed\nto the windscreen.\n\n3) Temperature control. This is on the right hand side\n'of the facia lower, opposite the Distribution control.\nOnce the desired temperature is set, it is maintained by a\nthermostatic valve in the water system, regardiass of the\nengine coolant temperature, or the car speed.\n\n4) Fan. The flow of air from the heater can be supplemented\nby a two speed fan, controlled by a switch on the facia,\nWith the switch half way down, slow speed is selected ;\nmoving it fully down increases the fan speed.\n\nVentilation Systems\nTwo completely independent ventilation systems are built into\nthe car.\n\n1) Footwell Ventilation. Small sliding panels on the\noutside of each footwell are connected to intakes below\nthe headlights. Opening these panels provides a flow\nof alr dependent on the speed of the car,\n\n2) Face level Ventilation. Two spherical air vents are\nmounted in the facia, which provide fresh air from the\nscuttle intake. These are opened by pulling out the\nnazzies. A booster fan is fitted to supplement fresh air\noutput and is controlled by the switch marked \"Air\"\n'on the facia.\n\n23",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p46",
@@ -763,7 +898,10 @@ export const mk3ManualPages = [
     "plainEnglish": "Blank or spacer page in the scanned manual.",
     "ocrText": "",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "blank",
+    "hidden": true,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p47",
@@ -782,7 +920,10 @@ export const mk3ManualPages = [
       "sufficient distilled water should be added to bring it to approx.",
       "It is important not to overfill the battery."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p48",
@@ -801,7 +942,10 @@ export const mk3ManualPages = [
       "fitment, and must be changed complete if detective.",
       "partment, and must be changed complete if defective."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p49",
@@ -820,7 +964,10 @@ export const mk3ManualPages = [
       "Adjustment is made by turning the screws on the light unit retaining",
       "adjustment, one for horizontal, except on the European-type unit,"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p50",
@@ -837,7 +984,10 @@ export const mk3ManualPages = [
       "replace bulbs the following procedure should be adopted ;",
       "It should be emphasised that the small grille beneath the"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p51",
@@ -850,7 +1000,10 @@ export const mk3ManualPages = [
     "plainEnglish": "OCR text extracted from the Mk III instruction manual for searching and editing.",
     "ocrText": "Tool Kit\n\nAn adequate set of tools is supplied with the car,\n\nThe tools are stowed in a compartment on the left hand side of\n\nthe boot.\n\nThe tool kit comprises the following -—\n1—Phillips Head Screwdriver,\n1—Standard Screwdriver,\n1—Electricians' Screwdriver,\n1—Plug Spanner.\n1—Open Ended Spanner, ye\" « 4\" A/F.\n1—Open Ended Spanner, \"= # A/F.\n1—Open Ended Spanner, th\" » #* A/F.\n1—Adjustable Spanner, 3°\n1—Pair Pliers.\n1—Tyre Preasure Gauge.\n4—Lifting Jack.\n1—Wheelbrace, t* A/F.\n1—Adaptor for Spare Wheel bracket operation.\n\n28\n|\n|",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p52",
@@ -863,7 +1016,10 @@ export const mk3ManualPages = [
     "plainEnglish": "Blank or spacer page in the scanned manual.",
     "ocrText": "",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "blank",
+    "hidden": true,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p53",
@@ -878,7 +1034,10 @@ export const mk3ManualPages = [
     "checklist": [
       "All claims in respect of such should be addressed"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p54",
@@ -891,7 +1050,10 @@ export const mk3ManualPages = [
     "plainEnglish": "Blank or spacer page in the scanned manual.",
     "ocrText": "",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "blank",
+    "hidden": true,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p55",
@@ -908,7 +1070,10 @@ export const mk3ManualPages = [
       "4000 m Check vai Wik orgie |",
       "Crankcese Yortotor Should \"hae \"and."
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p56",
@@ -923,7 +1088,10 @@ export const mk3ManualPages = [
     "checklist": [
       "and tighten battery teereines,"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p57",
@@ -939,7 +1107,10 @@ export const mk3ManualPages = [
       "TFariste Vsr oni Sin 099 m Check and wp up",
       "(S70 A)\" R800 Drain ane vt"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p58",
@@ -952,7 +1123,10 @@ export const mk3ManualPages = [
     "plainEnglish": "Blank or spacer page in the scanned manual.",
     "ocrText": "",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "blank",
+    "hidden": true,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p59",
@@ -965,7 +1139,10 @@ export const mk3ManualPages = [
     "plainEnglish": "Automatic gearbox operation, selector use, driving speeds, towing and push-start guidance.",
     "ocrText": "| Index\nOnly the right-hand pages of this loose last book are numbered: ¥ the index\nmatter does nat appear on the right hand page, it will be found. by turning\n'aver, on the reverse side of that sheet,\nA Poge Page\nAir Cleaner 4 F\n'Alternator 24 hie\ndenmater 7 few > SS\nAntifreeze - 6 Fiter—tuel ; . 2\nAsh Trays: s+ BR Fite—ol 2 |. 10\nAxio—feer » First Aid Kit. =, 5 22\nfont Suspension | |\nBary =. sh feo\nBeasings—Pront Mute | 1g Fels * a\nBoot. ar) «\npu || 38 Gearhox—tubication 28\n7 : Gearbox— (automatic) op-\nc eration», OB\nCiti ° © 42 Gearbox—(menuel) 'oper\nposed * 3 ation = 2\nChote | oe Gm fee a\nCigar Lighter : 8 \"\nClutch - 2 «@ [igre ae\nfeadiamp adjustment.\nGomuace Bruaker Gap - Heating and. ventilation\n} Coalng Sytem 6 tem 2S\nCrankcase Vertitaion =, 18\nD Hubs—rear 18\nDampers—trom =. . 1B f\nDempers—eer 1B\n|\n[wel opel a |\nDimensons | |g CMition—system | 15\nDirection Indicatars . 6 Ignition—timing =, 4\nDistributor, 15 Instruments. : 8\nDoors sy § *\ne Jocking system - 2\nEnginedats\nEngine lubrication . | 28 «\n\nEngine stating = |B Keys 2\nElecticol Equipment' =.= 28—CKick-down 8\nBy\n\n|",
     "checklist": [],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   },
   {
     "id": "mk3-p60",
@@ -982,6 +1159,9 @@ export const mk3ManualPages = [
       "Lubrication—enging = = 28 Shroud ee |",
       "Lubrication—gearbox 28 © Siowrunning = s"
     ],
-    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf"
+    "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
+    "type": "text",
+    "hidden": false,
+    "isImageOnly": false
   }
 ];
