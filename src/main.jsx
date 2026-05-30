@@ -44,49 +44,49 @@ const topicalSections = [
 // a section — used to show "Section Name (cont.)" in the sidebar + page header.
 
 const baseSectionDefs = [
-  { title: 'Cover',                          pages: [1] },
-  { title: 'Introduction',                   pages: [2, 3] },
-  { title: 'Dashboard & Controls',           pages: [4] },
-  { title: 'Specifications & Dimensions',    pages: [5, 6] },
-  { title: 'Starting, Gearbox & Towing',     pages: [7, 8, 9] },
-  { title: 'Lubrication & Maintenance',      pages: [10, 11] },
-  { title: 'Electrical Equipment',           pages: [12, 13] },
-  { title: 'Brakes & Servo',                 pages: [14] },
-  { title: 'Fuel System & Carburettor',      pages: [15, 16, 17] },
-  { title: 'Tyres, Wheels & Alignment',      pages: [18, 19] },
-  { title: 'Cooling, Heating & Rear Axle',   pages: [20, 21] },
-  { title: 'Interior & Owner Information',   pages: [22, 23, 24] },
-  { title: 'Service Lubrication',            pages: [25, 26, 27, 28] },
-  { title: 'Index',                          pages: [29] },
-  { title: 'Vehicle Particulars',            pages: [31, 32] },
+  { title: 'Cover',                          pages: [1],           category: 'overview',     tags: [] },
+  { title: 'Introduction',                   pages: [2, 3],        category: 'overview',     tags: ['owner', 'handbook', 'warranty'] },
+  { title: 'Dashboard & Controls',           pages: [4],           category: 'overview',     tags: ['dashboard', 'instruments', 'controls', 'gauges', 'switches', 'warning lights'] },
+  { title: 'Specifications & Dimensions',    pages: [5, 6],        category: 'specs',        tags: ['specifications', 'dimensions', 'capacity', 'timing', 'compression', 'spark plug', 'ignition'] },
+  { title: 'Starting, Gearbox & Towing',     pages: [7, 8, 9],     category: 'mechanical',   tags: ['starting', 'engine', 'gearbox', 'overdrive', 'towing', 'transmission', 'running-in'] },
+  { title: 'Lubrication & Maintenance',      pages: [10, 11],      category: 'lubrication',  tags: ['lubrication', 'oil', 'grease', 'maintenance', 'filter', 'dipstick'] },
+  { title: 'Electrical Equipment',           pages: [12, 13],      category: 'electrical',   tags: ['electrical', 'battery', 'fuses', 'bulbs', 'wiring', 'lucas', 'autolite', 'wiper'] },
+  { title: 'Brakes & Servo',                 pages: [14],          category: 'brakes',       tags: ['brakes', 'servo', 'brake fluid', 'handbrake', 'vacuum', 'dunlop'] },
+  { title: 'Fuel System & Carburettor',      pages: [15, 16, 17],  category: 'fuel',         tags: ['fuel', 'carburettor', 'choke', 'throttle', 'idle', 'accelerator', 'carter'] },
+  { title: 'Tyres, Wheels & Alignment',      pages: [18, 19],      category: 'wheels',       tags: ['tyres', 'wheels', 'alignment', 'toe-in', 'camber', 'bearings', 'tyre pressure'] },
+  { title: 'Cooling, Heating & Rear Axle',   pages: [20, 21],      category: 'cooling',      tags: ['cooling', 'radiator', 'antifreeze', 'heater', 'rear axle', 'fan belt', 'powr-lok'] },
+  { title: 'Interior & Owner Information',   pages: [22, 23, 24],  category: 'interior',     tags: ['seats', 'upholstery', 'interior', 'owner', 'chassis number'] },
+  { title: 'Service Lubrication',            pages: [25, 26, 27, 28], category: 'service',   tags: ['service', 'lubrication', 'grease points', 'intervals', 'capacities', 'oil change'] },
+  { title: 'Index',                          pages: [29],          category: 'overview',     tags: ['index'] },
+  { title: 'Vehicle Particulars',            pages: [31, 32],      category: 'overview',     tags: ['chassis number', 'engine number', 'registration', 'delivery'] },
 ];
 
 const mk3SectionDefs = [
-  { title: 'Handbook Cover',                     pages: [1] },
-  { title: 'Vehicle Particulars',                pages: [3] },
-  { title: 'Foreword',                           pages: [5] },
-  { title: 'General Dimensions & Data',          pages: [7, 8] },
-  { title: 'Instruments & Controls Diagram',     pages: [9] },
-  { title: 'Controls & Instruments',             pages: [11, 12, 13] },
-  { title: 'Starting Up & Running',              pages: [15, 16, 17, 18] },
-  { title: 'Engine Lubrication System',          pages: [19] },
-  { title: 'Lubrication Diagram',                pages: [20] },
-  { title: 'Maintenance Schedule',               pages: [21, 22] },
-  { title: 'Fuel System & Carburettor',          pages: [23, 24, 25, 26, 27] },
-  { title: 'Ignition',                           pages: [29, 30] },
-  { title: 'Cooling System',                     pages: [31, 32] },
-  { title: 'Transmission & Propeller Shaft',     pages: [33, 34] },
-  { title: 'Steering & Suspension',              pages: [35, 36, 37] },
-  { title: 'Brake Servo Unit',                   pages: [38] },
-  { title: 'Wheels & Tyres',                     pages: [39, 40] },
-  { title: 'Bodywork & Seats',                   pages: [41, 42] },
-  { title: 'Spare Wheel',                        pages: [43] },
-  { title: 'Cabin Heating & Ventilation',        pages: [45, 46] },
-  { title: 'Electrical System',                  pages: [47, 48] },
-  { title: 'Lights',                             pages: [49, 50] },
-  { title: 'Tool Kit & Equipment',               pages: [51, 52, 53] },
-  { title: 'Service Lubrication',                pages: [55, 56, 57, 58] },
-  { title: 'Index',                              pages: [59, 60] },
+  { title: 'Handbook Cover',                     pages: [1],           category: 'overview',    tags: [] },
+  { title: 'Vehicle Particulars',                pages: [3],           category: 'overview',    tags: ['chassis number', 'key number', 'registration', 'delivery'] },
+  { title: 'Foreword',                           pages: [5],           category: 'overview',    tags: ['handbook', 'owner', 'jensen motors'] },
+  { title: 'General Dimensions & Data',          pages: [7, 8],        category: 'specs',       tags: ['dimensions', 'specifications', 'weight', 'wheelbase', 'turning circle', 'gear ratios'] },
+  { title: 'Instruments & Controls Diagram',     pages: [9],           category: 'overview',    tags: ['dashboard', 'instruments', 'controls', 'diagram', 'layout'] },
+  { title: 'Controls & Instruments',             pages: [11, 12, 13],  category: 'overview',    tags: ['controls', 'instruments', 'gauges', 'switches', 'headlights', 'horn', 'heater fan', 'selectaride', 'speedometer', 'ammeter', 'oil pressure'] },
+  { title: 'Starting Up & Running',              pages: [15, 16, 17, 18], category: 'mechanical', tags: ['starting', 'running-in', 'gearbox', 'overdrive', 'towing', 'push starting', 'choke', 'transmission'] },
+  { title: 'Engine Lubrication System',          pages: [19],          category: 'lubrication', tags: ['engine oil', 'oil filter', 'sump', 'oil change', 'dipstick', 'oil pressure', '4000 miles'] },
+  { title: 'Lubrication Diagram',                pages: [20],          category: 'lubrication', tags: ['lubrication', 'diagram', 'grease points'] },
+  { title: 'Maintenance Schedule',               pages: [21, 22],      category: 'service',     tags: ['maintenance', 'service intervals', '1000 miles', '4000 miles', '20000 miles', 'king pin', 'spark plugs'] },
+  { title: 'Fuel System & Carburettor',          pages: [23, 24, 25, 26, 27], category: 'fuel', tags: ['fuel', 'carburettor', 'choke', 'throttle', 'idle', 'accelerator', 'air cleaner', 'crankcase vent'] },
+  { title: 'Ignition',                           pages: [29, 30],      category: 'electrical',  tags: ['ignition', 'contact breaker', 'timing', 'distributor', 'coil', 'ballast resistor'] },
+  { title: 'Cooling System',                     pages: [31, 32],      category: 'cooling',     tags: ['cooling', 'radiator', 'coolant', 'fan', 'thermostat', 'antifreeze', 'electric fans'] },
+  { title: 'Transmission & Propeller Shaft',     pages: [33, 34],      category: 'mechanical',  tags: ['transmission', 'gearbox', 'propeller shaft', 'universal joint', 'transmission fluid'] },
+  { title: 'Steering & Suspension',              pages: [35, 36, 37],  category: 'mechanical',  tags: ['steering', 'suspension', 'rack and pinion', 'wishbone', 'front hubs', 'wheel alignment', 'dampers'] },
+  { title: 'Brake Servo Unit',                   pages: [38],          category: 'brakes',      tags: ['brakes', 'servo', 'brake fluid', 'disc brakes', 'handbrake'] },
+  { title: 'Wheels & Tyres',                     pages: [39, 40],      category: 'wheels',      tags: ['wheels', 'tyres', 'tyre pressure', 'wheel changing', 'jack', 'spare wheel'] },
+  { title: 'Bodywork & Seats',                   pages: [41, 42],      category: 'interior',    tags: ['bodywork', 'doors', 'seats', 'upholstery', 'adjustment'] },
+  { title: 'Spare Wheel',                        pages: [43],          category: 'wheels',      tags: ['spare wheel', 'boot', 'jack'] },
+  { title: 'Cabin Heating & Ventilation',        pages: [45, 46],      category: 'interior',    tags: ['heating', 'ventilation', 'heater', 'fresh air', 'fan', 'demist'] },
+  { title: 'Electrical System',                  pages: [47, 48],      category: 'electrical',  tags: ['electrical', 'battery', 'fuses', 'wiring', 'earth', 'alternator', 'interior light'] },
+  { title: 'Lights',                             pages: [49, 50],      category: 'electrical',  tags: ['lights', 'headlamps', 'sidelights', 'bulbs', 'reversing light', 'number plate light', 'flasher'] },
+  { title: 'Tool Kit & Equipment',               pages: [51, 52, 53],  category: 'overview',    tags: ['tools', 'toolkit', 'equipment', 'accessories'] },
+  { title: 'Service Lubrication',                pages: [55, 56, 57, 58], category: 'service',  tags: ['service', 'lubrication', 'oil change', 'grease', 'intervals', 'capacities', 'transmission fluid'] },
+  { title: 'Index',                              pages: [59, 60],      category: 'overview',    tags: ['index'] },
 ];
 
 function buildSectionLookup(defs) {
@@ -96,6 +96,8 @@ function buildSectionLookup(defs) {
       map.set(page, {
         sectionTitle: section.title,
         isContinuation: idx > 0,
+        category: section.category || 'general',
+        tags: section.tags || [],
       });
     });
   }
@@ -292,6 +294,8 @@ function App() {
   const [drawer, setDrawer] = useState(false);
   const [mode, setMode] = useState('cards');
   const [copied, setCopied] = useState(false);
+  const [checkedItems, setCheckedItems] = useState({});  // key: `${model}:${page}:${idx}`
+  const [sectionFilter, setSectionFilter] = useState('all');
 
   const [ocrEdits, setOcrEdits] = useState(() => {
     try {
@@ -568,44 +572,21 @@ function App() {
 
         <main>
           <section className="hero">
-            <div>
-              <p className="eyebrow">Garage-friendly manual app</p>
-              <h2>Search the Jensen C-V8 manual like it was built for the driveway.</h2>
-              <p>
-                Plain-English summaries, repair checklists, editable OCR text,
-                source-page buttons, and the original scanned manual in one place.
-              </p>
-            </div>
-
-            <div className="card" style={{ marginTop: '1rem' }}>
-              <p className="eyebrow">Your Car</p>
-
+            <div className="heroTop">
+              <div>
+                <p className="eyebrow">Garage-friendly manual app</p>
+                <h2>Jensen C-V8 Online Manual</h2>
+              </div>
               <select
                 value={selectedModel}
                 onChange={(e) => setSelectedModel(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  borderRadius: '10px',
-                  marginTop: '8px'
-                }}
+                className="modelSelect"
               >
                 <option value="all">All Jensen C-V8 Models</option>
                 <option value="mk1">Jensen C-V8 Mk I</option>
                 <option value="mk2">Jensen C-V8 Mk II</option>
                 <option value="mk3">Jensen C-V8 Mk III</option>
               </select>
-
-              <p style={{ marginTop: '10px', opacity: 0.8 }}>
-                Current selection: <strong>{selectedModelLabel}</strong>
-              </p>
-            </div>
-
-            <div className="heroStats">
-              <div><strong>{visibleManualPages.length}</strong><span>manual pages</span></div>
-              <div><strong>{activeTopicalSections.length}</strong><span>sections</span></div>
-              <div><strong>{pagesWithChecklists}</strong><span>checklists</span></div>
-              <div><strong>{editedPageCount}</strong><span>OCR edits</span></div>
             </div>
 
             <div className="heroSearch">
@@ -618,6 +599,69 @@ function App() {
               {query && <button onClick={() => setQuery('')}>Clear</button>}
             </div>
           </section>
+
+          {/* Organised repair card grid */}
+          {!query && (() => {
+            const activeDefs = selectedModel === 'mk3' ? mk3SectionDefs : baseSectionDefs;
+            const categories = ['all', ...Array.from(new Set(activeDefs.map(s => s.category).filter(Boolean)))];
+            const filtered = sectionFilter === 'all'
+              ? activeDefs
+              : activeDefs.filter(s => s.category === sectionFilter);
+            const visiblePageSet = new Set(visibleManualPages.map(p => p.page));
+            const displayable = filtered.filter(s => s.pages.some(p => visiblePageSet.has(p)));
+            const categoryLabels = {
+              all: 'All', overview: 'Overview', specs: 'Specs',
+              mechanical: 'Mechanical', lubrication: 'Lubrication',
+              electrical: 'Electrical', fuel: 'Fuel', brakes: 'Brakes',
+              wheels: 'Wheels & Tyres', cooling: 'Cooling',
+              interior: 'Interior', service: 'Service',
+            };
+            return (
+              <section className="repairGrid">
+                <div className="repairGridHeader">
+                  <p className="eyebrow">Manual Sections</p>
+                  <h3>Organised repair cards</h3>
+                  <p className="helperText">These summaries stay inside what the manual says. Use source scans for verification.</p>
+                </div>
+                <div className="categoryFilters">
+                  {categories.map(cat => (
+                    <button
+                      key={cat}
+                      className={sectionFilter === cat ? 'active' : ''}
+                      onClick={() => setSectionFilter(cat)}
+                    >
+                      {categoryLabels[cat] || cat}
+                    </button>
+                  ))}
+                </div>
+                <div className="sectionCardGrid">
+                  {displayable.map(section => {
+                    const firstVisiblePage = section.pages.find(p => visiblePageSet.has(p));
+                    return (
+                      <button
+                        key={section.title}
+                        className="sectionCard"
+                        onClick={() => goPage(firstVisiblePage)}
+                      >
+                        <div className="sectionCardTop">
+                          <span className="sectionCardCat">{categoryLabels[section.category] || section.category}</span>
+                          <span className="sectionCardPages">p. {section.pages.filter(p => visiblePageSet.has(p)).join('–')}</span>
+                        </div>
+                        <h4>{section.title}</h4>
+                        {section.tags.length > 0 && (
+                          <div className="sectionCardTags">
+                            {section.tags.slice(0, 4).map(tag => (
+                              <span key={tag} className="sectionCardTag">{tag}</span>
+                            ))}
+                          </div>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </section>
+            );
+          })()}
 
           <div className="tabs">
             <button className={mode === 'cards' ? 'active' : ''} onClick={() => setMode('cards')}>
@@ -638,39 +682,52 @@ function App() {
           </div>
 
           <section className="card pageHeader">
-            <div className="kicker">Instruction Book · Page {page.page}</div>
             <h2>{getDisplayTitle(page.page, selectedModel, page.title)}</h2>
             {getSectionInfo(page.page, selectedModel)?.isContinuation && (
               <p className="continuationNote">
                 ↩ Continued from <strong>{getSectionInfo(page.page, selectedModel).sectionTitle}</strong>
               </p>
             )}
-            <p>{page.summary}</p>
 
-            <div className="tagRow">
-              <span><Gauge size={14} /> Jensen C-V8</span>
-              <span>{selectedModelLabel}</span>
-              <span>Manual p. {page.page}</span>
-              <span>{page.checklist?.length || 0} checklist items</span>
-              {hasLocalEdit && <span>OCR edited locally</span>}
+            {/* Tag pills */}
+            {(() => {
+              const tags = getSectionInfo(page.page, selectedModel)?.tags || [];
+              return tags.length > 0 ? (
+                <div className="tagPills">
+                  {tags.map(tag => (
+                    <button key={tag} className="tagPill" onClick={() => setQuery(tag)}>{tag}</button>
+                  ))}
+                </div>
+              ) : null;
+            })()}
+
+            {/* Manual page reference badge */}
+            <div className="manualRef">
+              <BookOpen size={14} />
+              <span>Manual p. {page.page}{getSectionInfo(page.page, selectedModel)?.isContinuation ? ` · Part of ${getSectionInfo(page.page, selectedModel).sectionTitle}` : ''}</span>
+              <button className="refLink" onClick={() => openPdf(page.page)}>
+                Open scan <ExternalLink size={12} />
+              </button>
             </div>
 
-            {page.isImageOnly ? (
-              <div className="warn">
-                <ImageIcon size={18} />
-                <span>
-                  This is an image-only reference page. It stays in the app and opens in the scan viewer,
-                  but it is not treated as editable OCR text.
-                </span>
-              </div>
-            ) : (
-              <div className="warn">
-                <AlertTriangle size={18} />
-                <span>
-                  OCR edits are saved locally and loaded from the committed corrections file.
-                  Export your edits, save the file as <code>public/ocr-corrections.json</code>, and commit to make them permanent for all devices.
-                </span>
-              </div>
+            {/* Bullet summary — use key facts if summary is generic */}
+            {(() => {
+              const hasRealSummary = page.summary && !page.summary.startsWith(GENERIC_SUMMARY);
+              const facts = extractKeyFacts(currentText).slice(0, 3);
+              return (
+                <div className="summarySection">
+                  {hasRealSummary && <p className="summaryLead">{page.summary}</p>}
+                  {facts.length > 0 && (
+                    <ul className="summaryBullets">
+                      {facts.map((f, i) => <li key={i}>{f}</li>)}
+                    </ul>
+                  )}
+                </div>
+              );
+            })()}
+
+            {hasLocalEdit && (
+              <div className="editedBadge"><Save size={12} /> OCR edited</div>
             )}
 
             <div className="buttons">
@@ -875,26 +932,61 @@ function App() {
             </section>
           )}
 
-          {mode === 'checklist' && (
-            <section className="card">
-              <h3 className="sectionTitle">Plain-English checklist</h3>
-              {page.checklist && page.checklist.length ? (
-                <ol className="checklist">
-                  {page.checklist.map((item, i) => (
-                    <li key={item}>
-                      <span>{i + 1}</span>
-                      <p>{item}</p>
-                    </li>
-                  ))}
-                </ol>
-              ) : (
-                <div className="emptyChecklist">
-                  <Wrench size={24} />
-                  <p>{page.isImageOnly ? 'This is a diagram/image page. Use the original scan rather than an OCR checklist.' : 'No specific repair checklist has been generated for this page yet.'}</p>
+          {mode === 'checklist' && (() => {
+            const qualityItems = hasQualityChecklist(page.checklist)
+              ? page.checklist.filter(item => IMPERATIVE_VERBS.test(item))
+              : [];
+            const allItems = qualityItems.length > 0 ? qualityItems : extractKeyFacts(currentText);
+            const checkedCount = allItems.filter((_, i) => checkedItems[`${selectedModel}:${page.page}:${i}`]).length;
+            const clearChecks = () => {
+              const next = { ...checkedItems };
+              allItems.forEach((_, i) => delete next[`${selectedModel}:${page.page}:${i}`]);
+              setCheckedItems(next);
+            };
+            return (
+              <section className="card">
+                <div className="checklistHeader">
+                  <div>
+                    <h3 className="sectionTitle">
+                      {qualityItems.length > 0 ? 'Troubleshooting checklist' : 'Key service facts — checklist'}
+                    </h3>
+                    <p className="helperText">{checkedCount} of {allItems.length} checked</p>
+                  </div>
+                  {checkedCount > 0 && (
+                    <button className="clearBtn" onClick={clearChecks}>Clear all</button>
+                  )}
                 </div>
-              )}
-            </section>
-          )}
+                {allItems.length > 0 ? (
+                  <ul className="interactiveChecklist">
+                    {allItems.map((item, i) => {
+                      const key = `${selectedModel}:${page.page}:${i}`;
+                      const checked = !!checkedItems[key];
+                      return (
+                        <li
+                          key={i}
+                          className={checked ? 'checked' : ''}
+                          onClick={() => setCheckedItems(prev => ({ ...prev, [key]: !prev[key] }))}
+                        >
+                          <span className="checkbox">{checked ? '✓' : ''}</span>
+                          <p>{item}</p>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : (
+                  <div className="emptyChecklist">
+                    <Wrench size={24} />
+                    <p>{page.isImageOnly ? 'This is a diagram/image page. Use the original scan.' : 'No checklist available for this page yet.'}</p>
+                  </div>
+                )}
+                {qualityItems.length === 0 && allItems.length > 0 && (
+                  <p className="helperText dimText">
+                    Extracted from OCR text. Fix errors in the <button className="inlineLink" onClick={() => setMode('edit')}>Edit OCR tab</button>.
+                  </p>
+                )}
+              </section>
+            );
+          })()}
 
           {query && (
             <section className="card">
