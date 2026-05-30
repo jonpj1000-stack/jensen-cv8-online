@@ -198,7 +198,7 @@ function App() {
         text: ocrEdits[key] ?? p.text ?? ''
       };
     });
-  }, [ocrEdits, visibleManualPages, selectedModel];
+}, [ocrEdits, visibleManualPages, selectedModel]);
 
   const searchResults = useMemo(() => {
     const q = query.trim().toLowerCase();
