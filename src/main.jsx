@@ -692,6 +692,7 @@ function App() {
                   </div>
                 </div>
                 <iframe
+                  key={`wiring-${diagram.id}`}
                   title={diagram.title}
                   src={`${diagram.pdf}#zoom=${wiringZoom}`}
                   className="wiringIframe"
@@ -1137,12 +1138,24 @@ function App() {
             <section className="card viewer">
               <div className="viewerTop">
                 <h3>Original scanned page {page.page}</h3>
-                <div>
+                <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                   <button onClick={() => setZoom(Math.max(60, zoom - 20))}><ZoomOut size={16} /></button>
                   <button onClick={() => setZoom(Math.min(180, zoom + 20))}><ZoomIn size={16} /></button>
+                  <button onClick={() => openPdf(page.page)} title="Open in new tab">
+                    <ExternalLink size={16} />
+                  </button>
                 </div>
               </div>
+
+              {/* iOS Safari ignores #page= in iframes — show a manual page hint */}
+              <div className="pdfPageHint">
+                <span>📄 PDF page <strong>{page.sourcePage || page.page}</strong></span>
+                <span className="pdfPageHintNote">If the wrong page shows, tap the ↗ button to open in your browser and navigate manually.</span>
+              </div>
+
+              {/* key forces a full iframe remount on every page change so #page= takes effect */}
               <iframe
+                key={`scan-${page.sourcePdf}-${page.sourcePage || page.page}`}
                 title="manual pdf"
                 src={`${page.sourcePdf || (selectedModel === 'mk3' ? MK3_PDF : BASE_PDF)}#page=${page.sourcePage || page.page}&zoom=${zoom}`}
               />
