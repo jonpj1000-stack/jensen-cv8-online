@@ -24,31 +24,31 @@ export const manualPages = [
     "page": 4,
     "title": "Fig. |",
     "text": "Fig. |\n\nINSTRUMENTS\n\nCubby Lid Lock\n\nElectric Clock\n\nAmmeter\n\nOil Pressure Gauge\n\nWater Temperature Gauge\n\nL.H. Flasher Warning Light\nSpeedometer\n\nGear Indicator\n\nRey. Counter\n\nR.H. Flasher Warning Light\nAir Control Heater\n\nDemist\n\nAND CONTROLS\n\n16. Interior\n\n17. Cigar Lighter\n\n18. Ignition Starter\n\n19. Instrument Hlumination\n20. Fan-Heater\n\n21. Hot\n22. Cold\n23. Map\n\n24. Gear Selector\n\n25. High Beam Warning\n\n26. Fresh Air Ducts\n\n27. Low Fuel Warning\n\n28. Indicator & Headlamp Flasher\n29. Petrol Filler Lid",
-    "summary": "This page provides a labeled diagram identifying the dashboard instruments and controls layout for the Jensen C-V8, including gauges, warning lights, heater controls, and switches.",
+    "summary": "This page provides a labeled diagram identifying the dashboard instruments and controls located in the Jensen C-V8 interior.",
     "checklist": [
-      "Check the ammeter to monitor electrical system charging status.",
-      "Inspect the oil pressure gauge for proper engine lubrication readings.",
-      "Check the water temperature gauge to ensure engine cooling is within normal range.",
-      "Verify the L.H. and R.H. flasher warning lights illuminate when turn signals are activated.",
-      "Inspect the low fuel warning light for proper operation.",
-      "Check the high beam warning light activates when headlamps are on high beam.",
-      "Verify the instrument illumination control adjusts dashboard lighting properly."
+      "Check the ammeter to monitor the electrical charging system status.",
+      "Inspect the oil pressure gauge to ensure proper engine lubrication readings.",
+      "Check the water temperature gauge to verify engine cooling system operation.",
+      "Verify that the L.H. and R.H. flasher warning lights illuminate when indicators are activated.",
+      "Check the low fuel warning light for proper function before journeys.",
+      "Inspect the high beam warning light to confirm it illuminates when headlamps are on high beam.",
+      "Check that the instrument illumination control adjusts dashboard lighting correctly."
     ]
   },
   {
     "page": 5,
     "title": "GENERAL DIMENSIONS AND DATA FOR QUICK REFERENCE",
     "text": "GENERAL DIMENSIONS AND DATA FOR QUICK REFERENCE\n\nThe chassis number will be found stamped on a plate secured to the front of the\n\nscuttle. This number is also stamped on the front of the ch\nmember\n\nis frame front cross\nThe engine number is stamped on the L.H. bank of the Cylinder Block\nimmediately forward of No. 1 Cylinder,\n\nCylinders are numbered as follows:\n\nR.H. Bank Front to Rear 2—4—6—8\nL.H. Bank Front to Rear |—3—5—7\nBore 105 mm. (4-125 ins.)\n\nStroke\nCubic Capacity\n\n86 mm. (3-375 ins.)\n5.916 ce, (361 cu. ins.)\n\nB.H.P. 305 at 4,800 r.p.m\n\nCompression Ratio 9:1\n\nFiring Order I~ 8—~4 38-59\n\nCoolant Capacity including Heater 24 pints (Imp.), 29 pints (U.S.), 13-638 litres\nOil Sump Capacity 7 pints (Imp,), 8 pints (U.S.), 3-978 litres\n\n(Dipstick top level must not be exceeded)\nEngine Oil Pressure at 40.50 m p-h. 45:65 p.s.i\nGearbox Capacity\n\nAutomatic 15-5 pints (Imp.), 18-5 pints (U.S), 8-808 litres\nManual with Overdrive - J pints (Imp.). 6 pints (U.S.), 2841 litres.\nRear Axle Capacity - 3 pints (Imp.), 3-6 pints (ULS.), 1-705 litres\nFuel Tank Capacity . 16 galls. (Imp.), 19 galls. (U.S.), 72 litres\n\nOVERALL AR RATIOS:\nAutomatic ; Ist TS 31\n2nd 44 01\n3rd 3:07:21\nReverse 6:74: 1\nManual with Overdrive. Ist 9-02 > 1\n2nd 27 y]\n3rd 35401\n\nOverdrive 2-75: 1\n\nReverse IPS: 1\nTyres . Dunlop 6.70 15 road speed\nTyre Pressure - 24 p.s.i. all round (see notes on wheels and tyres\n\npp. 1718) (1-68 kg. sq. em.)\nWheelbase » 8 fl. 9 ins. (2-667 metres)\nTrack (Static laden weight: Front, 4 ft. 7 ii ins. (1-417 metres)\nRear . 4 ft. 8] ins. (1-445 metres)\n\nToe-in (Static laden weight) . + ty ins, (15875 mm.)\nCamber (Static laden weight) | pos.\n\n5",
-    "summary": "This page provides essential vehicle identification locations, engine specifications, fluid capacities, gear ratios, and dimensional data for quick reference on the Jensen C-V8.",
+    "summary": "This page provides essential vehicle identification locations, engine specifications, fluid capacities, gear ratios, tyre specifications, and key dimensions for the Jensen C-V8.",
     "checklist": [
-      "Locate the chassis number on the plate secured to the front of the scuttle or stamped on the front of the frame front cross member.",
-      "Locate the engine number stamped on the L.H. bank of the cylinder block immediately forward of No. 1 cylinder.",
-      "Fill the cooling system including heater to capacity of 24 pints (Imp.) or 29 pints (U.S.).",
-      "Fill the oil sump to 7 pints (Imp.) or 8 pints (U.S.), ensuring the dipstick top level is not exceeded.",
-      "Check engine oil pressure at 40-50 m.p.h. to verify it reads 45-65 p.s.i.",
-      "Fill automatic gearbox to 15.5 pints (Imp.) or manual with overdrive gearbox to 5 pints (Imp.).",
-      "Fill rear axle to capacity of 3 pints (Imp.) or 3.6 pints (U.S.).",
-      "Set tyre pressure to 24 p.s.i. all round and refer to notes on wheels and tyres on pp. 17-18."
+      "Locate the chassis number on the plate secured to the front of the scuttle or stamped on the front chassis frame cross member.",
+      "Locate the engine number stamped on the left-hand bank of the cylinder block immediately forward of No. 1 cylinder.",
+      "Check engine oil level ensuring the dipstick top level is not exceeded, with sump capacity of 7 pints Imperial or 8 pints U.S.",
+      "Verify engine oil pressure reads 45-65 p.s.i. at 40-50 m.p.h.",
+      "Fill automatic gearbox with 15.5 pints Imperial or 18.5 pints U.S. of fluid when servicing.",
+      "Fill manual gearbox with overdrive using 5 pints Imperial or 6 pints U.S. of fluid when servicing.",
+      "Check tyre pressure and maintain at 24 p.s.i. all round, referring to notes on wheels and tyres on pages 17-18.",
+      "Verify toe-in at static laden weight is set to 1/16 inch (1.5875 mm)."
     ]
   },
   {
@@ -278,15 +278,15 @@ export const manualPages = [
     "page": 27,
     "title": "SERVICI",
     "text": "SERVICI\n\nLUBRICATION (continued)\n\nuN\n\nAutomatic\nTransmission\n\nGRADE AND ATTENTION\nCAPACITY, PERIOD DETAILS\nAutomatic 4,000 m. | Check. With engine and trans-\n\nTransmission Fluid | (6,500k.) | mission at normal\n\n‘operating\n\nType *A*, Suffix “A” temperature with handbrake on\nmomentarily engage each gear\nN.B.— Use tun dish ending in neutral. Fluid level\nTor ease of filling. should be at or below “F* mark\nbut never above when in its\nwarmed up condition. Add or\ndelete as necessiry. If abso-\nlutely necessary to check cold,\nfluid should be at s\\ ightly below\na the “add one pin .\n154 pints (Brit. Imp. below this, add pint. Re-check,\nIS} pints (U.S.) | 32,000 m. | Adjust automatic transmission\n8°75 litres (51,000 k.) | and replace oil and filter, This\nshould be done more frequently\nin cars whose operating condi-\n- tions are similar to the follow-\ning:\n(a) Frequently tow trailer\n(b) Operate in heavy traffic: in\nhot weather\n(©) Operate frequently with ab-\nnormal loads.\nManual Transmission Automatic 4,000 m. Check fluid level by removing\nTransmission Fluid (6,500 k.) | filler plug. Replenish to filler\nType “A’, Suffix *A* hole,\n32,000 m. | Drain and relill\nPropeller Shaft MultiPurpose Grease Disassemble, clean and repack\n2 o7s. with grease.\nUniversal Joints\n(a) Front Ball and\nTrunnion NLGI-O of 1 (U,S.)\n(b) Rear Cross and\nRoller\n| Rear Axle Use only 4,000 m. Check and top up.\n. Shell S1747A (6,500 k.)\n| 3 pints (Brit, Imp.) 12,000 m, Di and refill\n| 36 pints (U.S.) (19,500 k.) | N.B. Initial drain and refill at\n1-705 litres | 1,000 miles.\n27",
-    "summary": "This page details the service lubrication intervals and procedures for the automatic transmission, manual transmission, propeller shaft universal joints, and rear axle.",
+    "summary": "This page details the lubrication service intervals and procedures for the automatic transmission, manual transmission, propeller shaft universal joints, and rear axle.",
     "checklist": [
-      "Check automatic transmission fluid level at 4,000 miles with engine and transmission at normal operating temperature, handbrake on, after momentarily engaging each gear and ending in neutral.",
-      "Drain and replace automatic transmission oil and filter at 32,000 miles, or more frequently if towing trailers, operating in heavy traffic in hot weather, or carrying abnormal loads.",
-      "Check manual transmission fluid level at 4,000 miles by removing filler plug and replenish to filler hole as needed.",
-      "Drain and refill manual transmission at 32,000 miles.",
+      "Check automatic transmission fluid level every 4,000 miles with engine and transmission at normal operating temperature, handbrake on, after momentarily engaging each gear and ending in neutral.",
+      "Drain and replace automatic transmission oil and filter every 32,000 miles, or more frequently if towing trailers, operating in heavy traffic during hot weather, or carrying abnormal loads.",
+      "Check manual transmission fluid level every 4,000 miles by removing the filler plug and replenish to the filler hole as needed.",
+      "Drain and refill manual transmission fluid every 32,000 miles.",
       "Disassemble, clean, and repack propeller shaft universal joints with multi-purpose grease (NLGI-0 or 1).",
-      "Check and top up rear axle fluid at 4,000 miles using only Shell S1747A.",
-      "Drain and refill rear axle at 12,000 miles, with initial drain and refill at 1,000 miles."
+      "Check and top up rear axle fluid level every 4,000 miles using only Shell S1747A.",
+      "Drain and refill rear axle at 1,000 miles initially, then every 12,000 miles thereafter."
     ]
   },
   {
