@@ -26,7 +26,7 @@ import {
 import { manualPages as baseManualPages } from './manualPages.js';
 import { mk3ManualPages } from './data/mk3ManualPages.js';
 import { wiringDiagrams, getDiagramForModel, ALL_CIRCUITS } from './data/wiringDiagrams.js';
-import { selectarideInfo } from './data/selectaride.js';
+import { getSelectarideForModel } from './data/selectaride.js';
 import './styles.css';
 
 const topicalSections = [
@@ -419,6 +419,7 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('jensen-model', selectedModel);
+    setSelectarideSection(null); // reset when model changes
   }, [selectedModel]);
 
   useEffect(() => {
@@ -617,15 +618,13 @@ function App() {
         <small>{selectedModel === 'mk3' ? 'Mk III' : 'Mk I & II'} · colourised</small>
       </button>
 
-      {selectedModel !== 'mk3' && (
-        <button
-          className={`wiringNavBtn selectarideNavBtn${showSelectaride ? ' active' : ''}`}
-          onClick={() => { setShowSelectaride(true); setShowWiring(false); setDrawer(false); }}
-        >
-          <Settings size={16} /> Selectaride
-          <small>Mk I & II · shock absorbers</small>
-        </button>
-      )}
+      <button
+        className={`wiringNavBtn selectarideNavBtn${showSelectaride ? ' active' : ''}`}
+        onClick={() => { setShowSelectaride(true); setShowWiring(false); setDrawer(false); }}
+      >
+        <Settings size={16} /> Selectaride
+        <small>{selectedModel === 'mk3' ? 'Mk III' : 'Mk I & II'} · shock absorbers</small>
+      </button>
 
       <h3>Manual Sections</h3>
       <nav className="topics">
@@ -691,8 +690,9 @@ function App() {
 
         {/* ── Selectaride View ──────────────────────────────────── */}
         {showSelectaride && (() => {
+          const info  = getSelectarideForModel(selectedModel);
           const active = selectarideSection
-            ? selectarideInfo.sections.find(s => s.id === selectarideSection)
+            ? info.sections.find(s => s.id === selectarideSection)
             : null;
 
           return (
@@ -700,25 +700,25 @@ function App() {
               <div className="wiringHeader">
                 <div>
                   <button className="backBtn" onClick={() => setShowSelectaride(false)}>← Back to manual</button>
-                  <h2>{selectarideInfo.title}</h2>
-                  <p className="wiringSubtitle">{selectarideInfo.subtitle}</p>
+                  <h2>{info.title}</h2>
+                  <p className="wiringSubtitle">{info.subtitle}</p>
                   <p className="wiringSubtitle" style={{ marginTop: 4 }}>
                     Documentation contributed by:{' '}
-                    {selectarideInfo.contributors.map((c, i) => (
-                      <span key={c.name}><strong>{c.name}</strong>{i < selectarideInfo.contributors.length - 1 ? ' & ' : ''}</span>
+                    {info.contributors.map((c, i) => (
+                      <span key={c.name}><strong>{c.name}</strong>{i < info.contributors.length - 1 ? ' & ' : ''}</span>
                     ))}
                   </p>
                 </div>
                 <div className="wiringHeaderActions">
-                  <a href={selectarideInfo.pdf} download className="dlBtn"><Download size={15} /> Download PDF</a>
-                  <a href={selectarideInfo.pdf} target="_blank" rel="noopener noreferrer" className="dlBtn"><ExternalLink size={15} /> Open full screen</a>
+                  <a href={info.pdf} download className="dlBtn"><Download size={15} /> Download PDF</a>
+                  <a href={info.pdf} target="_blank" rel="noopener noreferrer" className="dlBtn"><ExternalLink size={15} /> Open full screen</a>
                 </div>
               </div>
 
               {/* Overview */}
               <div className="card selectarideOverview">
                 <h3 className="sectionTitle">What is the Selectaride?</h3>
-                {selectarideInfo.overview.split('\n\n').map((para, i) => (
+                {info.overview.split('\n\n').map((para, i) => (
                   <p key={i}>{para}</p>
                 ))}
               </div>
@@ -729,7 +729,7 @@ function App() {
                 <p className="helperText">Select a section to view the diagram and technical notes.</p>
 
                 <div className="selectarideSections">
-                  {selectarideInfo.sections.map(s => (
+                  {info.sections.map(s => (
                     <button
                       key={s.id}
                       className={`selectarideSection${selectarideSection === s.id ? ' active' : ''}`}
@@ -755,7 +755,7 @@ function App() {
                       <div style={{ display: 'flex', gap: 8 }}>
                         <button onClick={() => setSelectarideZoom(z => Math.max(60, z - 20))}><ZoomOut size={16} /></button>
                         <button onClick={() => setSelectarideZoom(z => Math.min(200, z + 20))}><ZoomIn size={16} /></button>
-                        <a href={`${selectarideInfo.pdf}#page=${active.page}`} target="_blank" rel="noopener noreferrer" className="iconBtn"><ExternalLink size={16} /></a>
+                        <a href={`${info.pdf}#page=${active.page}`} target="_blank" rel="noopener noreferrer" className="iconBtn"><ExternalLink size={16} /></a>
                       </div>
                     </div>
 
@@ -765,9 +765,9 @@ function App() {
                     </div>
 
                     <iframe
-                      key={`selectaride-${active.id}`}
+                      key={`selectaride-${info.pdf}-${active.id}`}
                       title={active.title}
-                      src={`${selectarideInfo.pdf}#page=${active.page}&zoom=${selectarideZoom}`}
+                      src={`${info.pdf}#page=${active.page}&zoom=${selectarideZoom}`}
                       className="wiringIframe"
                     />
 
