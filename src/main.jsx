@@ -28,6 +28,7 @@ import { mk3ManualPages } from './data/mk3ManualPages.js';
 import { wiringDiagrams, getDiagramForModel, ALL_CIRCUITS } from './data/wiringDiagrams.js';
 import { getSelectarideForModel } from './data/selectaride.js';
 import { repairCards, repairCategories } from './data/repairCards.js';
+import { restorationArticles, restorationCategories } from './data/restorationArticles.js';
 import './styles.css';
 
 const topicalSections = [
@@ -398,7 +399,9 @@ function App() {
   const [wiringCircuit, setWiringCircuit] = useState('all');
   const [wiringZoom, setWiringZoom] = useState(100);
 
-  const [appMode, setAppMode] = useState('home'); // 'home' | 'workshop' | 'manual'
+  const [appMode, setAppMode] = useState('home'); // 'home' | 'workshop' | 'manual' | 'restoration'
+  const [activeArticleId, setActiveArticleId] = useState(null);
+  const [restorationCategory, setRestorationCategory] = useState('all');
   const [workshopCategory, setWorkshopCategory] = useState('all');
   const [activeCardId, setActiveCardId] = useState(null);
   const [workshopQuery, setWorkshopQuery] = useState('');
@@ -691,8 +694,9 @@ function App() {
         </div>
 
         <nav className="appNav">
-          <button className={appMode === 'home' ? 'active' : ''} onClick={() => { setAppMode('home'); setActiveCardId(null); }}>Home</button>
+          <button className={appMode === 'home' ? 'active' : ''} onClick={() => { setAppMode('home'); setActiveCardId(null); setActiveArticleId(null); }}>Home</button>
           <button className={appMode === 'workshop' ? 'active' : ''} onClick={() => { setAppMode('workshop'); setActiveCardId(null); }}>Workshop</button>
+          <button className={appMode === 'restoration' ? 'active' : ''} onClick={() => { setAppMode('restoration'); setActiveArticleId(null); }}>Restoration</button>
           <button className={appMode === 'manual' ? 'active' : ''} onClick={() => setAppMode('manual')}>Manuals</button>
         </nav>
 
@@ -736,11 +740,11 @@ function App() {
                 <p>Jensen C-V8 owner registry and chassis records.</p>
                 <span className="homeSectionArrow">↗</span>
               </a>
-              <button className="homeSection disabled" onClick={() => {}}>
+              <button className="homeSection" onClick={() => { setAppMode('restoration'); setActiveArticleId(null); }}>
                 <span className="homeSectionIcon">🔩</span>
                 <h3>Restoration Knowledge</h3>
-                <p>Parts suppliers, paint codes, upgrades and restoration guides.</p>
-                <span className="homeSectionComing">Coming soon</span>
+                <p>Upgrade guides, parts advice, paint codes and restoration know-how from the C-V8 community.</p>
+                <span className="homeSectionArrow">→</span>
               </button>
 
               {/* Community tile — full-width, links to forums, social & chat */}
@@ -1016,6 +1020,157 @@ function App() {
                     })}
                   </div>
                 </div>
+              )}
+            </main>
+          );
+        })()}
+
+        {/* ── Restoration Knowledge ─────────────────────── */}
+        {appMode === 'restoration' && (() => {
+          const activeArticle = activeArticleId
+            ? restorationArticles.find(a => a.id === activeArticleId)
+            : null;
+
+          const filteredArticles = restorationCategory === 'all'
+            ? restorationArticles
+            : restorationArticles.filter(a => a.category === restorationCategory);
+
+          // Render a content section
+          const renderSection = (section, idx) => {
+            switch (section.type) {
+              case 'heading':
+                return <h4 key={idx} className="articleH4">{section.content}</h4>;
+              case 'paragraph':
+                return <p key={idx} className="articleParagraph">{section.content}</p>;
+              case 'warning':
+                return <div key={idx} className="articleCallout warning"><AlertTriangle size={18} /><p>{section.content}</p></div>;
+              case 'tip':
+                return <div key={idx} className="articleCallout tip"><Wrench size={18} /><p>{section.content}</p></div>;
+              case 'list':
+                return <ul key={idx} className="articleList">{section.content.map((item, i) => <li key={i}>{item}</li>)}</ul>;
+              case 'steps':
+                return (
+                  <ol key={idx} className="articleSteps">
+                    {section.content.map((step, i) => (
+                      <li key={i}><span>{i + 1}</span><p>{step}</p></li>
+                    ))}
+                  </ol>
+                );
+              case 'parts':
+                return (
+                  <div key={idx} className="articlePartsTable">
+                    {section.content.map((part, i) => (
+                      <div key={i} className="articlePart">
+                        <div className="articlePartTop">
+                          <strong>{part.name}</strong>
+                          {part.partNumber && <code className="partNumber">{part.partNumber}</code>}
+                        </div>
+                        {part.notes && <p>{part.notes}</p>}
+                      </div>
+                    ))}
+                  </div>
+                );
+              case 'costTable':
+                return (
+                  <div key={idx} className="articleCostTable">
+                    <div className="costTableHeader">
+                      <span>Item</span><span>USD</span><span>GBP</span><span>EUR</span>
+                    </div>
+                    {section.content.map((row, i) => (
+                      <div key={i} className={`costTableRow${row.item.toLowerCase().includes('total') ? ' total' : ''}`}>
+                        <span>{row.item}</span><span>{row.usd}</span><span>{row.gbp}</span><span>{row.eur}</span>
+                      </div>
+                    ))}
+                  </div>
+                );
+              default:
+                return null;
+            }
+          };
+
+          return (
+            <main className="restorationMain">
+              {activeArticle ? (
+                /* ── Article detail ── */
+                <div className="articleDetail">
+                  <div className="articleDetailHeader">
+                    <button className="backBtn" onClick={() => setActiveArticleId(null)}>← Back to Restoration</button>
+                    <div className="articleMeta">
+                      <span className="articleCategory">{restorationCategories.find(c => c.id === activeArticle.category)?.emoji} {restorationCategories.find(c => c.id === activeArticle.category)?.label}</span>
+                      <span className="articleDifficulty diff-{activeArticle.difficulty}">{activeArticle.difficulty}</span>
+                      <span className="articleReadTime">📖 {activeArticle.readTime}</span>
+                    </div>
+                    <h2>{activeArticle.title}</h2>
+                    <p className="articleSubtitle">{activeArticle.subtitle}</p>
+                  </div>
+
+                  <div className="card articleBody">
+                    <p className="articleIntro">{activeArticle.intro}</p>
+                    {activeArticle.sections.map((s, i) => renderSection(s, i))}
+
+                    {activeArticle.contributors?.length > 0 && (
+                      <div className="articleCredits">
+                        <strong>Contributors:</strong> {activeArticle.contributors.join(', ')}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Manual cross-references */}
+                  {activeArticle.sections.some(s => s.type === 'list' && s.content.some(i => i.includes('manual'))) && (
+                    <div className="card">
+                      <h3 className="sectionTitle">Manual References</h3>
+                      <div className="manualRefButtons">
+                        <button className="manualRefBtn" onClick={() => { setAppMode('manual'); goPage(29); }}>
+                          <BookOpen size={14} /> Mk III — Ignition p. 29–30
+                        </button>
+                        <button className="manualRefBtn" onClick={() => { setAppMode('manual'); goPage(5); }}>
+                          <BookOpen size={14} /> Base Manual — Specs p. 5–6
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                /* ── Article list ── */
+                <>
+                  <div className="restorationHeader">
+                    <h2>Restoration Knowledge</h2>
+                    <p>Community guides, upgrade how-tos and restoration know-how for the Jensen C-V8.</p>
+                  </div>
+
+                  <div className="categoryFilters">
+                    <button className={restorationCategory === 'all' ? 'active' : ''} onClick={() => setRestorationCategory('all')}>All</button>
+                    {restorationCategories.map(c => (
+                      <button key={c.id} className={restorationCategory === c.id ? 'active' : ''} onClick={() => setRestorationCategory(c.id)}>
+                        {c.emoji} {c.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="articleGrid">
+                    {filteredArticles.map(article => (
+                      <button key={article.id} className="articleCard" onClick={() => setActiveArticleId(article.id)}>
+                        <div className="articleCardTop">
+                          <span className="articleCategory">{restorationCategories.find(c => c.id === article.category)?.emoji} {restorationCategories.find(c => c.id === article.category)?.label}</span>
+                          <span className="articleDifficulty">{article.difficulty}</span>
+                        </div>
+                        <h3>{article.title}</h3>
+                        <p>{article.subtitle}</p>
+                        <div className="articleCardFooter">
+                          <span>{article.readTime}</span>
+                          <span className="articleCardTags">{article.tags.slice(0, 3).map(t => <span key={t} className="sectionCardTag">{t}</span>)}</span>
+                        </div>
+                      </button>
+                    ))}
+
+                    {filteredArticles.length === 0 && (
+                      <div className="emptyChecklist" style={{ gridColumn: '1/-1' }}>
+                        <Wrench size={24} />
+                        <p>No articles in this category yet. More guides will be added as the community contributes them.</p>
+                      </div>
+                    )}
+                  </div>
+                </>
               )}
             </main>
           );
