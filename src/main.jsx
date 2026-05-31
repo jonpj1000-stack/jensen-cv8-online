@@ -20,11 +20,13 @@ import {
   Save,
   Download,
   Copy,
-  Zap
+  Zap,
+  Settings
 } from 'lucide-react';
 import { manualPages as baseManualPages } from './manualPages.js';
 import { mk3ManualPages } from './data/mk3ManualPages.js';
 import { wiringDiagrams, getDiagramForModel, ALL_CIRCUITS } from './data/wiringDiagrams.js';
+import { selectarideInfo } from './data/selectaride.js';
 import './styles.css';
 
 const topicalSections = [
@@ -388,6 +390,9 @@ function App() {
   const [sectionFilter, setSectionFilter] = useState('all');
   const [activePageTag, setActivePageTag] = useState(null);
   const [showWiring, setShowWiring] = useState(false);
+  const [showSelectaride, setShowSelectaride] = useState(false);
+  const [selectarideSection, setSelectarideSection] = useState(null); // active section id
+  const [selectarideZoom, setSelectarideZoom] = useState(100);
   const [wiringQuery, setWiringQuery] = useState('');
   const [wiringCircuit, setWiringCircuit] = useState('all');
   const [wiringZoom, setWiringZoom] = useState(100);
@@ -606,11 +611,21 @@ function App() {
 
       <button
         className={`wiringNavBtn${showWiring ? ' active' : ''}`}
-        onClick={() => { setShowWiring(true); setDrawer(false); }}
+        onClick={() => { setShowWiring(true); setShowSelectaride(false); setDrawer(false); }}
       >
         <Zap size={16} /> Wiring Diagrams
         <small>{selectedModel === 'mk3' ? 'Mk III' : 'Mk I & II'} · colourised</small>
       </button>
+
+      {selectedModel !== 'mk3' && (
+        <button
+          className={`wiringNavBtn selectarideNavBtn${showSelectaride ? ' active' : ''}`}
+          onClick={() => { setShowSelectaride(true); setShowWiring(false); setDrawer(false); }}
+        >
+          <Settings size={16} /> Selectaride
+          <small>Mk I & II · shock absorbers</small>
+        </button>
+      )}
 
       <h3>Manual Sections</h3>
       <nav className="topics">
@@ -673,6 +688,99 @@ function App() {
 
       <div className="layout">
         {pageList}
+
+        {/* ── Selectaride View ──────────────────────────────────── */}
+        {showSelectaride && (() => {
+          const active = selectarideSection
+            ? selectarideInfo.sections.find(s => s.id === selectarideSection)
+            : null;
+
+          return (
+            <main className="wiringMain">
+              <div className="wiringHeader">
+                <div>
+                  <button className="backBtn" onClick={() => setShowSelectaride(false)}>← Back to manual</button>
+                  <h2>{selectarideInfo.title}</h2>
+                  <p className="wiringSubtitle">{selectarideInfo.subtitle}</p>
+                  <p className="wiringSubtitle" style={{ marginTop: 4 }}>
+                    Documentation contributed by:{' '}
+                    {selectarideInfo.contributors.map((c, i) => (
+                      <span key={c.name}><strong>{c.name}</strong>{i < selectarideInfo.contributors.length - 1 ? ' & ' : ''}</span>
+                    ))}
+                  </p>
+                </div>
+                <div className="wiringHeaderActions">
+                  <a href={selectarideInfo.pdf} download className="dlBtn"><Download size={15} /> Download PDF</a>
+                  <a href={selectarideInfo.pdf} target="_blank" rel="noopener noreferrer" className="dlBtn"><ExternalLink size={15} /> Open full screen</a>
+                </div>
+              </div>
+
+              {/* Overview */}
+              <div className="card selectarideOverview">
+                <h3 className="sectionTitle">What is the Selectaride?</h3>
+                {selectarideInfo.overview.split('\n\n').map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
+
+              {/* Section navigator */}
+              <div className="card">
+                <h3 className="sectionTitle">Diagrams & documentation</h3>
+                <p className="helperText">Select a section to view the diagram and technical notes.</p>
+
+                <div className="selectarideSections">
+                  {selectarideInfo.sections.map(s => (
+                    <button
+                      key={s.id}
+                      className={`selectarideSection${selectarideSection === s.id ? ' active' : ''}`}
+                      onClick={() => setSelectarideSection(selectarideSection === s.id ? null : s.id)}
+                    >
+                      <div className="selectarideSectionTop">
+                        <strong>{s.title}</strong>
+                        <span className="sectionCardPages">PDF p. {s.page}</span>
+                      </div>
+                      <p>{s.subtitle}</p>
+                      <div className="sectionCardTags">
+                        {s.tags.slice(0, 5).map(t => <span key={t} className="sectionCardTag">{t}</span>)}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Diagram viewer for selected section */}
+                {active && (
+                  <div className="selectarideViewer">
+                    <div className="viewerTop">
+                      <h3>{active.title}</h3>
+                      <div style={{ display: 'flex', gap: 8 }}>
+                        <button onClick={() => setSelectarideZoom(z => Math.max(60, z - 20))}><ZoomOut size={16} /></button>
+                        <button onClick={() => setSelectarideZoom(z => Math.min(200, z + 20))}><ZoomIn size={16} /></button>
+                        <a href={`${selectarideInfo.pdf}#page=${active.page}`} target="_blank" rel="noopener noreferrer" className="iconBtn"><ExternalLink size={16} /></a>
+                      </div>
+                    </div>
+
+                    <div className="pdfPageHint">
+                      <span>📄 PDF page <strong>{active.page}</strong></span>
+                      <span className="pdfPageHintNote">If the wrong page shows, tap ↗ to open and navigate manually.</span>
+                    </div>
+
+                    <iframe
+                      key={`selectaride-${active.id}`}
+                      title={active.title}
+                      src={`${selectarideInfo.pdf}#page=${active.page}&zoom=${selectarideZoom}`}
+                      className="wiringIframe"
+                    />
+
+                    <div className="selectarideNotes">
+                      <h4>Technical notes</h4>
+                      <p>{active.notes}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </main>
+          );
+        })()}
 
         {/* ── Wiring Diagram View ───────────────────────────────── */}
         {showWiring && (() => {
@@ -783,7 +891,7 @@ function App() {
           );
         })()}
 
-        <main style={showWiring ? { display: 'none' } : {}}>
+        <main style={(showWiring || showSelectaride) ? { display: 'none' } : {}}>
           <section className="hero">
             <div className="heroTop">
               <div>

@@ -44,6 +44,22 @@
 .sectionCard h4{margin:0 0 10px;font-size:15px;color:#0b3d2e;line-height:1.35}
 .sectionCardTags{display:flex;flex-wrap:wrap;gap:5px}
 .sectionCardTag{background:#f0ebe0;color:#5c3a00;border-radius:6px;padding:3px 8px;font-size:11px;font-weight:700}
+/* ── Selectaride ───────────────────────────────── */
+.selectarideNavBtn{margin-top:-6px;opacity:.88;font-size:13px}
+.selectarideOverview p{font-size:15px;line-height:1.7;color:#17211d;margin:0 0 14px}
+.selectarideOverview p:last-child{margin-bottom:0}
+.selectarideSections{display:grid;gap:10px;margin-bottom:20px}
+.selectarideSection{background:white;border:1px solid #e3d9be;border-radius:16px;padding:16px;text-align:left;cursor:pointer;transition:box-shadow .15s}
+.selectarideSection:hover{box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.selectarideSection.active{border-color:#0b3d2e;border-width:2px;background:#f5faf8}
+.selectarideSectionTop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.selectarideSectionTop strong{color:#0b3d2e;font-size:14px;line-height:1.3}
+.selectarideSection p{font-size:13px;color:#555;margin:4px 0 8px;line-height:1.4}
+.selectarideViewer{margin-top:20px;padding-top:20px;border-top:1px solid #e3d9be}
+.selectarideNotes{background:#f9f6ee;border:1px solid #e3d9be;border-radius:14px;padding:16px;margin-top:14px}
+.selectarideNotes h4{margin:0 0 8px;color:#0b3d2e;font-size:15px}
+.selectarideNotes p{margin:0;font-size:14px;line-height:1.6;color:#333}
+.iconBtn{display:inline-flex;align-items:center;border:none;background:#5c1f1b;color:white;border-radius:8px;padding:8px 10px;cursor:pointer;text-decoration:none}
 /* ── Wiring diagram ────────────────────────────── */
 .wiringNavBtn{display:flex;gap:10px;align-items:center;border:1px solid #c9a34e;background:rgba(201,163,78,.08);border-radius:16px;padding:12px;text-align:left;color:#17211d;font-weight:800;cursor:pointer;margin-bottom:14px;width:100%}
 .wiringNavBtn small{opacity:.7;font-weight:500;margin-left:auto}
