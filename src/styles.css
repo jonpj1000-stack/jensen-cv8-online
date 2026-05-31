@@ -450,21 +450,22 @@
 .homeSectionArrow{margin-top:auto;font-size:20px;font-weight:900;color:#c9a34e;align-self:flex-end}
 .homeSection.primary .homeSectionArrow{color:rgba(255,255,255,.6)}
 .homeSectionComing{margin-top:auto;align-self:flex-start;background:#e8d9be;color:#5c3a00;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700}
-/* Community tile — spans full width below the 2×2 grid */
-.communitySection{grid-column:1/-1;flex-direction:column;align-items:flex-start;gap:16px;cursor:default}
-.communitySection:hover{transform:none;box-shadow:0 4px 20px rgba(0,0,0,.12)}
+/* Community tile — spans full width, dark green background */
+.communitySection{grid-column:1/-1;flex-direction:column;align-items:flex-start;gap:18px;cursor:default;background:#0b3d2e;border:1px solid rgba(255,255,255,.12);color:white}
+.communitySection:hover{transform:none;box-shadow:0 4px 20px rgba(0,0,0,.2)}
 .communitySectionHeader{display:flex;align-items:center;gap:14px;width:100%}
-.communitySectionHeader h3{margin:0 0 4px;font-size:20px}
-.communitySectionHeader p{margin:0;opacity:.8;font-size:14px}
+.communitySectionHeader .homeSectionIcon{font-size:32px}
+.communitySectionHeader h3{margin:0 0 4px;font-size:20px;color:white}
+.communitySectionHeader p{margin:0;color:rgba(255,255,255,.7);font-size:14px}
 .communityLinks{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:100%}
-.communityLink{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:12px 14px;text-decoration:none;color:white;transition:background .15s}
-.communityLink:hover{background:rgba(255,255,255,.16)}
-.communityLink strong{display:block;font-size:14px;font-weight:800}
-.communityLink span{font-size:12px;opacity:.75;display:block;margin-top:2px}
-.communityLogo{width:36px;height:36px;object-fit:contain;flex:0 0 36px;filter:brightness(10)}
-.communityLinkIcon{font-size:28px;flex:0 0 36px;text-align:center}
-.communityArrow{flex:0 0 auto;margin-left:auto;opacity:.6}
-@media(max-width:600px){.communityLinks{grid-template-columns:1fr}}
+.communityLink{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 16px;text-decoration:none;color:white;transition:background .15s,border-color .15s}
+.communityLink:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.25)}
+.communityLink strong{display:block;font-size:14px;font-weight:800;color:white}
+.communityLink span{font-size:12px;color:rgba(255,255,255,.6);display:block;margin-top:2px}
+.communityLogo{width:38px;height:38px;object-fit:contain;flex:0 0 38px}
+.communityLinkIconWrap{width:38px;height:38px;flex:0 0 38px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.communityArrow{flex:0 0 auto;margin-left:auto;opacity:.5;color:white}
+@media(max-width:640px){.communityLinks{grid-template-columns:1fr}}
 
 /* ── Workshop View ─────────────────────────────────────────────────────────── */
 .workshopView{grid-column:1/-1;max-width:1100px;margin:0 auto;padding:0}
