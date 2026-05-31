@@ -169,13 +169,24 @@
   position:sticky;
   top:0;
   z-index:20;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  flex-wrap:nowrap;
+  gap:16px;
+  padding:12px 24px;
+  background:rgba(6,40,31,.94);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,.12);
+  color:white;
 }
 
 .brand{
   display:flex;
   align-items:center;
   gap:14px;
-  flex:1;
+  flex:0 0 auto;      /* don't grow — let nav take remaining space */
+  margin-right:auto;  /* push nav and headerRight to the right */
 }
 
 .brand img{
@@ -224,7 +235,15 @@
   font-size:12px;
   font-weight:700;
   opacity:.8;
+  color:inherit; /* explicit — relies on parent for colour context */
 }
+/* Eyebrow on dark/green backgrounds needs to be visible */
+.workshopView .eyebrow,
+.repairCardDetail .eyebrow,
+.repairGrid .eyebrow,
+.restorationMain .eyebrow,
+.homePage .eyebrow,
+.homeHero .eyebrow{color:#c9a34e;opacity:1}
 
 .heroStats{
   display:grid;
@@ -425,9 +444,10 @@
 }
 
 /* ── App Navigation ────────────────────────────────────────────────────────── */
-.appNav{display:flex;gap:6px;align-items:center;flex:1;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;flex-wrap:nowrap}
+/* appNav — must override the generic nav{flex-direction:column} rule */
+.appNav{display:flex;flex-direction:row !important;gap:6px;align-items:center;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;flex-shrink:1;min-width:0}
 .appNav::-webkit-scrollbar{display:none}
-.appNav button{border:1px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.8);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:background .12s,color .12s;white-space:nowrap;flex-shrink:0}
+.appNav button{border:1px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.85);border-radius:999px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;transition:background .12s,color .12s;white-space:nowrap;flex-shrink:0;display:inline-block}
 .appNav button:hover{background:rgba(255,255,255,.1);color:white}
 .appNav button.active{background:#c9a34e;color:#06281f;border-color:#c9a34e}
 /* Header right cluster */
@@ -543,10 +563,10 @@
   .toolsPartsGrid{grid-template-columns:1fr}
   .workshopCardGrid{grid-template-columns:1fr}
   /* Nav wraps to second row on small screens */
-  header{flex-wrap:wrap;row-gap:8px}
-  .brand{flex:1;min-width:0}
-  .headerRight{flex-shrink:0}
-  .appNav{order:10;width:100%;border-top:1px solid rgba(255,255,255,.1);padding-top:8px;gap:6px;flex:none;justify-content:flex-start}
+  .topBar{flex-wrap:wrap;row-gap:8px;padding:10px 14px}
+  .brand{margin-right:0}
+  .headerRight{margin-left:auto}
+  .appNav{order:10;width:100%;border-top:1px solid rgba(255,255,255,.1);padding-top:8px;gap:6px;margin-right:0}
   .appNav button{padding:7px 13px;font-size:12px}
   .cardDetailHeader h2{font-size:28px}
   .workshopView,.repairCardDetail,.homePage{grid-column:1}
