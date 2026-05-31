@@ -19,10 +19,12 @@ import {
   Image as ImageIcon,
   Save,
   Download,
-  Copy
+  Copy,
+  Zap
 } from 'lucide-react';
 import { manualPages as baseManualPages } from './manualPages.js';
 import { mk3ManualPages } from './data/mk3ManualPages.js';
+import { wiringDiagrams, getDiagramForModel, ALL_CIRCUITS } from './data/wiringDiagrams.js';
 import './styles.css';
 
 const topicalSections = [
@@ -354,6 +356,10 @@ function App() {
   const [checkedItems, setCheckedItems] = useState({});  // key: `${model}:${page}:${idx}`
   const [sectionFilter, setSectionFilter] = useState('all');
   const [activePageTag, setActivePageTag] = useState(null);
+  const [showWiring, setShowWiring] = useState(false);
+  const [wiringQuery, setWiringQuery] = useState('');
+  const [wiringCircuit, setWiringCircuit] = useState('all');
+  const [wiringZoom, setWiringZoom] = useState(100);
 
   const [ocrEdits, setOcrEdits] = useState(() => {
     try {
@@ -567,6 +573,14 @@ function App() {
         </div>
       )}
 
+      <button
+        className={`wiringNavBtn${showWiring ? ' active' : ''}`}
+        onClick={() => { setShowWiring(true); setDrawer(false); }}
+      >
+        <Zap size={16} /> Wiring Diagrams
+        <small>{selectedModel === 'mk3' ? 'Mk III' : 'Mk I & II'} · colourised</small>
+      </button>
+
       <h3>Manual Sections</h3>
       <nav className="topics">
         {activeTopicalSections.map(s => (
@@ -629,7 +643,115 @@ function App() {
       <div className="layout">
         {pageList}
 
-        <main>
+        {/* ── Wiring Diagram View ───────────────────────────────── */}
+        {showWiring && (() => {
+          const diagram = getDiagramForModel(selectedModel);
+          const wq = wiringQuery.trim().toLowerCase();
+          const filtered = diagram.components.filter(c => {
+            const circuitMatch = wiringCircuit === 'all' || c.circuit === wiringCircuit;
+            const textMatch = !wq ||
+              c.name.toLowerCase().includes(wq) ||
+              c.notes.toLowerCase().includes(wq) ||
+              c.wires.some(w => w.toLowerCase().includes(wq)) ||
+              c.circuit.toLowerCase().includes(wq);
+            return circuitMatch && textMatch;
+          });
+
+          return (
+            <main className="wiringMain">
+              <div className="wiringHeader">
+                <div>
+                  <button className="backBtn" onClick={() => setShowWiring(false)}>
+                    ← Back to manual
+                  </button>
+                  <h2>{diagram.title}</h2>
+                  <p className="wiringSubtitle">{diagram.subtitle} · <em>{diagram.credit}</em></p>
+                  {selectedModel === 'all' && (
+                    <p className="wiringNote">
+                      Showing Mk I &amp; II diagram. Select Mk III in the model selector for the Mk III diagram.
+                    </p>
+                  )}
+                </div>
+                <div className="wiringHeaderActions">
+                  <a href={diagram.pdf} download className="dlBtn">
+                    <Download size={15} /> Download PDF
+                  </a>
+                  <a href={diagram.pdf} target="_blank" rel="noopener noreferrer" className="dlBtn">
+                    <ExternalLink size={15} /> Open full screen
+                  </a>
+                </div>
+              </div>
+
+              {/* PDF viewer */}
+              <div className="card wiringViewer">
+                <div className="viewerTop">
+                  <h3>Wiring diagram — {diagram.title}</h3>
+                  <div style={{ display: 'flex', gap: 8 }}>
+                    <button onClick={() => setWiringZoom(z => Math.max(60, z - 20))}><ZoomOut size={16} /></button>
+                    <button onClick={() => setWiringZoom(z => Math.min(200, z + 20))}><ZoomIn size={16} /></button>
+                  </div>
+                </div>
+                <iframe
+                  title={diagram.title}
+                  src={`${diagram.pdf}#zoom=${wiringZoom}`}
+                  className="wiringIframe"
+                />
+              </div>
+
+              {/* Component guide */}
+              <div className="card">
+                <h3 className="sectionTitle">Component & wire colour guide</h3>
+                <p className="helperText">Search by component name, wire colour or circuit. Tap a row to see wiring details.</p>
+
+                <div className="wiringSearch">
+                  <Search size={16} />
+                  <input
+                    value={wiringQuery}
+                    onChange={e => setWiringQuery(e.target.value)}
+                    placeholder="Search: alternator, Blue/White, ignition, horn…"
+                  />
+                  {wiringQuery && <button onClick={() => setWiringQuery('')}>Clear</button>}
+                </div>
+
+                <div className="wiringCircuitFilters">
+                  <button className={wiringCircuit === 'all' ? 'active' : ''} onClick={() => setWiringCircuit('all')}>All circuits</button>
+                  {ALL_CIRCUITS.map(c => (
+                    <button key={c} className={wiringCircuit === c ? 'active' : ''} onClick={() => setWiringCircuit(c)}>{c}</button>
+                  ))}
+                </div>
+
+                {filtered.length === 0 ? (
+                  <div className="emptyChecklist">
+                    <Zap size={24} />
+                    <p>No components match your search. Try a wire colour or circuit name.</p>
+                  </div>
+                ) : (
+                  <div className="wiringComponents">
+                    {filtered.map(c => (
+                      <div key={c.name} className="wiringComponent">
+                        <div className="wiringComponentTop">
+                          <strong>{c.name}</strong>
+                          <span className="wiringCircuitBadge">{c.circuit}</span>
+                        </div>
+                        <div className="wiringWires">
+                          {c.wires.map(w => {
+                            const colour = w.split('(')[0].trim().split('/')[0].trim().toLowerCase();
+                            return (
+                              <span key={w} className={`wirePill wire-${colour.replace(/\s/g,'-')}`}>{w}</span>
+                            );
+                          })}
+                        </div>
+                        <p className="wiringNotes">{c.notes}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </main>
+          );
+        })()}
+
+        <main style={showWiring ? { display: 'none' } : {}}>
           <section className="hero">
             <div className="heroTop">
               <div>
