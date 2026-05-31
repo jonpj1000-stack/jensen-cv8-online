@@ -5,7 +5,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "regenerate": "node scripts/regenerate-summaries.mjs",
-    "regenerate:dry": "node scripts/regenerate-summaries.mjs --dry-run"
+    "regenerate:dry": "node scripts/regenerate-summaries.mjs --dry-run",
+    "make-icons": "node scripts/make-icons.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
@@ -15,6 +16,7 @@
     "vite": "latest"
   },
   "devDependencies": {
-    "@anthropic-ai/sdk": "^0.100.1"
+    "@anthropic-ai/sdk": "^0.100.1",
+    "sharp": "^0.34.5"
   }
 }
