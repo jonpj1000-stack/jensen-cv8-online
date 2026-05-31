@@ -759,17 +759,29 @@ function App() {
                       </div>
                     </div>
 
-                    <div className="pdfPageHint">
-                      <span>📄 PDF page <strong>{active.page}</strong></span>
-                      <span className="pdfPageHintNote">If the wrong page shows, tap ↗ to open and navigate manually.</span>
-                    </div>
-
-                    <iframe
-                      key={`selectaride-${info.pdf}-${active.id}`}
-                      title={active.title}
-                      src={`${info.pdf}#page=${active.page}&zoom=${selectarideZoom}`}
-                      className="wiringIframe"
-                    />
+                    {active.image ? (
+                      <div className="selectarideImgWrap">
+                        <img
+                          src={active.image}
+                          alt={active.title}
+                          className="selectarideImg"
+                          style={{ transform: `scale(${selectarideZoom / 100})`, transformOrigin: 'top left' }}
+                        />
+                      </div>
+                    ) : (
+                      <>
+                        <div className="pdfPageHint">
+                          <span>📄 PDF page <strong>{active.page}</strong></span>
+                          <span className="pdfPageHintNote">If the wrong page shows, tap ↗ to open and navigate manually.</span>
+                        </div>
+                        <iframe
+                          key={`selectaride-${info.pdf}-${active.id}`}
+                          title={active.title}
+                          src={`${info.pdf}#page=${active.page}&zoom=${selectarideZoom}`}
+                          className="wiringIframe"
+                        />
+                      </>
+                    )}
 
                     <div className="selectarideNotes">
                       <h4>Technical notes</h4>
