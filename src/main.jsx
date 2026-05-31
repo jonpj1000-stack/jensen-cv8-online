@@ -283,6 +283,53 @@ function tagMatchesText(tag, text) {
   return normaliseForMatch(text).includes(normaliseForMatch(tag));
 }
 
+// For maintenance-schedule pages the OCR text is structured as:
+//   C-4,000 MILES (6,437 KMs)
+//   C1 — Steering Rack — Grease Gun (1 nipple).
+//   C2 — Brake Balance Lever — Grease Gun (1 nipple).
+//   ...
+//   G—20,000 MILES
+//   G1 — Sparking Plugs — Replace.
+//   ...
+//
+// This function finds the section whose header contains the target mileage
+// and returns the items listed beneath it.
+function extractSectionItems(ocrText, tag) {
+  if (!ocrText) return [];
+
+  // Only try this for mileage-style tags e.g. "4000 miles", "1000 miles"
+  const tagNum = tag.replace(/[^\d]/g, '');
+  if (!tagNum || tagNum.length < 3) return [];
+
+  const lines = ocrText.split('\n').map(l => l.trim()).filter(Boolean);
+  let collecting = false;
+  const items = [];
+
+  for (const line of lines) {
+    // Detect a mileage section header: line contains a 4+ digit number followed by miles/km
+    const headerMatch = line.match(/([\d,]{4,})\s*(miles?|km)/i);
+
+    if (headerMatch) {
+      const lineNum = headerMatch[1].replace(/,/g, '');
+      if (lineNum === tagNum) {
+        collecting = true;   // this is our section
+        continue;
+      } else if (collecting) {
+        break;               // different mileage section — stop
+      }
+      continue;
+    }
+
+    if (collecting && line.length > 3) {
+      // Strip item-code prefixes like "C1 —", "G10 —", "A1 —"
+      const cleaned = line.replace(/^[A-Z]\d+\.?\s*[—–\-]+\s*/, '').trim();
+      if (cleaned.length > 4) items.push(cleaned);
+    }
+  }
+
+  return items;
+}
+
 function highlight(text, q) {
   if (!q.trim()) return text;
 
@@ -781,10 +828,16 @@ function App() {
                   ? page.checklist.filter(item => IMPERATIVE_VERBS.test(item))
                   : extractKeyFacts(currentText);
 
-                // Apply tag filter if one is active
-                const filteredItems = activePageTag
-                  ? allItems.filter(item => tagMatchesText(activePageTag, item))
-                  : allItems;
+                // Apply tag filter if one is active.
+                // 1. Try structured section extraction first (handles maintenance schedule format).
+                // 2. Fall back to plain text-match filtering on existing items.
+                let filteredItems = allItems;
+                if (activePageTag) {
+                  const sectionItems = extractSectionItems(currentText, activePageTag);
+                  filteredItems = sectionItems.length > 0
+                    ? sectionItems
+                    : allItems.filter(item => tagMatchesText(activePageTag, item));
+                }
 
                 const isFiltered = !!activePageTag;
 
