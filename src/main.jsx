@@ -273,6 +273,16 @@ function classifyPage(page) {
   return 'reference';
 }
 
+// Normalise a tag or text for matching — strip commas from numbers so
+// "4000 miles" matches "4,000 miles" in OCR text, and vice-versa.
+function normaliseForMatch(str) {
+  return str.toLowerCase().replace(/(\d),(\d)/g, '$1$2').replace(/\s+/g, ' ').trim();
+}
+
+function tagMatchesText(tag, text) {
+  return normaliseForMatch(text).includes(normaliseForMatch(tag));
+}
+
 function highlight(text, q) {
   if (!q.trim()) return text;
 
@@ -296,6 +306,7 @@ function App() {
   const [copied, setCopied] = useState(false);
   const [checkedItems, setCheckedItems] = useState({});  // key: `${model}:${page}:${idx}`
   const [sectionFilter, setSectionFilter] = useState('all');
+  const [activePageTag, setActivePageTag] = useState(null);
 
   const [ocrEdits, setOcrEdits] = useState(() => {
     try {
@@ -411,6 +422,7 @@ function App() {
 
     setDrawer(false);
     setCopied(false);
+    setActivePageTag(null);
   };
 
   const goPreviousPage = () => goPage(pageNo - 1, -1);
@@ -695,8 +707,19 @@ function App() {
               return tags.length > 0 ? (
                 <div className="tagPills">
                   {tags.map(tag => (
-                    <button key={tag} className="tagPill" onClick={() => setQuery(tag)}>{tag}</button>
+                    <button
+                      key={tag}
+                      className={`tagPill${activePageTag === tag ? ' active' : ''}`}
+                      onClick={() => setActivePageTag(activePageTag === tag ? null : tag)}
+                    >
+                      {tag}
+                    </button>
                   ))}
+                  {activePageTag && (
+                    <button className="tagPillClear" onClick={() => setActivePageTag(null)}>
+                      ✕ Clear filter
+                    </button>
+                  )}
                 </div>
               ) : null;
             })()}
@@ -754,39 +777,58 @@ function App() {
 
               {pageCategory === 'repair' && (() => {
                 const qualityChecklist = hasQualityChecklist(page.checklist);
-                const keyFacts = qualityChecklist ? [] : extractKeyFacts(currentText);
+                const allItems = qualityChecklist
+                  ? page.checklist.filter(item => IMPERATIVE_VERBS.test(item))
+                  : extractKeyFacts(currentText);
+
+                // Apply tag filter if one is active
+                const filteredItems = activePageTag
+                  ? allItems.filter(item => tagMatchesText(activePageTag, item))
+                  : allItems;
+
+                const isFiltered = !!activePageTag;
+
                 return (
                   <>
                     {page.summary && !page.summary.startsWith(GENERIC_SUMMARY) && (
                       <p>{page.summary}</p>
                     )}
-                    {qualityChecklist ? (
+
+                    {isFiltered && (
+                      <div className="filterNotice">
+                        <span>Showing steps for: <strong>{activePageTag}</strong></span>
+                        <button className="inlineLink" onClick={() => setActivePageTag(null)}>Show all</button>
+                      </div>
+                    )}
+
+                    {filteredItems.length > 0 ? (
                       <>
-                        <p className="helperText">Repair steps for this page:</p>
+                        <p className="helperText">
+                          {qualityChecklist ? 'Repair steps for this page:' : 'Key service facts extracted from this page:'}
+                          {isFiltered && ` (${filteredItems.length} of ${allItems.length})`}
+                        </p>
                         <ol className="checklist compact">
-                          {page.checklist.filter(item => IMPERATIVE_VERBS.test(item)).slice(0, 6).map((item, i) => (
+                          {filteredItems.slice(0, 8).map((item, i) => (
                             <li key={item}>
                               <span>{i + 1}</span>
                               <p>{item}</p>
                             </li>
                           ))}
                         </ol>
+                        {!qualityChecklist && (
+                          <p className="helperText dimText">
+                            Extracted from OCR text. Fix errors in the <button className="inlineLink" onClick={() => setMode('edit')}>Edit OCR tab</button>.
+                          </p>
+                        )}
                       </>
-                    ) : keyFacts.length > 0 ? (
-                      <>
-                        <p className="helperText">Key service facts extracted from this page:</p>
-                        <ul className="keyFacts">
-                          {keyFacts.map((fact, i) => (
-                            <li key={i}>
-                              <span><Wrench size={14} /></span>
-                              <p>{fact}</p>
-                            </li>
-                          ))}
-                        </ul>
-                        <p className="helperText dimText">
-                          These are extracted directly from the OCR text. Correct any OCR errors in the <button className="inlineLink" onClick={() => setMode('edit')}>Edit OCR tab</button> to improve accuracy.
+                    ) : isFiltered ? (
+                      <div className="emptyChecklist">
+                        <Wrench size={24} />
+                        <p>
+                          No steps found specifically for <strong>{activePageTag}</strong> on this page.{' '}
+                          <button className="inlineLink" onClick={() => setActivePageTag(null)}>Show all steps</button>
                         </p>
-                      </>
+                      </div>
                     ) : (
                       <div className="emptyChecklist">
                         <Wrench size={24} />
