@@ -27,6 +27,7 @@ import { manualPages as baseManualPages } from './manualPages.js';
 import { mk3ManualPages } from './data/mk3ManualPages.js';
 import { wiringDiagrams, getDiagramForModel, ALL_CIRCUITS } from './data/wiringDiagrams.js';
 import { getSelectarideForModel } from './data/selectaride.js';
+import { repairCards, repairCategories } from './data/repairCards.js';
 import './styles.css';
 
 const topicalSections = [
@@ -397,6 +398,11 @@ function App() {
   const [wiringCircuit, setWiringCircuit] = useState('all');
   const [wiringZoom, setWiringZoom] = useState(100);
 
+  const [appMode, setAppMode] = useState('home'); // 'home' | 'workshop' | 'manual'
+  const [workshopCategory, setWorkshopCategory] = useState('all');
+  const [activeCardId, setActiveCardId] = useState(null);
+  const [workshopQuery, setWorkshopQuery] = useState('');
+
   const [ocrEdits, setOcrEdits] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem('jensen-ocr-edits') || '{}');
@@ -589,6 +595,8 @@ function App() {
         <button onClick={() => setDrawer(false)}><X size={20} /></button>
       </div>
 
+      <button className="sidebarHomeBtn" onClick={() => { setAppMode('home'); setDrawer(false); }}>← Home</button>
+
       <div className="searchBox">
         <label><Search size={16} /> Search manual</label>
         <input
@@ -667,18 +675,26 @@ function App() {
   return (
     <div className="app">
       <header className="topBar">
-        <button className="hamburger" onClick={() => setDrawer(true)}>
-          <Menu />
-        </button>
+        {appMode === 'manual' && (
+          <button className="hamburger" onClick={() => setDrawer(true)}>
+            <Menu />
+          </button>
+        )}
 
         <div className="brand">
           <img src="/jensen-logo.png" alt="Jensen logo" />
           <div>
             <p>Jensen C-V8</p>
-            <h1>Online Manual</h1>
+            <h1>Workshop Companion</h1>
             <small>{selectedModelLabel}</small>
           </div>
         </div>
+
+        <nav className="appNav">
+          <button className={appMode === 'home' ? 'active' : ''} onClick={() => { setAppMode('home'); setActiveCardId(null); }}>Home</button>
+          <button className={appMode === 'workshop' ? 'active' : ''} onClick={() => { setAppMode('workshop'); setActiveCardId(null); }}>Workshop</button>
+          <button className={appMode === 'manual' ? 'active' : ''} onClick={() => setAppMode('manual')}>Manuals</button>
+        </nav>
 
         <button className="openPdf" onClick={() => openPdf()}>
           Open PDF
@@ -686,7 +702,266 @@ function App() {
       </header>
 
       <div className="layout">
-        {pageList}
+
+        {/* ── Home Mode ─────────────────────────────────── */}
+        {appMode === 'home' && (
+          <main className="homePage">
+            <div className="homeHero">
+              <p className="eyebrow">Jensen C-V8</p>
+              <h2>Workshop Companion</h2>
+              <p>Repair guides, maintenance schedules, wiring diagrams and original manuals — everything you need in the driveway.</p>
+              <select value={selectedModel} onChange={e => setSelectedModel(e.target.value)} className="modelSelect homeModelSelect">
+                <option value="all">All Jensen C-V8 Models</option>
+                <option value="mk1">Jensen C-V8 Mk I</option>
+                <option value="mk2">Jensen C-V8 Mk II</option>
+                <option value="mk3">Jensen C-V8 Mk III</option>
+              </select>
+            </div>
+            <div className="homeSections">
+              <button className="homeSection primary" onClick={() => setAppMode('workshop')}>
+                <span className="homeSectionIcon">🔧</span>
+                <h3>Repair &amp; Maintenance</h3>
+                <p>Task-oriented repair cards, troubleshooting guides and maintenance schedules.</p>
+                <span className="homeSectionArrow">→</span>
+              </button>
+              <button className="homeSection" onClick={() => setAppMode('manual')}>
+                <span className="homeSectionIcon">📖</span>
+                <h3>Manuals &amp; Diagrams</h3>
+                <p>Original scanned manuals, wiring diagrams and OCR text search.</p>
+                <span className="homeSectionArrow">→</span>
+              </button>
+              <a href="https://www.jensencv8registry.com" target="_blank" rel="noopener noreferrer" className="homeSection">
+                <span className="homeSectionIcon">🚗</span>
+                <h3>Registry</h3>
+                <p>Jensen C-V8 owner registry and chassis records.</p>
+                <span className="homeSectionArrow">↗</span>
+              </a>
+              <button className="homeSection disabled" onClick={() => {}}>
+                <span className="homeSectionIcon">🔩</span>
+                <h3>Restoration Knowledge</h3>
+                <p>Parts suppliers, paint codes, upgrades and restoration guides.</p>
+                <span className="homeSectionComing">Coming soon</span>
+              </button>
+            </div>
+          </main>
+        )}
+
+        {/* ── Workshop Mode ─────────────────────────────── */}
+        {appMode === 'workshop' && !activeCardId && (() => {
+          const filteredCards = repairCards.filter(card => {
+            const modelMatch = selectedModel === 'all' || card.models.includes('all') || card.models.includes(selectedModel);
+            const catMatch = workshopCategory === 'all' || card.category === workshopCategory;
+            const q = workshopQuery.trim().toLowerCase();
+            const textMatch = !q || card.title.toLowerCase().includes(q) || card.subtitle.toLowerCase().includes(q) || card.overview.toLowerCase().includes(q) || card.symptoms.some(s => s.toLowerCase().includes(q));
+            return modelMatch && catMatch && textMatch;
+          });
+
+          const difficultyColour = { easy: 'diffEasy', moderate: 'diffModerate', advanced: 'diffAdvanced' };
+
+          return (
+            <main className="workshopView">
+              <div className="workshopHeader">
+                <div>
+                  <p className="eyebrow">Workshop Companion</p>
+                  <h2>Repair &amp; Maintenance</h2>
+                </div>
+                <div className="workshopHeaderControls">
+                  <div className="workshopSearch">
+                    <Search size={16} />
+                    <input
+                      value={workshopQuery}
+                      onChange={e => setWorkshopQuery(e.target.value)}
+                      placeholder="Search: overheating, brake servo, idle..."
+                    />
+                    {workshopQuery && <button onClick={() => setWorkshopQuery('')}>Clear</button>}
+                  </div>
+                  <select value={selectedModel} onChange={e => setSelectedModel(e.target.value)} className="modelSelect">
+                    <option value="all">All Models</option>
+                    <option value="mk1">Mk I</option>
+                    <option value="mk2">Mk II</option>
+                    <option value="mk3">Mk III</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="workshopCategoryFilters">
+                <button className={workshopCategory === 'all' ? 'active' : ''} onClick={() => setWorkshopCategory('all')}>All</button>
+                {repairCategories.map(cat => (
+                  <button key={cat.id} className={workshopCategory === cat.id ? 'active' : ''} onClick={() => setWorkshopCategory(cat.id)}>
+                    {cat.emoji} {cat.label}
+                  </button>
+                ))}
+              </div>
+
+              {filteredCards.length === 0 ? (
+                <div className="workshopEmpty">
+                  <Wrench size={32} />
+                  <p>No repair cards match your search. Try different keywords or clear the filter.</p>
+                </div>
+              ) : (
+                <div className="workshopCardGrid">
+                  {filteredCards.map(card => {
+                    const cat = repairCategories.find(c => c.id === card.category);
+                    return (
+                      <button key={card.id} className="workshopCard" onClick={() => setActiveCardId(card.id)}>
+                        <div className="workshopCardTop">
+                          <span className="workshopCardCat">{cat?.emoji} {cat?.label}</span>
+                          <span className={`workshopCardDiff ${difficultyColour[card.difficulty]}`}>{card.difficulty}</span>
+                        </div>
+                        <h3>{card.title}</h3>
+                        <p className="workshopCardSubtitle">{card.subtitle}</p>
+                        <p className="workshopCardOverview">{card.overview.slice(0, 120)}…</p>
+                        {card.symptoms.length > 0 && (
+                          <div className="workshopCardSymptoms">
+                            <AlertTriangle size={12} />
+                            <span>{card.symptoms.slice(0, 2).join(' · ')}</span>
+                          </div>
+                        )}
+                        <span className="workshopCardArrow">View card →</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </main>
+          );
+        })()}
+
+        {/* ── Workshop Card Detail ───────────────────────── */}
+        {appMode === 'workshop' && activeCardId && (() => {
+          const card = repairCards.find(c => c.id === activeCardId);
+          if (!card) return null;
+          const cat = repairCategories.find(c => c.id === card.category);
+          const difficultyColour = { easy: 'diffEasy', moderate: 'diffModerate', advanced: 'diffAdvanced' };
+
+          return (
+            <main className="repairCardDetail">
+              <button className="backBtn workshopBackBtn" onClick={() => setActiveCardId(null)}>← Back to Workshop</button>
+
+              <div className="cardDetailHeader">
+                <div className="cardDetailHeaderLeft">
+                  <div className="cardDetailBadges">
+                    <span className="workshopCardCat">{cat?.emoji} {cat?.label}</span>
+                    <span className={`workshopCardDiff ${difficultyColour[card.difficulty]}`}>{card.difficulty}</span>
+                    {card.models[0] !== 'all' && (
+                      <span className="workshopCardModel">{card.models.map(m => m.toUpperCase()).join(' · ')}</span>
+                    )}
+                  </div>
+                  <h2>{card.title}</h2>
+                  <p className="cardDetailSubtitle">{card.subtitle}</p>
+                </div>
+              </div>
+
+              <div className="cardDetailSection">
+                <p className="cardDetailOverview">{card.overview}</p>
+              </div>
+
+              {card.symptoms.length > 0 && (
+                <div className="cardDetailSection">
+                  <h3 className="cardDetailSectionTitle"><AlertTriangle size={18} /> Symptoms</h3>
+                  <ul className="cardDetailList symptomList">
+                    {card.symptoms.map((s, i) => <li key={i}>{s}</li>)}
+                  </ul>
+                </div>
+              )}
+
+              <div className="toolsPartsGrid">
+                <div className="cardDetailSection">
+                  <h3 className="cardDetailSectionTitle"><Wrench size={18} /> Tools Required</h3>
+                  <ul className="cardDetailList">
+                    {card.tools.length > 0 ? card.tools.map((t, i) => <li key={i}>{t}</li>) : <li>Standard hand tools</li>}
+                  </ul>
+                </div>
+                <div className="cardDetailSection">
+                  <h3 className="cardDetailSectionTitle"><Settings size={18} /> Parts &amp; Materials</h3>
+                  <ul className="cardDetailList">
+                    {card.parts.length > 0 ? card.parts.map((p, i) => <li key={i}>{p}</li>) : <li>No replacement parts required</li>}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="cardDetailSection">
+                <h3 className="cardDetailSectionTitle"><ClipboardList size={18} /> Procedure</h3>
+                <ol className="procedureList">
+                  {card.procedure.map((step, i) => (
+                    <li key={i}>
+                      <span className="procedureStep">{i + 1}</span>
+                      <p>{step}</p>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              {card.checklist.length > 0 && (() => {
+                const checkedCount = card.checklist.filter((_, i) => checkedItems[`card:${card.id}:${i}`]).length;
+                const clearCardChecks = () => {
+                  const next = { ...checkedItems };
+                  card.checklist.forEach((_, i) => delete next[`card:${card.id}:${i}`]);
+                  setCheckedItems(next);
+                };
+                return (
+                  <div className="cardDetailSection">
+                    <div className="checklistHeader">
+                      <div>
+                        <h3 className="cardDetailSectionTitle" style={{ margin: 0 }}><ClipboardList size={18} /> Checklist</h3>
+                        <p className="helperText">{checkedCount} of {card.checklist.length} checked</p>
+                      </div>
+                      {checkedCount > 0 && <button className="clearBtn" onClick={clearCardChecks}>Clear</button>}
+                    </div>
+                    <ul className="interactiveChecklist">
+                      {card.checklist.map((item, i) => {
+                        const key = `card:${card.id}:${i}`;
+                        const checked = !!checkedItems[key];
+                        return (
+                          <li key={i} className={checked ? 'checked' : ''} onClick={() => setCheckedItems(prev => ({ ...prev, [key]: !prev[key] }))}>
+                            <span className="checkbox">{checked ? '✓' : ''}</span>
+                            <p>{item}</p>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                );
+              })()}
+
+              {card.manualRefs.length > 0 && (
+                <div className="cardDetailSection">
+                  <h3 className="cardDetailSectionTitle"><BookOpen size={18} /> Manual References</h3>
+                  <div className="manualRefButtons">
+                    {card.manualRefs.map((ref, i) => {
+                      const isAvailable = ref.model === 'base' ? selectedModel !== 'mk3' : selectedModel === 'mk3' || selectedModel === 'all';
+                      return (
+                        <button
+                          key={i}
+                          className={`manualRefBtn${!isAvailable ? ' muted' : ''}`}
+                          onClick={() => {
+                            if (ref.model !== selectedModel && ref.model !== 'base') {
+                              setSelectedModel('mk3');
+                            } else if (ref.model === 'base' && selectedModel === 'mk3') {
+                              setSelectedModel('all');
+                            }
+                            goPage(ref.pages[0]);
+                            setAppMode('manual');
+                          }}
+                        >
+                          <BookOpen size={14} />
+                          <span>{ref.label}</span>
+                          <small>p. {ref.pages.join(', ')} · {ref.model === 'mk3' ? 'Mk III manual' : 'Base manual'}</small>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </main>
+          );
+        })()}
+
+        {/* ── Manual Mode ───────────────────────────────── */}
+        {appMode === 'manual' && pageList}
+
+        {/* ── Manual Mode Content ──────────────────────────────── */}
+        {appMode === 'manual' && <>
 
         {/* ── Selectaride View ──────────────────────────────────── */}
         {showSelectaride && (() => {
@@ -1430,6 +1705,9 @@ function App() {
             </section>
           )}
         </main>
+
+        </> /* end appMode === 'manual' */}
+
       </div>
     </div>
   );

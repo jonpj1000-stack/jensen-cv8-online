@@ -422,3 +422,104 @@
 .hero > div:nth-child(2) strong {
   color: #172033 !important;
 }
+
+/* ── App Navigation ────────────────────────────────────────────────────────── */
+.appNav{display:flex;gap:6px;align-items:center}
+.appNav button{border:1px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.8);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:700;cursor:pointer;transition:background .12s,color .12s}
+.appNav button:hover{background:rgba(255,255,255,.1);color:white}
+.appNav button.active{background:#c9a34e;color:#06281f;border-color:#c9a34e}
+
+/* ── Home Page ─────────────────────────────────────────────────────────────── */
+.homePage{max-width:1100px;margin:0 auto;padding:0;grid-column:1/-1}
+.homeHero{background:linear-gradient(135deg,#0b3d2e,#164d3a);color:white;border-radius:32px;padding:48px 56px;margin-bottom:28px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.homeHero .eyebrow{color:#c9a34e;margin:0 0 8px}
+.homeHero h2{font-size:52px;line-height:1.05;margin:0 0 16px;max-width:700px}
+.homeHero p{font-size:18px;line-height:1.65;opacity:.9;max-width:600px;margin:0 0 24px}
+.homeModelSelect{display:block;max-width:320px}
+.homeSections{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.homeSection{background:#fbf7ea;border:1px solid #e3d9be;border-radius:28px;padding:32px;text-align:left;cursor:pointer;transition:box-shadow .18s,transform .18s;position:relative;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit}
+.homeSection:hover{box-shadow:0 12px 36px rgba(0,0,0,.15);transform:translateY(-3px)}
+.homeSection.primary{background:linear-gradient(135deg,#5c1f1b,#7a2828);color:white;border-color:transparent}
+.homeSection.primary h3{color:white}
+.homeSection.primary p{color:rgba(255,255,255,.85)}
+.homeSection.disabled{opacity:.6;cursor:default}
+.homeSection.disabled:hover{box-shadow:none;transform:none}
+.homeSectionIcon{font-size:32px;display:block;margin-bottom:4px}
+.homeSection h3{margin:0;font-size:20px;color:#0b3d2e}
+.homeSection p{margin:0;font-size:14px;line-height:1.6;color:#555}
+.homeSectionArrow{margin-top:auto;font-size:20px;font-weight:900;color:#c9a34e;align-self:flex-end}
+.homeSection.primary .homeSectionArrow{color:rgba(255,255,255,.6)}
+.homeSectionComing{margin-top:auto;align-self:flex-start;background:#e8d9be;color:#5c3a00;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700}
+
+/* ── Workshop View ─────────────────────────────────────────────────────────── */
+.workshopView{grid-column:1/-1;max-width:1100px;margin:0 auto;padding:0}
+.workshopHeader{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.workshopHeader h2{color:white;font-size:36px;margin:6px 0 0}
+.workshopHeaderControls{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.workshopSearch{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:10px 14px;color:white}
+.workshopSearch input{border:none;background:transparent;outline:none;color:white;font-size:14px;min-width:220px}
+.workshopSearch input::placeholder{color:rgba(255,255,255,.5)}
+.workshopSearch button{border:none;background:rgba(255,255,255,.15);color:white;border-radius:8px;padding:4px 10px;font-weight:700;cursor:pointer}
+.workshopCategoryFilters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.workshopCategoryFilters button{border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;transition:background .12s}
+.workshopCategoryFilters button:hover{background:rgba(255,255,255,.15)}
+.workshopCategoryFilters button.active{background:#c9a34e;color:#06281f;border-color:#c9a34e}
+.workshopEmpty{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:24px;padding:48px;display:flex;flex-direction:column;align-items:center;gap:16px;color:rgba(255,255,255,.7);text-align:center}
+.workshopCardGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.workshopCard{background:#fbf7ea;border:1px solid #e3d9be;border-radius:24px;padding:24px;text-align:left;cursor:pointer;transition:box-shadow .15s,transform .15s;display:flex;flex-direction:column;gap:8px}
+.workshopCard:hover{box-shadow:0 10px 30px rgba(0,0,0,.18);transform:translateY(-3px)}
+.workshopCardTop{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.workshopCardCat{font-size:12px;font-weight:800;color:#5c3a00;background:#f0e8d0;border-radius:999px;padding:4px 10px}
+.workshopCardDiff{font-size:11px;font-weight:800;border-radius:999px;padding:3px 10px;text-transform:capitalize}
+.diffEasy{background:#d4edda;color:#155724}
+.diffModerate{background:#fff3cd;color:#856404}
+.diffAdvanced{background:#f8d7da;color:#721c24}
+.workshopCardModel{font-size:11px;font-weight:800;background:#e8ecf0;color:#444;border-radius:999px;padding:3px 10px}
+.workshopCard h3{margin:0;font-size:17px;color:#0b3d2e;line-height:1.3}
+.workshopCardSubtitle{margin:0;font-size:13px;font-weight:700;color:#888}
+.workshopCardOverview{margin:0;font-size:13px;color:#444;line-height:1.5}
+.workshopCardSymptoms{display:flex;align-items:center;gap:6px;font-size:12px;color:#856404;background:#fff3cd;border-radius:8px;padding:6px 10px}
+.workshopCardArrow{margin-top:auto;font-size:13px;font-weight:800;color:#5c1f1b;align-self:flex-end}
+
+/* ── Repair Card Detail ────────────────────────────────────────────────────── */
+.repairCardDetail{grid-column:1/-1;max-width:900px;margin:0 auto;padding:0}
+.workshopBackBtn{margin-bottom:20px;display:inline-block}
+.cardDetailHeader{margin-bottom:24px}
+.cardDetailBadges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.cardDetailHeader h2{color:white;font-size:40px;margin:0 0 8px;line-height:1.1}
+.cardDetailSubtitle{color:rgba(255,255,255,.7);font-size:16px;margin:0}
+.cardDetailSection{background:#fbf7ea;border:1px solid #e3d9be;border-radius:28px;padding:28px;margin-bottom:18px}
+.cardDetailOverview{font-size:16px;line-height:1.7;color:#17211d;margin:0}
+.cardDetailSectionTitle{display:flex;align-items:center;gap:10px;color:#0b3d2e;margin:0 0 14px;font-size:18px}
+.cardDetailList{padding:0;margin:0;list-style:none}
+.cardDetailList li{position:relative;padding:7px 0 7px 20px;border-bottom:1px solid #ece5d0;font-size:14px;line-height:1.55;color:#17211d}
+.cardDetailList li:last-child{border-bottom:none}
+.cardDetailList li::before{content:'•';position:absolute;left:4px;color:#c9a34e;font-weight:900}
+.symptomList li::before{content:'⚠';left:0;font-size:12px}
+.toolsPartsGrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+.procedureList{list-style:none;padding:0;margin:0}
+.procedureList li{display:flex;gap:16px;align-items:flex-start;background:white;border:1px solid #e3d9be;border-radius:18px;padding:16px;margin:10px 0}
+.procedureList li:first-child{margin-top:0}
+.procedureStep{width:36px;height:36px;border-radius:50%;background:#0b3d2e;color:white;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex:0 0 36px}
+.procedureList li p{margin:4px 0 0;line-height:1.6;font-size:15px}
+.manualRefButtons{display:flex;flex-wrap:wrap;gap:10px}
+.manualRefBtn{display:inline-flex;align-items:center;gap:8px;background:white;border:1px solid #c9a34e;border-radius:14px;padding:12px 16px;cursor:pointer;text-align:left;transition:background .12s}
+.manualRefBtn:hover{background:#f0e8d0}
+.manualRefBtn span{font-weight:700;color:#0b3d2e;font-size:14px}
+.manualRefBtn small{color:#888;display:block;font-size:12px;margin-top:2px}
+.manualRefBtn.muted{opacity:.6}
+.sidebarHomeBtn{display:block;width:100%;border:1px solid #c9a34e;background:transparent;color:#0b3d2e;border-radius:12px;padding:9px 14px;font-weight:700;font-size:13px;cursor:pointer;margin-bottom:14px;text-align:left}
+.sidebarHomeBtn:hover{background:#f0e8d0}
+
+/* ── Responsive ────────────────────────────────────────────────────────────── */
+@media(max-width:900px){
+  .homeSections{grid-template-columns:1fr}
+  .homeHero{padding:28px 24px}
+  .homeHero h2{font-size:34px}
+  .toolsPartsGrid{grid-template-columns:1fr}
+  .workshopCardGrid{grid-template-columns:1fr}
+  .appNav{gap:4px}
+  .appNav button{padding:7px 10px;font-size:12px}
+  .cardDetailHeader h2{font-size:28px}
+  .workshopView,.repairCardDetail,.homePage{grid-column:1}
+}
