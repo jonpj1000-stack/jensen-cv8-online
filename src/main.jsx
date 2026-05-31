@@ -58,7 +58,7 @@ const baseSectionDefs = [
   { title: 'Tyres, Wheels & Alignment',      pages: [18, 19],      category: 'wheels',       tags: ['tyres', 'wheels', 'alignment', 'toe-in', 'camber', 'bearings', 'tyre pressure'] },
   { title: 'Cooling, Heating & Rear Axle',   pages: [20, 21],      category: 'cooling',      tags: ['cooling', 'radiator', 'antifreeze', 'heater', 'rear axle', 'fan belt', 'powr-lok'] },
   { title: 'Interior & Owner Information',   pages: [22, 23, 24],  category: 'interior',     tags: ['seats', 'upholstery', 'interior', 'owner', 'chassis number'] },
-  { title: 'Service Lubrication',            pages: [25, 26, 27, 28], category: 'service',   tags: ['service', 'lubrication', 'grease points', 'intervals', 'capacities', 'oil change'] },
+  { title: 'Service Lubrication',            pages: [25, 26, 27, 28], category: 'service',   tags: ['service', 'lubrication', 'grease points', 'capacities', 'oil change'] },
   { title: 'Index',                          pages: [29],          category: 'overview',     tags: ['index'] },
   { title: 'Vehicle Particulars',            pages: [31, 32],      category: 'overview',     tags: ['chassis number', 'engine number', 'registration', 'delivery'] },
 ];
@@ -72,7 +72,7 @@ const mk3SectionDefs = [
   { title: 'Controls & Instruments',             pages: [11, 12, 13],  category: 'overview',    tags: ['controls', 'instruments', 'gauges', 'switches', 'headlights', 'horn', 'heater fan', 'selectaride', 'speedometer', 'ammeter', 'oil pressure'] },
   { title: 'Starting Up & Running',              pages: [15, 16, 17, 18], category: 'mechanical', tags: ['starting', 'running-in', 'gearbox', 'overdrive', 'towing', 'push starting', 'choke', 'transmission'] },
   { title: 'Engine Lubrication System',          pages: [19],          category: 'lubrication', tags: ['engine oil', 'oil filter', 'sump', 'oil change', 'dipstick', 'oil pressure', '4000 miles'] },
-  { title: 'Maintenance Schedule',               pages: [20, 21, 22],  category: 'service',     tags: ['maintenance', 'service intervals', '1000 miles', '4000 miles', '20000 miles', 'king pin', 'spark plugs', 'lubrication diagram', 'grease points'] },
+  { title: 'Maintenance Schedule',               pages: [20, 21, 22],  category: 'service',     tags: ['maintenance', 'service intervals', 'king pin', 'spark plugs', 'lubrication diagram', 'grease points'] },
   { title: 'Fuel System & Carburettor',          pages: [23, 24, 25, 26, 27], category: 'fuel', tags: ['fuel', 'carburettor', 'choke', 'throttle', 'idle', 'accelerator', 'air cleaner', 'crankcase vent'] },
   { title: 'Ignition',                           pages: [29, 30],      category: 'electrical',  tags: ['ignition', 'contact breaker', 'timing', 'distributor', 'coil', 'ballast resistor'] },
   { title: 'Cooling System',                     pages: [31, 32],      category: 'cooling',     tags: ['cooling', 'radiator', 'coolant', 'fan', 'thermostat', 'antifreeze', 'electric fans'] },
@@ -298,7 +298,7 @@ function tagMatchesText(tag, text) {
 function extractSectionItems(ocrText, tag) {
   if (!ocrText) return [];
 
-  // Only try this for mileage-style tags e.g. "4000 miles", "1000 miles"
+  // Only try this for mileage-style tags e.g. "4000 miles", "4,000 miles"
   const tagNum = tag.replace(/[^\d]/g, '');
   if (!tagNum || tagNum.length < 3) return [];
 
@@ -329,6 +329,31 @@ function extractSectionItems(ocrText, tag) {
   }
 
   return items;
+}
+
+// Extract mileage-interval tags directly from OCR text (e.g. "4,000 MILES" → "4000 miles").
+// Returns a numerically-sorted array so pills appear in chronological order.
+function extractMileageTags(text) {
+  if (!text) return [];
+  const matches = [...text.matchAll(/([\d,]+)\s*miles/gi)];
+  const nums = new Set();
+  for (const m of matches) {
+    const n = parseInt(m[1].replace(/,/g, ''), 10);
+    if (n >= 500 && n <= 150000) nums.add(n); // ignore OCR garbage outside plausible range
+  }
+  return [...nums]
+    .sort((a, b) => a - b)
+    .map(n => `${n.toLocaleString()} miles`); // "4,000 miles" — consistent with OCR text
+}
+
+// Build the tag list for a page:
+// • Non-mileage section tags come from the section definition (stable, curated)
+// • Mileage tags are extracted live from the page's OCR text (accurate per-page)
+function buildPageTags(pageNum, model, ocrText) {
+  const sectionTags = getSectionInfo(pageNum, model)?.tags || [];
+  const nonMileage  = sectionTags.filter(t => !/\d.*miles/i.test(t));
+  const mileage     = extractMileageTags(ocrText);
+  return [...nonMileage, ...mileage];
 }
 
 // Detect if a page's OCR text references lubrication point codes (A1, B1, C2 etc.)
@@ -877,9 +902,9 @@ function App() {
               </p>
             )}
 
-            {/* Tag pills */}
+            {/* Tag pills — non-mileage from section def, mileage extracted live from OCR */}
             {(() => {
-              const tags = getSectionInfo(page.page, selectedModel)?.tags || [];
+              const tags = buildPageTags(page.page, selectedModel, currentText);
               return tags.length > 0 ? (
                 <div className="tagPills">
                   {tags.map(tag => (
