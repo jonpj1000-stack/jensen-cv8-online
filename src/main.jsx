@@ -72,8 +72,7 @@ const mk3SectionDefs = [
   { title: 'Controls & Instruments',             pages: [11, 12, 13],  category: 'overview',    tags: ['controls', 'instruments', 'gauges', 'switches', 'headlights', 'horn', 'heater fan', 'selectaride', 'speedometer', 'ammeter', 'oil pressure'] },
   { title: 'Starting Up & Running',              pages: [15, 16, 17, 18], category: 'mechanical', tags: ['starting', 'running-in', 'gearbox', 'overdrive', 'towing', 'push starting', 'choke', 'transmission'] },
   { title: 'Engine Lubrication System',          pages: [19],          category: 'lubrication', tags: ['engine oil', 'oil filter', 'sump', 'oil change', 'dipstick', 'oil pressure', '4000 miles'] },
-  { title: 'Lubrication Diagram',                pages: [20],          category: 'lubrication', tags: ['lubrication', 'diagram', 'grease points'] },
-  { title: 'Maintenance Schedule',               pages: [21, 22],      category: 'service',     tags: ['maintenance', 'service intervals', '1000 miles', '4000 miles', '20000 miles', 'king pin', 'spark plugs'] },
+  { title: 'Maintenance Schedule',               pages: [20, 21, 22],  category: 'service',     tags: ['maintenance', 'service intervals', '1000 miles', '4000 miles', '20000 miles', 'king pin', 'spark plugs', 'lubrication diagram', 'grease points'] },
   { title: 'Fuel System & Carburettor',          pages: [23, 24, 25, 26, 27], category: 'fuel', tags: ['fuel', 'carburettor', 'choke', 'throttle', 'idle', 'accelerator', 'air cleaner', 'crankcase vent'] },
   { title: 'Ignition',                           pages: [29, 30],      category: 'electrical',  tags: ['ignition', 'contact breaker', 'timing', 'distributor', 'coil', 'ballast resistor'] },
   { title: 'Cooling System',                     pages: [31, 32],      category: 'cooling',     tags: ['cooling', 'radiator', 'coolant', 'fan', 'thermostat', 'antifreeze', 'electric fans'] },
@@ -330,6 +329,13 @@ function extractSectionItems(ocrText, tag) {
   }
 
   return items;
+}
+
+// Detect if a page's OCR text references lubrication point codes (A1, B1, C2 etc.)
+// These codes refer to the lubrication diagram on Mk III page 20.
+const LUB_CODE_RE = /\b[A-J]\d+\s*[—–\-]/;
+function referencesLubDiagram(text) {
+  return LUB_CODE_RE.test(text || '');
 }
 
 function highlight(text, q) {
@@ -923,6 +929,26 @@ function App() {
               <div className="editedBadge"><Save size={12} /> OCR edited</div>
             )}
 
+            {/* Lubrication diagram cross-reference — shown on Mk III maintenance pages */}
+            {selectedModel === 'mk3' && referencesLubDiagram(currentText) && page.page !== 20 && (
+              <div className="lubRefBanner">
+                <span>📍 This page references lubrication point codes (A1, C2 etc.)</span>
+                <button onClick={() => goPage(20)}>
+                  View lubrication diagram — p. 20
+                </button>
+              </div>
+            )}
+
+            {/* On the diagram page itself, link forward to the schedule */}
+            {selectedModel === 'mk3' && page.page === 20 && (
+              <div className="lubRefBanner">
+                <span>📋 The codes on this diagram are referenced in the maintenance schedule</span>
+                <button onClick={() => goPage(21)}>
+                  View maintenance schedule — p. 21
+                </button>
+              </div>
+            )}
+
             <div className="buttons">
               <button onClick={goPreviousPage}><ChevronLeft size={16} /> Previous</button>
               <button onClick={goNextPage}>Next <ChevronRight size={16} /></button>
@@ -932,6 +958,13 @@ function App() {
 
           {mode === 'cards' && (
             <section className="card repairCard">
+              {selectedModel === 'mk3' && referencesLubDiagram(currentText) && page.page !== 20 && (
+                <div className="lubRefBanner lubRefBannerCard">
+                  <span>📍 References lubrication codes — see the diagram for locations</span>
+                  <button onClick={() => goPage(20)}>View diagram p. 20</button>
+                </div>
+              )}
+
               <div className="repairCardTop">
                 <div>
                   <p className="eyebrow">

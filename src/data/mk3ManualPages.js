@@ -366,21 +366,27 @@ export const mk3ManualPages = [
     "modelLabel": "Jensen C-V8 Mk III",
     "page": 20,
     "sourcePage": 20,
-    "title": "Lubrication and maintenance diagram",
-    "summary": "Lubrication and maintenance diagram plus first 1,000 mile service points. Best viewed as the original scan.",
-    "plainEnglish": "Lubrication and maintenance diagram plus first 1,000 mile service points. Best viewed as the original scan.",
-    "ocrText": "|\nao\" H 08\npo ' Zr\n| ——, a\nna ee in\nEa ae\nw—S4 ee a\na) Sr Se ee\nott ig et\noe a ==\nRee | Aor — 5-02\nothe Se\nEAS et\na oe\n|\n[| hivbi\nOh)\ncon 5 UR [i] com\nx a = sie\n| 7 —-3) -\nFig 3\nLUBRICATION AND MAINTENANCE\nFIRST 1,000 MILES SERVICE\nPR following special service is necessary sfter the car has covered tho\n1,000 miles,\nDrain and refill axle. Tighten driving belt i\n'Check contect breakers, and adjust if goon\n'necessary. Check 'system.\nCheck staring and front end geometry. Check tyre pressures.\n'Check hydraulic reservoirs for fluid. pers fights.\nbraking system.\n'Check water level and connections and tighten if necessary.",
+    "title": "Lubrication Diagram & First Service",
+    "summary": "Chassis lubrication point diagram (Fig. 3) identifying all grease and check points by code (A1–J1), followed by the First 1,000 Miles service checklist.",
+    "plainEnglish": "Chassis lubrication point diagram (Fig. 3) identifying all grease and check points by code (A1–J1), followed by the First 1,000 Miles service checklist.",
+    "ocrText": "Fig. 3\n\nLUBRICATION AND MAINTENANCE\n\nFIRST 1,000 MILES SERVICE\n\nThe following special service is necessary after the car has covered the first 1,000 miles.\n\nDrain and refill axle.\nCheck contact breakers, and adjust if necessary.\nCheck steering and front end geometry.\nCheck hydraulic reservoirs for fluid.\nTighten driving belt if necessary.\nCheck electrical system.\nCheck tyre pressures.\nCheck lights.\nCheck braking system.\nCheck water level and connections and tighten if necessary.",
     "checklist": [
-      "LUBRICATION AND MAINTENANCE",
-      "'Check contect breakers, and adjust if goon",
-      "Check staring and front end geometry.",
-      "'Check hydraulic reservoirs for fluid.",
-      "'Check water level and connections and tighten if necessary."
+      "Drain and refill the rear axle.",
+      "Check contact breakers and adjust if necessary.",
+      "Check steering and front end geometry.",
+      "Check all hydraulic reservoirs for fluid level.",
+      "Tighten the driving belt if necessary.",
+      "Check the electrical system.",
+      "Check tyre pressures.",
+      "Check all lights.",
+      "Check braking system.",
+      "Check water level and connections and tighten if necessary."
     ],
     "sourcePdf": "/manuals/jensen-cv8-mk3-instruction-manual.pdf",
-    "type": "diagram",
+    "type": "text",
     "hidden": false,
-    "isImageOnly": true
+    "isImageOnly": false,
+    "lubricationDiagram": true
   },
   {
     "id": "mk3-p21",
