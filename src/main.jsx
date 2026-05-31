@@ -1109,7 +1109,8 @@ function App() {
                     <button className="backBtn" onClick={() => setActiveArticleId(null)}>← Back to Restoration</button>
                     <div className="articleMeta">
                       <span className="articleCategory">{restorationCategories.find(c => c.id === activeArticle.category)?.emoji} {restorationCategories.find(c => c.id === activeArticle.category)?.label}</span>
-                      <span className="articleDifficulty diff-{activeArticle.difficulty}">{activeArticle.difficulty}</span>
+                      {activeArticle.severity === 'critical' && <span className="severityBadge">⚠️ Safety Critical</span>}
+                      <span className="articleDifficulty">{activeArticle.difficulty}</span>
                       <span className="articleReadTime">📖 {activeArticle.readTime}</span>
                     </div>
                     <h2>{activeArticle.title}</h2>
@@ -1123,6 +1124,11 @@ function App() {
                     {activeArticle.contributors?.length > 0 && (
                       <div className="articleCredits">
                         <strong>Contributors:</strong> {activeArticle.contributors.join(', ')}
+                        {activeArticle.sourceUrl && (
+                          <> · <a href={activeArticle.sourceUrl} target="_blank" rel="noopener noreferrer" className="articleSourceLink">
+                            View original discussion <ExternalLink size={12} />
+                          </a></>
+                        )}
                       </div>
                     )}
                   </div>
@@ -1164,7 +1170,10 @@ function App() {
                       <button key={article.id} className="articleCard" onClick={() => setActiveArticleId(article.id)}>
                         <div className="articleCardTop">
                           <span className="articleCategory">{restorationCategories.find(c => c.id === article.category)?.emoji} {restorationCategories.find(c => c.id === article.category)?.label}</span>
-                          <span className="articleDifficulty">{article.difficulty}</span>
+                          {article.severity === 'critical'
+                            ? <span className="severityBadge severityBadgeCard">⚠️ Safety Critical</span>
+                            : <span className="articleDifficulty">{article.difficulty}</span>
+                          }
                         </div>
                         <h3>{article.title}</h3>
                         <p>{article.subtitle}</p>

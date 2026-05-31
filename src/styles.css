@@ -611,3 +611,7 @@
 .manualRefBtn{display:inline-flex;align-items:center;gap:8px;border:none;background:#0b3d2e;color:#c9a34e;border-radius:12px;padding:10px 14px;font-weight:800;font-size:13px;cursor:pointer}
 .manualRefBtn:hover{background:#164d3a}
 @media(max-width:700px){.restorationMain{padding:14px}.costTableHeader,.costTableRow{grid-template-columns:1.5fr 1fr 1fr 1fr;font-size:12px}.articleBody{padding:18px}.articleDetailHeader h2{font-size:26px}}
+
+.severityBadge{background:#dc2626;color:white;border-radius:6px;padding:4px 10px;font-size:12px;font-weight:800}
+.severityBadgeCard{font-size:11px;padding:3px 8px}
+.articleSourceLink{color:#0b3d2e;font-weight:700;display:inline-flex;align-items:center;gap:4px}
