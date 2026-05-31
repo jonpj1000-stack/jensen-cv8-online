@@ -730,7 +730,7 @@ function App() {
                 <p>Original scanned manuals, wiring diagrams and OCR text search.</p>
                 <span className="homeSectionArrow">→</span>
               </button>
-              <a href="https://www.jensencv8registry.com" target="_blank" rel="noopener noreferrer" className="homeSection">
+              <a href="https://airtable.com/appqtFw9HrvLwGDRV/shrc1eGBCmNryrv0M" target="_blank" rel="noopener noreferrer" className="homeSection">
                 <span className="homeSectionIcon">🚗</span>
                 <h3>Registry</h3>
                 <p>Jensen C-V8 owner registry and chassis records.</p>
@@ -742,6 +742,71 @@ function App() {
                 <p>Parts suppliers, paint codes, upgrades and restoration guides.</p>
                 <span className="homeSectionComing">Coming soon</span>
               </button>
+
+              {/* Community tile — full-width, links to forums, social & chat */}
+              <div className="homeSection communitySection">
+                <div className="communitySectionHeader">
+                  <span className="homeSectionIcon">💬</span>
+                  <div>
+                    <h3>Community</h3>
+                    <p>Forums, social groups and owner networks.</p>
+                  </div>
+                </div>
+                <div className="communityLinks">
+                  <a
+                    href="https://joc.org.uk/joc-forum/?w3=dmlld2ZvcnVtLnBocD9mPTY="
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="communityLink"
+                  >
+                    <img src="/joc-logo.png" alt="Jensen Owners Club" className="communityLogo" />
+                    <div>
+                      <strong>JOC C-V8 Tech Forum</strong>
+                      <span>Jensen Owners Club technical forum</span>
+                    </div>
+                    <ExternalLink size={14} className="communityArrow" />
+                  </a>
+                  <a
+                    href="https://www.facebook.com/share/g/1Pen54ygEs/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="communityLink"
+                  >
+                    <span className="communityLinkIcon">📘</span>
+                    <div>
+                      <strong>Jensen C-V8 Facebook Group</strong>
+                      <span>Owners group — news, photos and discussion</span>
+                    </div>
+                    <ExternalLink size={14} className="communityArrow" />
+                  </a>
+                  <a
+                    href="https://www.facebook.com/share/g/18rxSoRBHz/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="communityLink"
+                  >
+                    <span className="communityLinkIcon">🛒</span>
+                    <div>
+                      <strong>C-V8 Parts for Sale</strong>
+                      <span>Facebook group — parts buying and selling</span>
+                    </div>
+                    <ExternalLink size={14} className="communityArrow" />
+                  </a>
+                  <a
+                    href="https://chat.whatsapp.com/DoyaYf5DEUuFgXuHS8qVZ3?s=cl&p=i&ilr=4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="communityLink"
+                  >
+                    <span className="communityLinkIcon">💬</span>
+                    <div>
+                      <strong>C-V8 Owners WhatsApp Group</strong>
+                      <span>Direct chat with fellow owners</span>
+                    </div>
+                    <ExternalLink size={14} className="communityArrow" />
+                  </a>
+                </div>
+              </div>
             </div>
           </main>
         )}
