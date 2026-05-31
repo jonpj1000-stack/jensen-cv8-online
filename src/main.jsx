@@ -1045,20 +1045,27 @@ function App() {
               ) : null;
             })()}
 
-            {/* Manual page reference badge */}
+            {/* Manual page reference badge — no scan link here, button row has it */}
             <div className="manualRef">
               <BookOpen size={14} />
               <span>Manual p. {page.page}{getSectionInfo(page.page, selectedModel)?.isContinuation ? ` · Part of ${getSectionInfo(page.page, selectedModel).sectionTitle}` : ''}</span>
-              <button className="refLink" onClick={() => openPdf(page.page)}>
-                Open scan <ExternalLink size={12} />
-              </button>
             </div>
 
-            {/* Bullet summary — use key facts if summary is generic */}
+            {/* Summary — real summary paragraph when available, bullets only as fallback */}
             {(() => {
               const hasRealSummary = page.summary && !page.summary.startsWith(GENERIC_SUMMARY);
-              const facts = extractKeyFacts(currentText).slice(0, 3);
-              return (
+
+              // Only show extracted bullets when there is NO real summary.
+              // Also filter out fragments: a bullet must start with a capital letter
+              // and be a proper complete sentence (no leading parentheses, numbers etc.)
+              const FRAGMENT_RE = /^[a-z()\d.]/;
+              const facts = hasRealSummary
+                ? []
+                : extractKeyFacts(currentText)
+                    .filter(f => !FRAGMENT_RE.test(f))
+                    .slice(0, 3);
+
+              return (hasRealSummary || facts.length > 0) ? (
                 <div className="summarySection">
                   {hasRealSummary && <p className="summaryLead">{page.summary}</p>}
                   {facts.length > 0 && (
@@ -1067,7 +1074,7 @@ function App() {
                     </ul>
                   )}
                 </div>
-              );
+              ) : null;
             })()}
 
             {hasLocalEdit && (
@@ -1113,7 +1120,11 @@ function App() {
               <div className="repairCardTop">
                 <div>
                   <p className="eyebrow">
-                    {pageCategory === 'repair' && 'Repair summary'}
+                    {pageCategory === 'repair' && (() => {
+                      const cat = getSectionInfo(page.page, selectedModel)?.category;
+                      if (cat === 'specs') return 'Quick reference';
+                      return 'Repair summary';
+                    })()}
                     {pageCategory === 'reference' && 'Reference data'}
                     {pageCategory === 'informational' && 'Informational page'}
                     {pageCategory === 'diagram' && 'Diagram / image page'}
@@ -1124,6 +1135,15 @@ function App() {
               </div>
 
               {pageCategory === 'repair' && (() => {
+                const sectionCategory = getSectionInfo(page.page, selectedModel)?.category;
+                const isSpecsPage = sectionCategory === 'specs';
+
+                // Label set based on whether this is a specs/reference page or a true repair page
+                const cardLabel = isSpecsPage ? 'Key specifications' : 'Repair steps for this page:';
+                const emptyLabel = isSpecsPage
+                  ? 'No specifications have been extracted for this page yet.'
+                  : 'No repair checklist has been generated for this page yet.';
+
                 const qualityChecklist = hasQualityChecklist(page.checklist);
                 const allItems = qualityChecklist
                   ? page.checklist.filter(item => IMPERATIVE_VERBS.test(item))
@@ -1158,7 +1178,7 @@ function App() {
                     {filteredItems.length > 0 ? (
                       <>
                         <p className="helperText">
-                          {qualityChecklist ? 'Repair steps for this page:' : 'Key service facts extracted from this page:'}
+                          {qualityChecklist ? cardLabel : 'Key service facts extracted from this page:'}
                           {isFiltered && ` (${filteredItems.length} of ${allItems.length})`}
                         </p>
                         <ol className="checklist compact">
@@ -1186,7 +1206,7 @@ function App() {
                     ) : (
                       <div className="emptyChecklist">
                         <Wrench size={24} />
-                        <p>No repair checklist has been generated for this page yet. <button className="inlineLink" onClick={() => setMode('page')}>View the OCR text</button> for the full content.</p>
+                        <p>{emptyLabel} <button className="inlineLink" onClick={() => setMode('page')}>View the OCR text</button> for the full content.</p>
                       </div>
                     )}
                   </>
