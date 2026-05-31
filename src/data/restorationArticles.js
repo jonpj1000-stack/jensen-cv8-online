@@ -219,6 +219,183 @@ export const restorationArticles = [
     ]
   },
 
+  {
+    id: 'overheating-diagnosis-and-fixes',
+    category: 'known-issues',
+    title: 'Engine Overheating — Diagnosis & Fixes',
+    subtitle: 'A systematic guide to the most common cooling system problems on the C-V8, drawn from community experience',
+    models: ['all'],
+    difficulty: 'moderate',
+    readTime: '12 min read',
+    severity: 'critical',
+    tags: ['overheating', 'cooling', 'radiator', 'thermostat', 'fans', 'water pump', 'known issue'],
+    contributors: ['JOC C-V8 Tech Forum — community discussion 2024'],
+    sourceUrl: 'https://joc.org.uk/joc-forum/?w3=dmlld2ZvcnVtLnBocD9mPTY=',
+    lastUpdated: '2024',
+
+    intro: `Overheating is one of the most frequently reported problems on the Jensen C-V8, particularly on cars that have been off the road, had cooling system work, or been fitted with modern recored radiators. The good news is that overheating on the C-V8 is almost always caused by one or more of a small set of identifiable problems — none of them requiring engine removal. This guide works through each issue systematically, from the simplest to address to the most involved.`,
+
+    sections: [
+      {
+        type: 'warning',
+        content: 'If the temperature gauge is heading toward or into the red, pull over and let the engine cool before investigating. Continuing to drive an overheating engine risks warping the cylinder heads, especially if alloy heads have been fitted. Never remove the radiator cap while the engine is hot.'
+      },
+
+      {
+        type: 'heading',
+        content: 'Is It Actually Overheating?'
+      },
+      {
+        type: 'paragraph',
+        content: 'Before spending money on parts, confirm what the engine temperature actually is — not what the dashboard gauge says. The voltage regulator that feeds the instrument cluster can cause the temperature gauge to read high even when the engine is running at a perfectly normal temperature. This is a cheap and common fix. Use an infra-red thermometer on the top hose and thermostat housing to verify the actual coolant temperature before drawing conclusions.'
+      },
+      {
+        type: 'tip',
+        content: 'The voltage regulator is inexpensive and easy to replace. If the temperature gauge reads high but the car does not seem to be genuinely hot — top hose pressure is moderate, no steam, fans cycling normally — replace the voltage regulator before doing anything else. It has cured this exact symptom on multiple Jensen owners\' cars.'
+      },
+
+      {
+        type: 'heading',
+        content: '1. Radiator Cap Pressure — Check This First'
+      },
+      {
+        type: 'paragraph',
+        content: 'The original C-V8 radiator cap is a 7 lb unit. This is far too low for reliable operation. A low-pressure cap allows coolant to be expelled from the system at a lower temperature than it should be, reducing the coolant volume in the system and causing genuine overheating on the next run. The correct replacement is a 13 lb cap; many owners use 15 lb caps. Check that the cap seats correctly on the radiator neck — if the radiator has been recored or replaced with an Interceptor unit, the neck dimensions may require the neck to be modified to accept the correct cap.'
+      },
+      {
+        type: 'list',
+        content: [
+          'Original 7 lb cap: replace with 13 lb minimum, 15 lb preferred.',
+          'If the 15 lb cap does not seat firmly on the radiator neck, have the neck modified by a radiator specialist — a poorly seating cap will not hold pressure.',
+          'A correctly seating cap should require noticeable force to remove once the system is hot.'
+        ]
+      },
+
+      {
+        type: 'heading',
+        content: '2. Electric Fan Setup — The Most Common Root Cause'
+      },
+      {
+        type: 'paragraph',
+        content: 'The original Smiths five-blade electric fans fitted to the C-V8 were designed to work with the original open tube-and-fin radiator core. A modern recored radiator has significantly smaller airways that require a much more forceful airflow to cool effectively. If the radiator has been recored and the original fans retained, this mismatch is very likely a primary cause of overheating at low speed and at idle.'
+      },
+      {
+        type: 'list',
+        content: [
+          'Original fans work adequately with original open-core radiators. They are insufficient for modern close-fin recored units.',
+          'The fan installation must be shrouded — the fans must be mounted directly against the radiator face with a baffle or cowl so that all airflow is drawn through the radiator core, not around it. Fans hanging in free air in the engine bay recirculate air and are largely ineffective.',
+          'Recommended upgrade: two 12-inch puller fans mounted directly on the radiator in place of the originals, with close-fitting surrounds.',
+          'Adding push fans in front of the radiator is generally counterproductive — the fan mounts and motor housings reduce the clear radiator area more than the extra airflow helps.',
+          'Check the direction of fan rotation — fans blowing the wrong way (pushing air forward rather than pulling it rearward through the radiator) will cause overheating. This is easy to overlook after a fan replacement.',
+          'If retaining the original fans for originality reasons, a modern electronic fan controller that ramps fan speed progressively rather than switching on/off abruptly will improve their effectiveness.'
+        ]
+      },
+      {
+        type: 'tip',
+        content: 'Use an IR thermometer to draw a heat map across the radiator face while the engine is hot at idle. If the top of the radiator is significantly hotter than the bottom, or if there are cool patches suggesting blocked tubes, the issue is radiator flow rather than fan performance.'
+      },
+
+      {
+        type: 'heading',
+        content: '3. Fan Temperature Sensor Position'
+      },
+      {
+        type: 'paragraph',
+        content: 'The position of the fan temperature sensor critically affects how the fans behave. If the sensor is placed in the top hose (the hottest part of the cooling circuit), the fans will switch on and never switch off — this is not an indication of overheating, it is simply that the top hose is always above the trigger temperature. The factory Otter switch position (in the lower part of the radiator tank, sensing the temperature of cooled water returning to the engine) is the correct location. Sensors in this position cause the fans to cycle on and off normally as the cooled water temperature rises and falls.'
+      },
+
+      {
+        type: 'heading',
+        content: '4. Thermostat — Type and Condition'
+      },
+      {
+        type: 'paragraph',
+        content: 'The thermostat on the C-V8 does not bypass cooling — it restricts coolant flow so that water stays in the radiator long enough to be properly cooled before returning to the engine. Removing the thermostat entirely does NOT help cooling and will typically make the problem worse, because the coolant passes through the radiator too quickly to give up its heat. A standard aftermarket thermostat designed for smaller engines may also restrict flow excessively on the large-capacity 383 V8.'
+      },
+      {
+        type: 'list',
+        content: [
+          'Always use a high-flow thermostat specifically designed for large V8 engines. Standard thermostats have a smaller opening that is inadequate for the 383\'s coolant flow rate.',
+          'Test the thermostat before fitting: immerse it in a pan of water heated to the rated opening temperature and confirm it opens fully and promptly.',
+          'Inspect the thermostat housing for internal corrosion. On older cars, the housing bore can corrode and partially block the coolant path even when the thermostat is open.',
+          'The correct operating temperature thermostat for the C-V8 is as fitted from the factory — refer to your manual for the specific temperature. Do not fit a cooler-than-standard thermostat as a cooling fix; address the root cause instead.'
+        ]
+      },
+
+      {
+        type: 'heading',
+        content: '5. Water Pump — Impeller Type'
+      },
+      {
+        type: 'paragraph',
+        content: 'Many C-V8s still have or have had fitted a water pump with a small pressed-steel impeller. These are significantly less efficient than pumps fitted with a cast impeller at moving the large volume of coolant a big-block V8 requires. Replacing the pump with a high-flow unit with a cast iron impeller has been found to make a meaningful difference to cooling performance. If the cooling system is being worked on for any reason, a high-flow water pump is a worthwhile upgrade.'
+      },
+
+      {
+        type: 'heading',
+        content: '6. System Flushing — Scale, Rust and Debris'
+      },
+      {
+        type: 'paragraph',
+        content: 'After 60 years, the coolant passages in the block and heads of an unrestored C-V8 are likely to contain a significant accumulation of rust, scale, paint flakes and other debris. This restricts coolant flow and reduces heat transfer to the coolant. On cars that have been run without antifreeze, even recently, the system may already contain visible rust particles. A proper chemical flush is an essential first step before any other cooling system diagnosis.'
+      },
+      {
+        type: 'list',
+        content: [
+          'Use a dedicated cooling system flush chemical designed to dissolve rust and scale — a two-part process over multiple days is more effective than a single-flush product for heavily contaminated systems.',
+          'Drain and flush until the water runs clear before refilling with fresh coolant and antifreeze.',
+          'Always use coolant with antifreeze even in warm climates — the corrosion inhibitors in antifreeze are as important as its freeze protection.',
+          'Running without antifreeze will cause new rust to form quickly, turning the coolant brown within days.',
+          'After flushing, refill with a 50/50 mix of antifreeze and distilled water.'
+        ]
+      },
+
+      {
+        type: 'heading',
+        content: '7. Expansion Tank — The Missing Component'
+      },
+      {
+        type: 'paragraph',
+        content: 'The C-V8 was not fitted with an expansion tank from the factory. When the radiator cap vents, expelled coolant is simply lost rather than being retained and drawn back into the system as it cools. This means that any cap venting event (which may simply be normal thermal expansion rather than genuine overheating) leaves the system with less coolant, causing genuine overheating on the next occasion. Fitting an Interceptor-style expansion tank eliminates this problem — the pressure cap is moved to the expansion tank, and expelled coolant is retained and recycled.'
+      },
+
+      {
+        type: 'heading',
+        content: '8. Head Gaskets — Alloy Head Consideration'
+      },
+      {
+        type: 'paragraph',
+        content: 'Cars that have been fitted with aluminium cylinder heads as part of a rebuild may require specific head gaskets different from those used with the original cast iron heads. Using standard modern head gaskets with alloy heads can affect coolant flow between the head and block. Additionally, alloy heads transfer heat to the coolant more rapidly than iron heads when the engine is shut down — this can cause steam or coolant loss immediately after switching off, even on engines that were running at a normal temperature while moving. If alloy heads have been recently fitted and overheating or post-shutdown coolant loss is the primary symptom, verify the correct head gaskets are installed with the engine builder.'
+      },
+
+      {
+        type: 'heading',
+        content: 'Systematic Diagnosis Sequence'
+      },
+      {
+        type: 'steps',
+        content: [
+          'Replace the voltage regulator — cheap, quick, rules out a gauge fault.',
+          'Verify actual coolant temperature with an IR thermometer before any other work.',
+          'Replace the radiator cap with a minimum 13 lb unit. Confirm it seats correctly.',
+          'Check fan rotation direction — they must pull air rearward through the radiator.',
+          'Confirm fan shrouding — fans must be mounted against the radiator face, not free in the engine bay.',
+          'Remove and bench-test the thermostat. Replace with a high-flow type if in any doubt.',
+          'Inspect the thermostat housing bore for corrosion — clean or replace as required.',
+          'Perform a full chemical flush of the cooling system until the water runs clear.',
+          'Refill with 50/50 antifreeze/distilled water. Check the system runs up to temperature with fans cycling normally.',
+          'If still overheating: consider the water pump impeller type; consider fitting an expansion tank.',
+          'If alloy heads are fitted and symptoms persist: verify correct head gaskets with the engine builder.'
+        ]
+      },
+
+      {
+        type: 'tip',
+        content: 'At idle on a warm day, the electric fans should cycle on and off as they maintain temperature just above the thermostat opening point. If the fans run continuously without the temperature stabilising, the system does not have sufficient cooling capacity for idle conditions — almost always a fan or thermostat issue. If the car runs cool on the road but overheats in traffic, it is an idle-speed cooling capacity problem. If it overheats at all speeds, suspect blockage, thermostat, or water pump.'
+      }
+    ]
+  },
+
   // ── Upgrade & Restoration Guides ────────────────────────────────────────────
   {
     id: 'electronic-ignition-conversion',
