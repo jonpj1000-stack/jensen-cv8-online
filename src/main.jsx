@@ -700,12 +700,24 @@ function App() {
           <button className={appMode === 'manual' ? 'active' : ''} onClick={() => setAppMode('manual')}>Manuals</button>
         </nav>
 
-        <button className="openPdf" onClick={() => openPdf()}>
-          Open PDF
-        </button>
+        <div className="headerRight">
+          {appMode === 'manual' && (
+            <button className="openPdf" onClick={() => openPdf()}>Open PDF</button>
+          )}
+          <a
+            href="https://jensencv8-org.webflow.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="parentSiteLink"
+            title="jensencv8.org"
+          >
+            <ExternalLink size={14} />
+            <span>jensencv8.org</span>
+          </a>
+        </div>
       </header>
 
-      <div className="layout">
+      <div className={appMode === 'manual' ? 'layout' : 'layoutFull'}>
 
         {/* ── Home Mode ─────────────────────────────────── */}
         {appMode === 'home' && (
@@ -758,7 +770,7 @@ function App() {
                 </div>
                 <div className="communityLinks">
                   <a href="https://joc.org.uk/joc-forum/?w3=dmlld2ZvcnVtLnBocD9mPTY=" target="_blank" rel="noopener noreferrer" className="communityLink">
-                    <div className="communityLinkIconWrap" style={{ background: '#c9a34e' }}>
+                    <div className="communityLinkIconWrap" style={{ background: '#1a1a2e' }}>
                       <img src="/joc-logo.png" alt="JOC" className="communityLogo" style={{ width: 28, height: 28 }} />
                     </div>
                     <div>
