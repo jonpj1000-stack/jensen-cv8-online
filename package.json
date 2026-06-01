@@ -16,7 +16,6 @@
     "vite": "latest"
   },
   "devDependencies": {
-    "@anthropic-ai/sdk": "^0.100.1",
-    "sharp": "^0.34.5"
+    "@anthropic-ai/sdk": "^0.100.1"
   }
 }
