@@ -685,3 +685,11 @@
 .wipIcon{font-size:22px;flex-shrink:0;margin-top:2px}
 .workInProgressBanner strong{color:white;font-size:14px;font-weight:800;display:block;margin-bottom:4px}
 .workInProgressBanner p{margin:0;color:rgba(255,255,255,.65);font-size:13px;line-height:1.6}
+
+/* ── Model filter row ───────────────────────────────────────────────── */
+.modelFilterRow{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.modelFilterLabel{color:rgba(255,255,255,.5);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.modelFilterRow button{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:rgba(255,255,255,.75);border-radius:999px;padding:5px 14px;font-size:12px;font-weight:700;cursor:pointer;transition:background .12s}
+.modelFilterRow button:hover{background:rgba(255,255,255,.12);color:white}
+.modelFilterRow button.active{background:#c9a34e;color:#06281f;border-color:#c9a34e}
+.articleModelBadge{font-size:11px;background:rgba(201,163,78,.15);color:#c9a34e;border:1px solid rgba(201,163,78,.3);border-radius:6px;padding:2px 8px;font-weight:800}

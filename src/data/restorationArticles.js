@@ -221,6 +221,118 @@ export const restorationArticles = [
   },
 
   {
+    id: 'boot-lock-jammed',
+    category: 'known-issues',
+    title: 'Boot Lock — Identification, Jamming & Repair',
+    subtitle: 'Which cars share the boot lock components and how to fix a jammed or seized mechanism',
+    models: ['mk2'],
+    difficulty: 'moderate',
+    readTime: '6 min read',
+    severity: null,
+    tags: ['boot lock', 'Volvo P1800', 'Austin Westminster', 'Skandix', 'bodywork', 'known issue', 'Mk II'],
+    contributors: ['JOC C-V8 Tech Forum — community discussion 2025'],
+    sourceUrl: 'https://joc.org.uk/joc-forum/?w3=dmlld2ZvcnVtLnBocD9mPTY=',
+    lastUpdated: '2025',
+
+    intro: `The boot lid lock on the Jensen C-V8 Mk II is a two-part assembly drawing from two different donor cars. When the push button jams or the lock seizes, identifying the correct cross-reference parts is the first challenge — most suppliers will have no idea what a "Jensen C-V8 boot lock" is, but will readily supply Volvo P1800 or Austin Westminster parts.`,
+
+    sections: [
+      {
+        type: 'heading',
+        content: 'What the Boot Lock Is Made From'
+      },
+      {
+        type: 'paragraph',
+        content: 'The Mk II C-V8 boot lock assembly consists of two components sourced from different vehicles:'
+      },
+      {
+        type: 'list',
+        content: [
+          'The lock mechanism — push button and barrel assembly: from an Austin Westminster',
+          'The catch — the striker/receiving mechanism that the lock engages: from a Volvo P1800'
+        ]
+      },
+      {
+        type: 'tip',
+        content: 'When sourcing parts or asking a locksmith, refer to these donor vehicles rather than asking for "Jensen C-V8 boot lock" — you will get much better results.'
+      },
+
+      {
+        type: 'heading',
+        content: 'Why It Jams'
+      },
+      {
+        type: 'paragraph',
+        content: 'The most common failure is the push button jamming and refusing to actuate the lock mechanism. The root cause is the retaining spring on the eccentric latch inside the assembly. The original spring is far too strong — when you press the button, the tang at the bottom (which is only screwed on, not welded) struggles against this spring. Instead of actuating, the tang rotates and the boot becomes permanently locked. This failure has happened to at least one owner mid-journey.'
+      },
+      {
+        type: 'paragraph',
+        content: 'On older or high-mileage cars, general wear in the internal mechanism is also a factor — worn alloy components allow internal play before the button actuates, eventually causing the button to jam completely.'
+      },
+      {
+        type: 'warning',
+        content: 'If the push button is becoming stiff or requiring extra force, address it before it fails completely. Once the tang rotates and locks, the boot cannot be opened without drilling out the lock. Do not force a stiff button.'
+      },
+
+      {
+        type: 'heading',
+        content: 'Opening a Locked Boot'
+      },
+      {
+        type: 'paragraph',
+        content: 'If the boot is already permanently locked, the lock will need to be drilled out. This is destructive but recoverable — the lock can be replaced with Volvo P1800 parts afterwards. A locksmith experienced with vintage car locks may be able to pick it, but drilling is the more reliable option if the mechanism has seized completely.'
+      },
+
+      {
+        type: 'heading',
+        content: 'Parts to Order'
+      },
+      {
+        type: 'paragraph',
+        content: 'Volvo P1800 boot lock parts are available new from Skandix AG, a German Volvo parts specialist who ship internationally. Two part numbers cover the lock and receiving catch:'
+      },
+      {
+        type: 'parts',
+        content: [
+          {
+            name: 'Volvo P1800 boot lock parts (lock + catch)',
+            partNumber: '1018982 and 9122128',
+            notes: 'Available from Skandix AG (skandix.de). Total parts cost approximately €29.78; allow additional for shipping and any import duty — total landed cost approximately €75 to the UK.',
+          }
+        ]
+      },
+
+      {
+        type: 'heading',
+        content: 'The Spring Fix — Essential After Fitting New Parts'
+      },
+      {
+        type: 'paragraph',
+        content: 'Simply fitting new Volvo parts will not prevent the jamming problem recurring if the original spring is reused. The retaining spring on the eccentric latch must be replaced with a weaker spring. This allows the button tang to properly actuate the mechanism without the risk of it rotating instead.'
+      },
+      {
+        type: 'steps',
+        content: [
+          'Source the Volvo P1800 parts from Skandix AG (part numbers 1018982 and 9122128).',
+          'Before reassembly, identify the retaining spring on the eccentric latch inside the assembly.',
+          'Replace this spring with one of lighter tension — a spring supplier or engineering shop can match the dimensions with a softer rate.',
+          'Reassemble and test the push button action — it should actuate smoothly without requiring excessive force.',
+          'Consider fitting a simple cable as a secondary failsafe, routed inside the boot to a discreet pull handle, in case the mechanism fails again in future.'
+        ]
+      },
+
+      {
+        type: 'heading',
+        content: 'Chrome Restoration'
+      },
+      {
+        type: 'paragraph',
+        content: 'If the chrome push button surround is worn but otherwise intact, it can be sent for re-chroming without replacing the mechanical parts. The chrome and alloy components can be separated for this purpose. Source new internal mechanical parts from Skandix and re-use the original chrome surround if it is in good condition.'
+      }
+    ]
+  },
+
+  {
     id: 'erratic-speedometer',
     category: 'known-issues',
     title: 'Erratic or Fluctuating Speedometer',

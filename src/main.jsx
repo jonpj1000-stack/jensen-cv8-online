@@ -404,7 +404,9 @@ function App() {
   const [activeArticleId, setActiveArticleId] = useState(null);
   const [restorationCategory, setRestorationCategory] = useState('all');
   const [restorationTab, setRestorationTab] = useState('articles'); // 'articles' | 'parts'
+  const [restorationModelFilter, setRestorationModelFilter] = useState('all');
   const [partsCategory, setPartsCategory] = useState('all');
+  const [partsModelFilter, setPartsModelFilter] = useState('all');
   const [partsQuery, setPartsQuery] = useState('');
   const [workshopCategory, setWorkshopCategory] = useState('all');
   const [activeCardId, setActiveCardId] = useState(null);
@@ -1058,9 +1060,13 @@ function App() {
             ? restorationArticles.find(a => a.id === activeArticleId)
             : null;
 
-          const filteredArticles = restorationCategory === 'all'
-            ? restorationArticles
-            : restorationArticles.filter(a => a.category === restorationCategory);
+          const filteredArticles = restorationArticles.filter(a => {
+            const catMatch = restorationCategory === 'all' || a.category === restorationCategory;
+            const modelMatch = restorationModelFilter === 'all' ||
+              a.models.includes('all') ||
+              a.models.includes(restorationModelFilter);
+            return catMatch && modelMatch;
+          });
 
           // Render a content section
           const renderSection = (section, idx) => {
@@ -1205,6 +1211,14 @@ function App() {
                         {partsQuery && <button onClick={() => setPartsQuery('')}>Clear</button>}
                       </div>
 
+                      {/* Model filter */}
+                      <div className="modelFilterRow">
+                        <span className="modelFilterLabel">Model:</span>
+                        {[['all','All'],['mk1','Mk I'],['mk2','Mk II'],['mk3','Mk III']].map(([val, label]) => (
+                          <button key={val} className={partsModelFilter === val ? 'active' : ''} onClick={() => setPartsModelFilter(val)}>{label}</button>
+                        ))}
+                      </div>
+
                       {/* Category filter pills */}
                       <div className="categoryFilters">
                         <button className={partsCategory === 'all' ? 'active' : ''} onClick={() => setPartsCategory('all')}>All</button>
@@ -1221,6 +1235,10 @@ function App() {
                         const filtered = alternativeParts.filter(p => {
                           const catMatch = partsCategory === 'all' || p.category === partsCategory;
                           if (!catMatch) return false;
+                          const modelMatch = partsModelFilter === 'all' ||
+                            p.models.includes('all') ||
+                            p.models.includes(partsModelFilter);
+                          if (!modelMatch) return false;
                           if (!q) return true;
                           return (
                             p.part.toLowerCase().includes(q) ||
@@ -1291,6 +1309,15 @@ function App() {
                   ) : (
                   /* ── Article list (existing) ── */
                   <>
+                  {/* Model filter */}
+                  <div className="modelFilterRow">
+                    <span className="modelFilterLabel">Model:</span>
+                    {[['all','All'],['mk1','Mk I'],['mk2','Mk II'],['mk3','Mk III']].map(([val, label]) => (
+                      <button key={val} className={restorationModelFilter === val ? 'active' : ''} onClick={() => setRestorationModelFilter(val)}>{label}</button>
+                    ))}
+                  </div>
+
+                  {/* Category filter */}
                   <div className="categoryFilters">
                     <button className={restorationCategory === 'all' ? 'active' : ''} onClick={() => setRestorationCategory('all')}>All</button>
                     {restorationCategories.map(c => (
@@ -1305,10 +1332,15 @@ function App() {
                       <button key={article.id} className="articleCard" onClick={() => setActiveArticleId(article.id)}>
                         <div className="articleCardTop">
                           <span className="articleCategory">{restorationCategories.find(c => c.id === article.category)?.emoji} {restorationCategories.find(c => c.id === article.category)?.label}</span>
-                          {article.severity === 'critical'
-                            ? <span className="severityBadge severityBadgeCard">⚠️ Safety Critical</span>
-                            : <span className="articleDifficulty">{article.difficulty}</span>
-                          }
+                          <div style={{display:'flex',gap:6,alignItems:'center'}}>
+                            {!article.models.includes('all') && (
+                              <span className="articleModelBadge">{article.models.map(m => m.toUpperCase()).join(' · ')}</span>
+                            )}
+                            {article.severity === 'critical'
+                              ? <span className="severityBadge severityBadgeCard">⚠️ Safety Critical</span>
+                              : <span className="articleDifficulty">{article.difficulty}</span>
+                            }
+                          </div>
                         </div>
                         <h3>{article.title}</h3>
                         <p>{article.subtitle}</p>
