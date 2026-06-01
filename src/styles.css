@@ -642,3 +642,30 @@
 .severityBadge{background:#dc2626;color:white;border-radius:6px;padding:4px 10px;font-size:12px;font-weight:800}
 .severityBadgeCard{font-size:11px;padding:3px 8px}
 .articleSourceLink{color:#0b3d2e;font-weight:700;display:inline-flex;align-items:center;gap:4px}
+
+/* ── Restoration sub-tabs ───────────────────────────────────────────── */
+.restorationTabs{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.restorationTabs button{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:rgba(255,255,255,.8);border-radius:12px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer;transition:background .12s}
+.restorationTabs button:hover{background:rgba(255,255,255,.12);color:white}
+.restorationTabs button.active{background:#c9a34e;color:#06281f;border-color:#c9a34e}
+/* ── Parts List ─────────────────────────────────────────────────────── */
+.partsListView{width:100%}
+.partsListHeader{margin-bottom:12px}
+.partsCredit{font-size:13px;color:rgba(255,255,255,.55);margin:0}
+.partsSearch{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:10px 14px;margin-bottom:14px;color:white}
+.partsSearch svg{color:rgba(255,255,255,.5);flex-shrink:0}
+.partsSearch input{flex:1;background:transparent;border:none;outline:none;font-size:14px;color:white}
+.partsSearch input::placeholder{color:rgba(255,255,255,.4)}
+.partsSearch button{background:none;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.7);border-radius:8px;padding:4px 10px;font-weight:700;cursor:pointer;font-size:12px}
+.partsGroup{margin-bottom:28px}
+.partsGroupTitle{color:white;font-size:16px;font-weight:800;margin:0 0 10px;display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.12)}
+.partsTable{display:grid;gap:8px}
+.partRow{background:#fbf7ea;border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.partMain{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.partName{font-size:14px;color:#0b3d2e;font-weight:800}
+.partModels{font-size:11px;background:#e8f5e9;color:#2e7d32;border-radius:6px;padding:2px 8px;font-weight:700}
+.partAlt{display:flex;align-items:baseline;gap:8px;font-size:13px;color:#333}
+.partAltLabel{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#0b3d2e;flex:0 0 72px}
+.partSupplier{color:#5c1f1b;font-weight:700}
+.partNotes{margin:2px 0 0;font-size:12px;color:#666;line-height:1.5;font-style:italic}
+@media(max-width:600px){.partsAlt{flex-direction:column}.partsGroupTitle{font-size:14px}}

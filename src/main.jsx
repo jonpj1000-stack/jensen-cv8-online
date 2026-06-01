@@ -29,6 +29,7 @@ import { wiringDiagrams, getDiagramForModel, ALL_CIRCUITS } from './data/wiringD
 import { getSelectarideForModel } from './data/selectaride.js';
 import { repairCards, repairCategories } from './data/repairCards.js';
 import { restorationArticles, restorationCategories } from './data/restorationArticles.js';
+import { alternativeParts, partsCategories, partsSourceCredit } from './data/alternativeParts.js';
 import './styles.css';
 
 const topicalSections = [
@@ -402,6 +403,9 @@ function App() {
   const [appMode, setAppMode] = useState('home'); // 'home' | 'workshop' | 'manual' | 'restoration'
   const [activeArticleId, setActiveArticleId] = useState(null);
   const [restorationCategory, setRestorationCategory] = useState('all');
+  const [restorationTab, setRestorationTab] = useState('articles'); // 'articles' | 'parts'
+  const [partsCategory, setPartsCategory] = useState('all');
+  const [partsQuery, setPartsQuery] = useState('');
   const [workshopCategory, setWorkshopCategory] = useState('all');
   const [activeCardId, setActiveCardId] = useState(null);
   const [workshopQuery, setWorkshopQuery] = useState('');
@@ -1149,13 +1153,133 @@ function App() {
                   )}
                 </div>
               ) : (
-                /* ── Article list ── */
+                /* ── Article list + Parts sub-tab ── */
                 <>
                   <div className="restorationHeader">
                     <h2>Restoration Knowledge</h2>
                     <p>Community guides, upgrade how-tos and restoration know-how for the Jensen C-V8.</p>
                   </div>
 
+                  {/* Sub-navigation tabs */}
+                  <div className="restorationTabs">
+                    <button
+                      className={restorationTab === 'articles' ? 'active' : ''}
+                      onClick={() => setRestorationTab('articles')}
+                    >
+                      <BookOpen size={15} /> Articles &amp; Guides
+                    </button>
+                    <button
+                      className={restorationTab === 'parts' ? 'active' : ''}
+                      onClick={() => setRestorationTab('parts')}
+                    >
+                      <Wrench size={15} /> Alternative Parts List
+                    </button>
+                  </div>
+
+                  {restorationTab === 'parts' ? (
+                    /* ── Parts List ── */
+                    <div className="partsListView">
+                      <div className="partsListHeader">
+                        <p className="partsCredit">📋 {partsSourceCredit}</p>
+                      </div>
+
+                      {/* Search */}
+                      <div className="partsSearch">
+                        <Search size={16} />
+                        <input
+                          value={partsQuery}
+                          onChange={e => setPartsQuery(e.target.value)}
+                          placeholder="Search by part, alternative, supplier or part number…"
+                        />
+                        {partsQuery && <button onClick={() => setPartsQuery('')}>Clear</button>}
+                      </div>
+
+                      {/* Category filter pills */}
+                      <div className="categoryFilters">
+                        <button className={partsCategory === 'all' ? 'active' : ''} onClick={() => setPartsCategory('all')}>All</button>
+                        {partsCategories.map(c => (
+                          <button key={c.id} className={partsCategory === c.id ? 'active' : ''} onClick={() => setPartsCategory(c.id)}>
+                            {c.emoji} {c.label}
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Parts table */}
+                      {(() => {
+                        const q = partsQuery.trim().toLowerCase();
+                        const filtered = alternativeParts.filter(p => {
+                          const catMatch = partsCategory === 'all' || p.category === partsCategory;
+                          if (!catMatch) return false;
+                          if (!q) return true;
+                          return (
+                            p.part.toLowerCase().includes(q) ||
+                            (p.alternative || '').toLowerCase().includes(q) ||
+                            (p.partNumber || '').toLowerCase().includes(q) ||
+                            (p.supplier || '').toLowerCase().includes(q) ||
+                            (p.notes || '').toLowerCase().includes(q)
+                          );
+                        });
+
+                        // Group by category for display
+                        const grouped = {};
+                        filtered.forEach(p => {
+                          if (!grouped[p.category]) grouped[p.category] = [];
+                          grouped[p.category].push(p);
+                        });
+
+                        if (filtered.length === 0) return (
+                          <div className="emptyChecklist" style={{ marginTop: 16 }}>
+                            <Wrench size={24} />
+                            <p>No parts match your search. Try a different term or clear the filter.</p>
+                          </div>
+                        );
+
+                        return Object.entries(grouped).map(([catId, parts]) => {
+                          const cat = partsCategories.find(c => c.id === catId);
+                          return (
+                            <div key={catId} className="partsGroup">
+                              <h3 className="partsGroupTitle">{cat?.emoji} {cat?.label}</h3>
+                              <div className="partsTable">
+                                {parts.map(part => (
+                                  <div key={part.id} className="partRow">
+                                    <div className="partMain">
+                                      <strong className="partName">{part.part}</strong>
+                                      {part.models && !part.models.includes('all') && (
+                                        <span className="partModels">{part.models.map(m => m.toUpperCase()).join(' · ')}</span>
+                                      )}
+                                    </div>
+                                    {part.alternative && (
+                                      <div className="partAlt">
+                                        <span className="partAltLabel">Alternative</span>
+                                        <span>{part.alternative}</span>
+                                      </div>
+                                    )}
+                                    {part.partNumber && (
+                                      <div className="partAlt">
+                                        <span className="partAltLabel">Part no.</span>
+                                        <code className="partNumber">{part.partNumber}</code>
+                                      </div>
+                                    )}
+                                    {part.supplier && (
+                                      <div className="partAlt">
+                                        <span className="partAltLabel">Supplier</span>
+                                        <span className="partSupplier">{part.supplier}</span>
+                                      </div>
+                                    )}
+                                    {part.notes && (
+                                      <p className="partNotes">{part.notes}</p>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          );
+                        });
+                      })()}
+                    </div>
+                  ) : (
+                  /* ── Article list (existing) ── */
+                  <>
                   <div className="categoryFilters">
                     <button className={restorationCategory === 'all' ? 'active' : ''} onClick={() => setRestorationCategory('all')}>All</button>
                     {restorationCategories.map(c => (
@@ -1191,6 +1315,8 @@ function App() {
                       </div>
                     )}
                   </div>
+                  </>
+                  )} {/* end restorationTab === 'parts' ? ... : */}
                 </>
               )}
             </main>
