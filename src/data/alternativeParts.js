@@ -130,7 +130,7 @@ export const alternativeParts = [
     part: 'Rear shock absorbers (Selectaride replacement)',
     alternative: 'SPAX G255 Adjustable Rear Shock Absorber — fits Jensen C-V8 1962–68 and Interceptor Series II, III & IV 1969–90. Features 28-stage on-car bump and rebound adjustment, Krypton gas pressurised, epoxy powder coated. Price shown per unit.',
     partNumber: 'G255',
-    supplier: 'SPAX — available from classic car parts stockists. Search "SPAX G255 Jensen"',
+    supplier: 'Merlin Motorsport — merlinmotorsport.co.uk/p/jensen-interceptor-series-ii-iii-iv-1969-to-1990-adjustable-rear-shock-absorber-by-spax-g255-g255',
     notes: 'Primary replacement for the Armstrong Selectaride units. The 28-stage adjustability makes these a significant improvement over the original fixed-rate replacements. Also fits Jensen Interceptor (FF model) 1966–68. Alternative (exchange units): Aston Martin DB5 / Facel Vega Armstrong Selectaride units from Aston Martin specialists.',
   },
   {
