@@ -678,3 +678,9 @@
 .partSupplier{color:#5c1f1b;font-weight:700}
 .partNotes{margin:2px 0 0;font-size:12px;color:#666;line-height:1.5;font-style:italic}
 @media(max-width:600px){.partsAlt{flex-direction:column}.partsGroupTitle{font-size:14px}}
+
+/* ── Work in progress banner ────────────────────────────────────────── */
+.workInProgressBanner{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:16px 20px;margin-bottom:20px;max-width:1100px;width:100%}
+.wipIcon{font-size:22px;flex-shrink:0;margin-top:2px}
+.workInProgressBanner strong{color:white;font-size:14px;font-weight:800;display:block;margin-bottom:4px}
+.workInProgressBanner p{margin:0;color:rgba(255,255,255,.65);font-size:13px;line-height:1.6}

@@ -737,6 +737,14 @@ function App() {
                 <option value="mk3">Jensen C-V8 Mk III</option>
               </select>
             </div>
+            <div className="workInProgressBanner">
+              <span className="wipIcon">🔧</span>
+              <div>
+                <strong>This site is a work in progress.</strong>
+                <p>Repair guides, parts information and known issues are being added continuously. Some manual text extracted from the original scans may contain errors — if you spot one, the Edit OCR function in the Manuals section lets you correct it directly. When in doubt, always verify against the original scanned page.</p>
+              </div>
+            </div>
+
             <div className="homeSections">
               <button className="homeSection primary" onClick={() => setAppMode('workshop')}>
                 <span className="homeSectionIcon">🔧</span>
