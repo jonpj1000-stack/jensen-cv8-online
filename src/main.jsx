@@ -730,6 +730,7 @@ function App() {
               <p className="eyebrow">Jensen C-V8</p>
               <h2>Workshop Companion</h2>
               <p>Repair guides, maintenance schedules, wiring diagrams and original manuals — everything you need in the driveway.</p>
+              <p className="modelSelectLabel">Select your model of Jensen C-V8 to get started</p>
               <select value={selectedModel} onChange={e => setSelectedModel(e.target.value)} className="modelSelect homeModelSelect">
                 <option value="all">All Jensen C-V8 Models</option>
                 <option value="mk1">Jensen C-V8 Mk I</option>
@@ -755,12 +756,12 @@ function App() {
               <button className="homeSection" onClick={() => setAppMode('manual')}>
                 <span className="homeSectionIcon">📖</span>
                 <h3>Manuals &amp; Diagrams</h3>
-                <p>Original scanned manuals, wiring diagrams and OCR text search.</p>
+                <p>Easily search the original manuals, wiring diagrams and scanned pages.</p>
                 <span className="homeSectionArrow">→</span>
               </button>
               <a href="https://airtable.com/appqtFw9HrvLwGDRV/shrc1eGBCmNryrv0M" target="_blank" rel="noopener noreferrer" className="homeSection registrySection">
                 <div className="registryBadge">500 built · 1962–1966</div>
-                <img src="/jensen-badge.png" alt="Jensen Motors Ltd." className="registryBadgeIcon" />
+                <img src="/jensen-badge.png" alt="Jensen Motors Ltd." className="homeSectionIcon registryBadgeIcon" />
                 <h3>Registry</h3>
                 <p className="registryTagline">Tracking Every Jensen C-V8</p>
                 <p>A global community effort to locate every surviving car — restored, mid-project or barn find. Every detail helps tell the story.</p>
@@ -794,7 +795,7 @@ function App() {
                     <ExternalLink size={14} className="communityArrow" />
                   </a>
 
-                  <a href="https://www.facebook.com/share/g/1Pen54ygEs/" target="_blank" rel="noopener noreferrer" className="communityLink">
+                  <a href="https://www.facebook.com/share/g/1BbPfYdm2v/" target="_blank" rel="noopener noreferrer" className="communityLink">
                     <div className="communityLinkIconWrap" style={{ background: '#1877F2' }}>
                       {/* Facebook logo SVG */}
                       <svg width="22" height="22" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
