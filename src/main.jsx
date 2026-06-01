@@ -756,7 +756,7 @@ function App() {
                 <h3>Registry</h3>
                 <p className="registryTagline">Tracking Every Jensen C-V8</p>
                 <p>A global community effort to locate every surviving car — restored, mid-project or barn find. Every detail helps tell the story.</p>
-                <p className="registryCta">Add your car · Update your entry · Explore survivors ↗</p>
+                <p className="registryCta">Update your car · Explore survivors ↗</p>
               </a>
               <button className="homeSection" onClick={() => { setAppMode('restoration'); setActiveArticleId(null); }}>
                 <span className="homeSectionIcon">🔩</span>
