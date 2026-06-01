@@ -30,6 +30,7 @@ import { getSelectarideForModel } from './data/selectaride.js';
 import { repairCards, repairCategories } from './data/repairCards.js';
 import { restorationArticles, restorationCategories } from './data/restorationArticles.js';
 import { alternativeParts, partsCategories, partsSourceCredit } from './data/alternativeParts.js';
+import { lucasParts, lucasSystems, lucasDocumentInfo } from './data/lucasParts.js';
 import './styles.css';
 
 const topicalSections = [
@@ -403,7 +404,9 @@ function App() {
   const [appMode, setAppMode] = useState('home'); // 'home' | 'workshop' | 'manual' | 'restoration'
   const [activeArticleId, setActiveArticleId] = useState(null);
   const [restorationCategory, setRestorationCategory] = useState('all');
-  const [restorationTab, setRestorationTab] = useState('articles'); // 'articles' | 'parts'
+  const [restorationTab, setRestorationTab] = useState('articles'); // 'articles' | 'parts' | 'lucas'
+  const [lucasSystem, setLucasSystem] = useState('all');
+  const [lucasQuery, setLucasQuery] = useState('');
   const [restorationModelFilter, setRestorationModelFilter] = useState('all');
   const [partsCategory, setPartsCategory] = useState('all');
   const [partsModelFilter, setPartsModelFilter] = useState('all');
@@ -1179,17 +1182,14 @@ function App() {
 
                   {/* Sub-navigation tabs */}
                   <div className="restorationTabs">
-                    <button
-                      className={restorationTab === 'articles' ? 'active' : ''}
-                      onClick={() => setRestorationTab('articles')}
-                    >
+                    <button className={restorationTab === 'articles' ? 'active' : ''} onClick={() => setRestorationTab('articles')}>
                       <BookOpen size={15} /> Articles &amp; Guides
                     </button>
-                    <button
-                      className={restorationTab === 'parts' ? 'active' : ''}
-                      onClick={() => setRestorationTab('parts')}
-                    >
-                      <Wrench size={15} /> Alternative Parts List
+                    <button className={restorationTab === 'parts' ? 'active' : ''} onClick={() => setRestorationTab('parts')}>
+                      <Wrench size={15} /> Alternative Parts
+                    </button>
+                    <button className={restorationTab === 'lucas' ? 'active' : ''} onClick={() => setRestorationTab('lucas')}>
+                      <Gauge size={15} /> Lucas Parts Reference
                     </button>
                   </div>
 
@@ -1360,6 +1360,107 @@ function App() {
                   </div>
                   </>
                   )} {/* end restorationTab === 'parts' ? ... : */}
+
+                  {/* ── Lucas Parts Reference ── */}
+                  {restorationTab === 'lucas' && (
+                    <div className="partsListView">
+                      <div className="partsListHeader">
+                        <p className="partsCredit">📋 {lucasDocumentInfo.title} · {lucasDocumentInfo.reference} · Issued {lucasDocumentInfo.issued} · {lucasDocumentInfo.publisher}</p>
+                        <p className="partsCredit" style={{marginTop:4,opacity:.7}}>{lucasDocumentInfo.notes}</p>
+                      </div>
+
+                      <div className="partsSearch">
+                        <Search size={16} />
+                        <input
+                          value={lucasQuery}
+                          onChange={e => setLucasQuery(e.target.value)}
+                          placeholder="Search by part description or part number…"
+                        />
+                        {lucasQuery && <button onClick={() => setLucasQuery('')}>Clear</button>}
+                      </div>
+
+                      <div className="categoryFilters">
+                        <button className={lucasSystem === 'all' ? 'active' : ''} onClick={() => setLucasSystem('all')}>All</button>
+                        {lucasSystems.map(s => (
+                          <button key={s.id} className={lucasSystem === s.id ? 'active' : ''} onClick={() => setLucasSystem(s.id)}>
+                            {s.emoji} {s.label}
+                          </button>
+                        ))}
+                      </div>
+
+                      {(() => {
+                        const q = lucasQuery.trim().toLowerCase();
+                        const filtered = lucasParts.filter(p => {
+                          const sysMatch = lucasSystem === 'all' || p.system === lucasSystem;
+                          if (!sysMatch) return false;
+                          if (!q) return true;
+                          return (
+                            p.component.toLowerCase().includes(q) ||
+                            (p.partNumber || '').toLowerCase().includes(q) ||
+                            (p.lucasModel || '').toLowerCase().includes(q) ||
+                            p.parts.some(sp => sp.description.toLowerCase().includes(q) || sp.partNumber.toLowerCase().includes(q))
+                          );
+                        });
+
+                        if (filtered.length === 0) return (
+                          <div className="emptyChecklist" style={{marginTop:16}}>
+                            <Wrench size={24} />
+                            <p>No parts match your search.</p>
+                          </div>
+                        );
+
+                        const grouped = {};
+                        filtered.forEach(p => {
+                          if (!grouped[p.system]) grouped[p.system] = [];
+                          grouped[p.system].push(p);
+                        });
+
+                        return Object.entries(grouped).map(([sysId, components]) => {
+                          const sys = lucasSystems.find(s => s.id === sysId);
+                          return (
+                            <div key={sysId} className="partsGroup">
+                              <h3 className="partsGroupTitle">{sys?.emoji} {sys?.label}</h3>
+                              <div className="lucasTable">
+                                {components.map(comp => (
+                                  <div key={comp.id} className="lucasComponent">
+                                    <div className="lucasComponentHeader">
+                                      <div>
+                                        <strong className="lucasComponentName">{comp.component}</strong>
+                                        {comp.lucasModel && <span className="lucasModel">Model: {comp.lucasModel}</span>}
+                                      </div>
+                                      {comp.partNumber && <code className="lucasPartNo">{comp.partNumber}</code>}
+                                    </div>
+                                    {comp.notes && <p className="partNotes">{comp.notes}</p>}
+                                    {comp.parts.length > 0 && (
+                                      <table className="lucasSubParts">
+                                        <tbody>
+                                          {comp.parts.map((sp, i) => (
+                                            <tr key={i} className={sp.recommended ? 'recommended' : ''}>
+                                              <td>{sp.description}{sp.recommended && <span className="lucasRecommended">§</span>}</td>
+                                              <td><code>{sp.partNumber}</code></td>
+                                            </tr>
+                                          ))}
+                                        </tbody>
+                                      </table>
+                                    )}
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          );
+                        });
+                      })()}
+
+                      <div className="lucasKey">
+                        <strong>Key:</strong>
+                        <span>§ Recommended spare for stock</span>
+                        <span>* New item (at time of issue, Oct 1962)</span>
+                        <span>† Quote bracketed part number when ordering</span>
+                        <span>‡ Order separately</span>
+                        <span>‖ Serviced by Vehicle Manufacturer</span>
+                      </div>
+                    </div>
+                  )}
                 </>
               )}
             </main>
