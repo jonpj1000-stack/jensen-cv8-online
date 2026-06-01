@@ -220,6 +220,110 @@ export const restorationArticles = [
   },
 
   {
+    id: 'erratic-speedometer',
+    category: 'known-issues',
+    title: 'Erratic or Fluctuating Speedometer',
+    subtitle: 'Why the speedo needle flickers or bounces — and how to fix it',
+    models: ['all'],
+    difficulty: 'easy',
+    readTime: '5 min read',
+    severity: null,
+    tags: ['speedometer', 'speedo cable', 'instruments', 'known issue', 'gearbox', 'TorqueFlite'],
+    contributors: ['JOC C-V8 Tech Forum — community discussion 2026'],
+    sourceUrl: 'https://joc.org.uk/joc-forum/?w3=dmlld2ZvcnVtLnBocD9mPTY=',
+    lastUpdated: '2026',
+
+    intro: `A wildly fluctuating or erratic speedometer needle is a common and long-standing complaint on the Jensen C-V8. The problem is almost always in the mechanical speedometer cable rather than the instrument itself — and in most cases it can be resolved without specialist tools or expensive parts.`,
+
+    sections: [
+      {
+        type: 'heading',
+        content: 'Why It Happens'
+      },
+      {
+        type: 'paragraph',
+        content: 'The C-V8 uses a mechanical speedometer driven by a flexible cable from the gearbox. Over time — particularly on cars that see infrequent use — the lubricant inside the cable dries out and the inner cable becomes sticky. As the cable rotates, it binds and slips instead of turning smoothly, causing the needle to flick and bounce erratically. A kinked or sharply bent cable, or a damaged outer sheath, will produce the same symptom.'
+      },
+      {
+        type: 'paragraph',
+        content: 'A contributing factor on many C-V8s is the angle at which the cable exits the TorqueFlite automatic gearbox. The natural routing creates a fairly sharp bend at the gearbox end, which puts additional stress on the inner cable. Fitting a right-angle connector at the gearbox end reduces this bend and is a known improvement — though these connectors can themselves wear out internally over time, recreating the problem.'
+      },
+
+      {
+        type: 'heading',
+        content: 'Fix 1 — Clean and Re-lubricate the Cable (Do This First)'
+      },
+      {
+        type: 'paragraph',
+        content: 'This is the primary fix and should always be tried before replacing any parts. The key is to use a light oil rather than grease — grease can go sticky with infrequent use, whereas EP 80 or EP 90 rear axle oil stays fluid and coats the cable evenly.'
+      },
+      {
+        type: 'steps',
+        content: [
+          'Disconnect the speedometer cable at both ends — at the speedometer head behind the dashboard and at the gearbox.',
+          'Pull the inner cable out of the outer sheath completely.',
+          'Clean the inner cable thoroughly using brake cleaner or white spirit. Wipe dry with a clean cloth.',
+          'Clean the inside of the outer sheath by running a clean cloth through it or flushing with brake cleaner.',
+          'Inspect the outer plastic sheath carefully for cracks, splits or missing sections. Tape repairs will not hold — the adhesive dissolves in the oil. A damaged sheath should be replaced.',
+          'Re-lubricate the inner cable with EP 80 or EP 90 rear axle oil. Work it along the full length.',
+          'Feed the inner cable back into the outer sheath, ensuring no sharp bends or kinks in the routing.',
+          'Reconnect at both ends and test.'
+        ]
+      },
+      {
+        type: 'warning',
+        content: 'Do not use conventional grease inside the cable. Grease becomes sticky on a car used infrequently and will cause the same problem to recur. EP 80/90 rear axle oil is the recommended lubricant.'
+      },
+
+      {
+        type: 'heading',
+        content: 'Fix 2 — Right-Angle Connector at the Gearbox'
+      },
+      {
+        type: 'paragraph',
+        content: 'If the cable routing from the TorqueFlite gearbox creates a sharp bend, fitting a right-angle connector at the gearbox end reduces stress on the inner cable and can eliminate the erratic behaviour. These connectors are available from Rimmer Bros and on eBay — however, many eBay listings are for UK cars (Jaguar, Triumph, MG etc.) and may not fit the TorqueFlite gearbox directly. Always confirm fitment before ordering.'
+      },
+      {
+        type: 'parts',
+        content: [
+          {
+            name: 'Speedometer cable right-angle gearbox connector',
+            partNumber: null,
+            notes: 'Available from Rimmer Bros — confirm TorqueFlite fitment. Also available on eBay — search for speedometer right-angle connector, but verify dimensions against your gearbox drive before purchasing as many listings are for British Leyland applications.',
+          }
+        ]
+      },
+      {
+        type: 'tip',
+        content: 'Rimmer Bros stock a suitable connector — see rimmerbros.com (item 120694). Note that right-angle connectors can themselves wear out internally over time. If a previously fitted connector has failed, replace it rather than attempting repair.'
+      },
+
+      {
+        type: 'heading',
+        content: 'Checking the Cable Routing'
+      },
+      {
+        type: 'list',
+        content: [
+          'The cable must have no sharp bends or kinks along its entire length — trace it from gearbox to dashboard and gently re-route any tight sections.',
+          'Make sure the cable is not trapped or pinched by other components.',
+          'Where the cable passes through the bulkhead, check the grommet is intact and the cable is not chafing.',
+          'If the outer sheath has any section of missing or damaged plastic, the sheath must be replaced — tape repairs do not work as the adhesive dissolves in the lubricant.'
+        ]
+      },
+
+      {
+        type: 'heading',
+        content: 'When the Speedometer Head Itself is the Problem'
+      },
+      {
+        type: 'paragraph',
+        content: 'If cleaning and lubricating the cable makes no improvement, the fault may be in the speedometer instrument itself. The internal mechanism can wear or the magnet can weaken over time. Specialist speedometer repair and calibration services are available and can often restore a worn instrument to correct operation. This is a less common cause but worth considering if cable work has not resolved the issue.'
+      }
+    ]
+  },
+
+  {
     id: 'overheating-diagnosis-and-fixes',
     category: 'known-issues',
     title: 'Engine Overheating — Diagnosis & Fixes',
