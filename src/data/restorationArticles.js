@@ -16,7 +16,8 @@
  */
 
 export const restorationCategories = [
-  { id: 'known-issues', label: 'Known Issues',          emoji: '⚠️' },
+  { id: 'known-issues', label: 'Known Issues',           emoji: '⚠️' },
+  { id: 'upgrades',     label: 'Upgrades & Modifications', emoji: '🚀' },
   { id: 'ignition',     label: 'Ignition & Electrics',  emoji: '⚡' },
   { id: 'engine',       label: 'Engine',                emoji: '🔧' },
   { id: 'fuel',         label: 'Fuel System',           emoji: '⛽' },
@@ -500,10 +501,129 @@ export const restorationArticles = [
     ]
   },
 
-  // ── Upgrade & Restoration Guides ────────────────────────────────────────────
+  // ── Upgrades & Modifications ────────────────────────────────────────────────
+  {
+    id: 'power-steering-conversion',
+    category: 'upgrades',
+    title: 'Installing Power Steering',
+    subtitle: 'Options for adding power-assisted steering to the Jensen C-V8',
+    models: ['all'],
+    difficulty: 'advanced',
+    readTime: '8 min read',
+    severity: null,
+    tags: ['power steering', 'electric power steering', 'steering', 'upgrade', 'EZ Power Steering', 'Easysteer', 'Interceptor rack'],
+    contributors: ['JOC C-V8 Tech Forum — community discussion 2025'],
+    sourceUrl: 'https://joc.org.uk/joc-forum/?w3=dmlld2ZvcnVtLnBocD9mPTY=',
+    lastUpdated: '2025',
+
+    intro: `The Jensen C-V8 was never fitted with power steering from the factory. The original rack-and-pinion steering is generally considered heavy at low speeds and when parking — a common complaint among owners, particularly in modern urban driving conditions. Several conversion options have been explored by the C-V8 community, ranging from bolt-on electric systems to hydraulic rack transplants. This guide summarises the main approaches, their costs, and what to expect from each.`,
+
+    sections: [
+      {
+        type: 'heading',
+        content: 'Option 1 — Electric Power Steering (Recommended)'
+      },
+      {
+        type: 'paragraph',
+        content: 'Electric power steering (EPS) is the approach most favoured by the current C-V8 community. It requires no hydraulic pump, no fluid lines, and eliminates the risk of leaks. The assistance is provided by an electric motor mounted on the steering column, drawing power from the car\'s electrical system only when steering input is needed.'
+      },
+      {
+        type: 'tip',
+        content: 'Electric power steering uses standard modern components from Opel/Vauxhall, Peugeot/Citroën and similar — making spare parts readily available and affordable long-term. No pump means no belts to replace, no fluid to leak, and no additional load on the cooling system.'
+      },
+
+      {
+        type: 'heading',
+        content: 'EZ Power Steering Kit'
+      },
+      {
+        type: 'paragraph',
+        content: 'EZ Power Steering produce an off-the-shelf electric power steering system that has been successfully fitted to at least one Mk II C-V8 (1964, VIN 104/2107). The system is not listed on the EZ website under Jensen, but Holden Vintage & Classic advertise it as a C-V8 application — availability should be confirmed before ordering as it may be to order only.'
+      },
+      {
+        type: 'list',
+        content: [
+          'The motor unit is approximately the size of a large tin can and mounts to the steering column. On the C-V8 this requires cutting into the bulkhead to accommodate it — this is not a minor modification.',
+          'The installation is described as "not for the faint hearted" — plan and measure carefully before committing.',
+          'Once installed the system works well and produces a neat result.',
+          'EZ may have refined the installation process since earlier kits were supplied — worth asking them directly about current C-V8 fitment details.',
+          'Cost: approximately £3,000+ including VAT for parts only, not including installation labour.'
+        ]
+      },
+
+      {
+        type: 'heading',
+        content: 'Easysteer — Electronic Power Steering Specialists'
+      },
+      {
+        type: 'paragraph',
+        content: 'Easysteer (based in Chorley, Lancashire) are specialists in electric power steering conversions for classic cars. Their systems use smart electronics that adapt the level of assistance to driving speed — lighter at parking speeds, firming up at speed for better feel. The electronics are considered more sophisticated than many alternative EPS kits. Worth contacting to discuss C-V8 fitment before ordering any system.'
+      },
+      {
+        type: 'parts',
+        content: [
+          {
+            name: 'Easysteer electric power steering system',
+            partNumber: null,
+            notes: 'Contact Easysteer directly to discuss C-V8 application. easysteer.co.uk/how-it-works/',
+          },
+          {
+            name: 'EZ Power Steering kit (C-V8 application)',
+            partNumber: null,
+            notes: 'Available via Holden Vintage & Classic (may be to order). Confirm availability before ordering. Approx. £3,000+ inc VAT parts only.',
+          }
+        ]
+      },
+
+      {
+        type: 'heading',
+        content: 'Option 2 — Mk I Interceptor Hydraulic Rack Conversion'
+      },
+      {
+        type: 'paragraph',
+        content: 'The Mk I Jensen Interceptor uses a power-assisted rack that shares some heritage with the C-V8 platform and has been explored as a conversion. In principle the PAS mounting brackets from an Interceptor front crossmember can be grafted onto the C-V8 crossmember to accept the Interceptor rack. The PAS pump and brackets are available from Jensen specialists.'
+      },
+      {
+        type: 'warning',
+        content: 'The Mk I Interceptor power steering rack has a reputation for leaks — confirmed by Paul Lawrence at Riverbourne who has specifically noted this issue. Research current rack condition and supplier availability carefully before committing to this route. At least one C-V8 owner experienced the rack locking up after installation, requiring it to be returned to the supplier.'
+      },
+      {
+        type: 'list',
+        content: [
+          'Search the JOC forum for "power steering" and "Interceptor rack" — there are multiple threads covering this conversion in detail.',
+          'A complete Mk I Interceptor front crossmember and suspension assembly occasionally appears on eBay and can provide all the hardware needed.',
+          'This is a more involved fabrication job than an EPS conversion and introduces ongoing hydraulic maintenance requirements.'
+        ]
+      },
+
+      {
+        type: 'heading',
+        content: 'Option 3 — DIY Using Modern Components'
+      },
+      {
+        type: 'paragraph',
+        content: 'Forum member Jon Larkin (jglarkin) successfully fitted power steering to his C-V8 using affordable, readily available modern parts — not a proprietary kit. The project required significant planning and trial and error to get right, but the end result works well and was achieved at considerably lower cost than a dedicated kit. The details of this conversion have been discussed on the JOC forum and Jon may be willing to share his experience directly.'
+      },
+
+      {
+        type: 'heading',
+        content: 'Before You Start — Key Considerations'
+      },
+      {
+        type: 'list',
+        content: [
+          'Contact the supplier directly and confirm they have current experience with C-V8 fitment — not just a general claim of compatibility.',
+          'Budget for installation labour separately from parts cost. EPS conversions are manageable for a competent home restorer but the bulkhead modification requires careful planning.',
+          'Anton Raaymakers (Netherlands) has fitted the EZ electric system to a concours Mk III C-V8 — worth contacting via the JOC for direct experience.',
+          'Search the JOC C-V8 Tech Forum thoroughly before choosing a route — there are multiple detailed threads covering each approach.'
+        ]
+      }
+    ]
+  },
+
   {
     id: 'electronic-ignition-conversion',
-    category: 'ignition',
+    category: 'upgrades',
     title: 'Converting from Points to Electronic Ignition',
     subtitle: 'A practical guide to upgrading the Chrysler distributor on the C-V8 V8',
     models: ['all'],
