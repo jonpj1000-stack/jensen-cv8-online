@@ -196,10 +196,20 @@ export const alternativeParts = [
     notes: null,
   },
   {
-    id: 'b-06',
+    id: 'b-06a',
     category: 'brakes',
     models: ['all'],
     part: 'Brake fluid reservoir',
+    alternative: 'Alfa Romeo 105 Giulia (1965–69), including 1969 USA dual-circuit brake cars',
+    partNumber: 'BC335 (supplier ref) · OEM: 607.29342 / 60729342 / 607-29342',
+    supplier: 'Euroline International (eurolineinternational.com)',
+    notes: 'New plastic reservoir with metal fitting on the base for the brake line. Direct application: Alfa Romeo 105 Giulia 1965–69. Approx. USD $79.50.',
+  },
+  {
+    id: 'b-06',
+    category: 'brakes',
+    models: ['all'],
+    part: 'Brake fluid reservoir (alternative source)',
     alternative: 'XK150 / E-Type (1950s–60s Jaguars)',
     partNumber: null,
     supplier: 'Guy Broad Spares',
@@ -634,6 +644,17 @@ export const alternativeParts = [
     partNumber: 'SJ046B0009',
     supplier: 'SJS Sportcars',
     notes: null,
+  },
+
+  {
+    id: 'bw-14',
+    category: 'bodywork',
+    models: ['mk3'],
+    part: 'Rear bonnet individual letter badges — "J E N S E N"',
+    alternative: 'Sunbeam Tiger individual chrome letter set',
+    partNumber: null,
+    supplier: 'Sunbeam Car Parts — sunbeamcarparts.co.uk/brightwork-badges/s-u-n-b-e-a-m-badge-letter-set',
+    notes: 'The Mk III C-V8 has individual chrome letters spelling JENSEN across the rear bonnet/boot lid. The Sunbeam Tiger letter set provides the letters E, N and S — which cover most of JENSEN — but does not include a J. The J must be sourced separately. Order: 1× J (alternate source), 1× E, 1× N, 1× S, 1× E, 1× N from the Sunbeam set.',
   },
 
   // ── SEALS & RUBBER ───────────────────────────────────────────────────────────
