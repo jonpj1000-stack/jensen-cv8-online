@@ -750,11 +750,13 @@ function App() {
                 <p>Original scanned manuals, wiring diagrams and OCR text search.</p>
                 <span className="homeSectionArrow">→</span>
               </button>
-              <a href="https://airtable.com/appqtFw9HrvLwGDRV/shrc1eGBCmNryrv0M" target="_blank" rel="noopener noreferrer" className="homeSection">
+              <a href="https://airtable.com/appqtFw9HrvLwGDRV/shrc1eGBCmNryrv0M" target="_blank" rel="noopener noreferrer" className="homeSection registrySection">
+                <div className="registryBadge">500 built · 1962–1966</div>
                 <span className="homeSectionIcon">🚗</span>
                 <h3>Registry</h3>
-                <p>Jensen C-V8 owner registry and chassis records.</p>
-                <span className="homeSectionArrow">↗</span>
+                <p className="registryTagline">Tracking Every Jensen C-V8</p>
+                <p>A global community effort to locate every surviving car — restored, mid-project or barn find. Every detail helps tell the story.</p>
+                <p className="registryCta">Add your car · Update your entry · Explore survivors ↗</p>
               </a>
               <button className="homeSection" onClick={() => { setAppMode('restoration'); setActiveArticleId(null); }}>
                 <span className="homeSectionIcon">🔩</span>
