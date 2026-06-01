@@ -126,12 +126,12 @@ export const alternativeParts = [
   {
     id: 's-10',
     category: 'suspension',
-    models: ['mk1', 'mk2'],
-    part: 'Armstrong Selectaride shock absorbers',
-    alternative: 'Aston Martin DB5, Facel Vega (some British imports). Also optional on Vanden Plas 4ltr R.',
-    partNumber: null,
-    supplier: 'Aston Martin specialists (exchange units)',
-    notes: 'Exchange units available from some Aston specialists.',
+    models: ['all'],
+    part: 'Rear shock absorbers (Selectaride replacement)',
+    alternative: 'SPAX G255 Adjustable Rear Shock Absorber — fits Jensen C-V8 1962–68 and Interceptor Series II, III & IV 1969–90. Features 28-stage on-car bump and rebound adjustment, Krypton gas pressurised, epoxy powder coated. Price shown per unit.',
+    partNumber: 'G255',
+    supplier: 'SPAX — available from classic car parts stockists. Search "SPAX G255 Jensen"',
+    notes: 'Primary replacement for the Armstrong Selectaride units. The 28-stage adjustability makes these a significant improvement over the original fixed-rate replacements. Also fits Jensen Interceptor (FF model) 1966–68. Alternative (exchange units): Aston Martin DB5 / Facel Vega Armstrong Selectaride units from Aston Martin specialists.',
   },
   {
     id: 's-11',
