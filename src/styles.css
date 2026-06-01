@@ -486,6 +486,7 @@
 .registryBadge{position:absolute;top:16px;right:16px;background:rgba(201,163,78,.2);color:#c9a34e;border:1px solid rgba(201,163,78,.4);border-radius:999px;padding:4px 10px;font-size:11px;font-weight:800;letter-spacing:.05em}
 .registryTagline{color:white !important;font-size:15px;font-weight:800;margin:0 !important;opacity:1 !important}
 .registryCta{margin-top:auto !important;color:#c9a34e !important;font-weight:800;font-size:13px;opacity:1 !important}
+.registryBadgeIcon{height:40px;width:auto;object-fit:contain;display:block}
 /* Community tile — spans full width, dark green background */
 .communitySection{grid-column:1/-1;flex-direction:column;align-items:flex-start;gap:18px;cursor:default;background:#0b3d2e;border:1px solid rgba(255,255,255,.12);color:white}
 .communitySection:hover{transform:none;box-shadow:0 4px 20px rgba(0,0,0,.2)}

@@ -752,7 +752,7 @@ function App() {
               </button>
               <a href="https://airtable.com/appqtFw9HrvLwGDRV/shrc1eGBCmNryrv0M" target="_blank" rel="noopener noreferrer" className="homeSection registrySection">
                 <div className="registryBadge">500 built · 1962–1966</div>
-                <span className="homeSectionIcon">🚗</span>
+                <img src="/jensen-badge.png" alt="Jensen Motors Ltd." className="registryBadgeIcon" />
                 <h3>Registry</h3>
                 <p className="registryTagline">Tracking Every Jensen C-V8</p>
                 <p>A global community effort to locate every surviving car — restored, mid-project or barn find. Every detail helps tell the story.</p>
