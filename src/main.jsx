@@ -1648,16 +1648,23 @@ function App() {
                   <div className="configuratorLayout">
                     {/* Left: Car preview */}
                     <div className="configuratorPreview">
-                      <div className={`configuratorCarWrap${nightMode ? ' nightModeWrap' : ''}`}>
+                      <div className={`configuratorCarWrap${nightMode && configTab !== 'interior' ? ' nightModeWrap' : ''}`}>
                         <img
-                          src={
-                            nightMode
+                          src={(() => {
+                            if (configTab === 'interior') {
+                              return model.trimImages?.[configTrimColour.name]
+                                || model.defaultInteriorImage
+                                || model.heroImage;
+                            }
+                            return nightMode
                               ? (model.colourNightImages?.[configBodyColour.name] || model.heroNightImage || model.heroImage)
-                              : (model.colourImages?.[configBodyColour.name] || model.heroImage)
-                          }
-                          alt={`${model.name} in ${configBodyColour.name}`}
+                              : (model.colourImages?.[configBodyColour.name] || model.heroImage);
+                          })()}
+                          alt={configTab === 'interior'
+                            ? `${configTrimColour.name} Connolly Hide interior`
+                            : `${model.name} in ${configBodyColour.name}`}
                           className="configuratorCarImg"
-                          key={`${configBodyColour.name}-${nightMode}`}
+                          key={`${configTab}-${configBodyColour.name}-${configTrimColour.name}-${nightMode}`}
                         />
                       </div>
                       <div className="configuratorColourPreview">
