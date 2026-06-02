@@ -31,6 +31,7 @@ import { repairCards, repairCategories } from './data/repairCards.js';
 import { restorationArticles, restorationCategories } from './data/restorationArticles.js';
 import { alternativeParts, partsCategories, partsSourceCredit } from './data/alternativeParts.js';
 import { lucasParts, lucasSystems, lucasDocumentInfo } from './data/lucasParts.js';
+import { showroomModels, bodyColours, trimColours, wheelOptions, specifications } from './data/showroom.js';
 import './styles.css';
 
 const topicalSections = [
@@ -401,7 +402,16 @@ function App() {
   const [wiringCircuit, setWiringCircuit] = useState('all');
   const [wiringZoom, setWiringZoom] = useState(100);
 
-  const [appMode, setAppMode] = useState('home'); // 'home' | 'workshop' | 'manual' | 'restoration'
+  const [appMode, setAppMode] = useState(() => {
+    if (typeof window !== 'undefined' && window.location.search.includes('showroom')) return 'showroom';
+    return 'home';
+  }); // 'home' | 'workshop' | 'manual' | 'restoration' | 'showroom'
+  const [showroomMark, setShowroomMark] = useState('mk2');
+  const [configBodyColour, setConfigBodyColour] = useState(bodyColours[0]);
+  const [configTrimColour, setConfigTrimColour] = useState(trimColours[0]);
+  const [configWheels, setConfigWheels] = useState(wheelOptions[0]);
+  const [configTab, setConfigTab] = useState('exterior'); // 'exterior' | 'interior' | 'wheels'
+  const [showroomSection, setShowroomSection] = useState('models'); // 'models' | 'configure' | 'specs'
   const [activeArticleId, setActiveArticleId] = useState(null);
   const [restorationCategory, setRestorationCategory] = useState('all');
   const [restorationTab, setRestorationTab] = useState('articles'); // 'articles' | 'parts' | 'lucas'
@@ -415,6 +425,11 @@ function App() {
   const [activeCardId, setActiveCardId] = useState(null);
   const [workshopQuery, setWorkshopQuery] = useState('');
 
+  const shareConfig = () => {
+    const url = `${window.location.origin}${window.location.pathname}?showroom&mark=${showroomMark}&body=${encodeURIComponent(configBodyColour.name)}&trim=${encodeURIComponent(configTrimColour.name)}&wheels=${configWheels.id}`;
+    navigator.clipboard.writeText(url).then(() => alert('Configuration URL copied to clipboard'));
+  };
+
   const [ocrEdits, setOcrEdits] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem('jensen-ocr-edits') || '{}');
@@ -422,6 +437,24 @@ function App() {
       return {};
     }
   });
+
+  useEffect(() => {
+    if (appMode !== 'showroom') return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('mark')) setShowroomMark(params.get('mark'));
+    if (params.get('body')) {
+      const c = bodyColours.find(c => c.name === params.get('body'));
+      if (c) setConfigBodyColour(c);
+    }
+    if (params.get('trim')) {
+      const t = trimColours.find(t => t.name === params.get('trim'));
+      if (t) setConfigTrimColour(t);
+    }
+    if (params.get('wheels')) {
+      const w = wheelOptions.find(w => w.id === params.get('wheels'));
+      if (w) setConfigWheels(w);
+    }
+  }, [appMode]);
 
   // On first load, fetch the committed corrections file and merge it under
   // any localStorage edits (localStorage wins so in-progress work is kept).
@@ -726,7 +759,7 @@ function App() {
         </div>
       </header>
 
-      <div className={appMode === 'manual' ? 'layout' : 'layoutFull'}>
+      <div className={appMode === 'manual' ? 'layout' : appMode === 'showroom' ? 'showroomWrapper' : 'layoutFull'}>
 
         {/* ── Home Mode ─────────────────────────────────── */}
         {appMode === 'home' && (
@@ -1463,6 +1496,245 @@ function App() {
                   )}
                 </>
               )}
+            </main>
+          );
+        })()}
+
+        {/* ── Virtual Showroom ─────────────────────────────────────── */}
+        {appMode === 'showroom' && (() => {
+          const model = showroomModels.find(m => m.id === showroomMark);
+          const formatPrice = (n) => '£' + n.toLocaleString('en-GB');
+
+          return (
+            <main className="showroomMain">
+              {/* Header */}
+              <div className="showroomHeader">
+                <img src="/jensen-badge.png" alt="Jensen" className="showroomBadge" />
+                <div className="showroomHeaderText">
+                  <p className="showroomEyebrow">Jensen Motors Ltd · West Bromwich, England</p>
+                  <h1 className="showroomTitle">C-V8 Virtual Showroom</h1>
+                  <p className="showroomSubtitle">1962 – 1966</p>
+                </div>
+                <button className="showroomExitBtn" onClick={() => setAppMode('home')}>← Back to Workshop</button>
+              </div>
+
+              {/* Hero image */}
+              <div className="showroomHero">
+                <img src={model.heroImage} alt={model.name} className="showroomHeroImg" />
+                <div className="showroomHeroOverlay">
+                  <p className="showroomHeroEyebrow">{model.years} · {model.produced} built</p>
+                  <h2 className="showroomHeroTitle">{model.name}</h2>
+                  <p className="showroomHeroTagline">{model.tagline}</p>
+                </div>
+              </div>
+
+              {/* Model selector */}
+              <div className="showroomModelTabs">
+                {showroomModels.map(m => (
+                  <button
+                    key={m.id}
+                    className={`showroomModelTab${showroomMark === m.id ? ' active' : ''}`}
+                    onClick={() => { setShowroomMark(m.id); setShowroomSection('models'); }}
+                  >
+                    <span className="showroomTabName">{m.name}</span>
+                    <span className="showroomTabYears">{m.years}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Section nav */}
+              <div className="showroomSectionNav">
+                <button className={showroomSection === 'models' ? 'active' : ''} onClick={() => setShowroomSection('models')}>Overview</button>
+                <button className={showroomSection === 'specs' ? 'active' : ''} onClick={() => setShowroomSection('specs')}>Specifications</button>
+                <button className={showroomSection === 'configure' ? 'active' : ''} onClick={() => setShowroomSection('configure')}>Configure</button>
+              </div>
+
+              {/* ── Overview ── */}
+              {showroomSection === 'models' && (
+                <div className="showroomContent">
+                  <div className="showroomOverviewGrid">
+                    <div className="showroomOverviewText">
+                      <p className="showroomDescription">{model.description}</p>
+                      <ul className="showroomHighlights">
+                        {model.highlights.map((h, i) => <li key={i}>{h}</li>)}
+                      </ul>
+                      <div className="showroomPricing">
+                        <div className="showroomPrice original">
+                          <span className="priceLabel">Original list price ({model.originalPriceNote})</span>
+                          <span className="priceValue">{formatPrice(model.originalPriceGBP)}</span>
+                        </div>
+                        <div className="showroomPrice today">
+                          <span className="priceLabel">Equivalent today (CPI adjusted)</span>
+                          <span className="priceValue">{formatPrice(model.todayEquivalentGBP)}</span>
+                        </div>
+                      </div>
+                      <p className="showroomPriceNote">Pricing is approximate. Original price excludes options. Today's equivalent uses Bank of England CPI data.</p>
+                      <button className="showroomCta" onClick={() => setShowroomSection('configure')}>
+                        Configure your C-V8 →
+                      </button>
+                    </div>
+                    <div className="showroomOverviewImages">
+                      <img src="/showroom/cv8-front.jpg" alt="Jensen C-V8 front" className="showroomOverviewImg" />
+                      <img src="/showroom/cv8-engine.jpg" alt="Chrysler 383 V8 engine" className="showroomOverviewImg" />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* ── Specifications ── */}
+              {showroomSection === 'specs' && (
+                <div className="showroomContent">
+                  <h3 className="showroomSpecsTitle">Technical Specifications</h3>
+                  <p className="showroomSpecsSub">Jensen C-V8 — all marks share the same Chrysler V8 powertrain. {model.differences}</p>
+                  <div className="showroomSpecsGrid">
+                    {Object.values(specifications).map(spec => (
+                      <div key={spec.label} className="showroomSpec">
+                        <span className="specLabel">{spec.label}</span>
+                        <span className="specValue">{spec.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="showroomSpecsProduction">
+                    <h4>Production Record — {model.name}</h4>
+                    <div className="showroomProductionGrid">
+                      <div><span>Years produced</span><strong>{model.years}</strong></div>
+                      <div><span>Total built</span><strong>{model.produced}</strong></div>
+                      <div><span>Of 500 total C-V8s</span><strong>{Math.round(model.produced/500*100)}%</strong></div>
+                      <div><span>Original list price</span><strong>{formatPrice(model.originalPriceGBP)}</strong></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* ── Configurator ── */}
+              {showroomSection === 'configure' && (
+                <div className="showroomContent">
+                  <div className="configuratorLayout">
+                    {/* Left: Car preview */}
+                    <div className="configuratorPreview">
+                      <div className="configuratorCarWrap">
+                        <img src={model.heroImage} alt={model.name} className="configuratorCarImg" />
+                      </div>
+                      <div className="configuratorColourPreview">
+                        <div className="colourPreviewBlock" style={{ background: configBodyColour.css }}>
+                          <span className="colourPreviewLabel" style={{ color: ['#fafafa','#f5f2ec','#f0ebe0','#f0aab8','#c8b898','#d4c4b0','#d4ae7a','#b8b0a4'].includes(configBodyColour.css) ? '#333' : 'white' }}>
+                            {configBodyColour.name}
+                          </span>
+                        </div>
+                        <div className="trimPreviewBlock" style={{ background: configTrimColour.css }}>
+                          <span className="trimPreviewLabel" style={{ color: ['#c8b898','#d4c4b0','#d4ae7a','#b8935a','#8a8a85','#8a9bb0'].includes(configTrimColour.css) ? '#333' : 'white' }}>
+                            {configTrimColour.name} Connolly Hide
+                          </span>
+                        </div>
+                      </div>
+                      {/* Summary */}
+                      <div className="configuratorSummary">
+                        <h4>Your Configuration</h4>
+                        <div className="summaryRow"><span>Model</span><strong>{model.name}</strong></div>
+                        <div className="summaryRow"><span>Exterior</span><strong>{configBodyColour.name}</strong></div>
+                        <div className="summaryRow"><span>Interior</span><strong>{configTrimColour.name} Connolly Hide</strong></div>
+                        <div className="summaryRow"><span>Wheels</span><strong>{configWheels.name}</strong></div>
+                        <div className="summaryRow price"><span>Equivalent today</span><strong>{formatPrice(model.todayEquivalentGBP)}</strong></div>
+                        <div className="configuratorActions">
+                          <button className="configActionBtn primary" onClick={shareConfig}>Share configuration</button>
+                          <button className="configActionBtn" onClick={() => window.print()}>Print summary</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Right: Selectors */}
+                    <div className="configuratorSelectors">
+                      <div className="configTabs">
+                        <button className={configTab === 'exterior' ? 'active' : ''} onClick={() => setConfigTab('exterior')}>Exterior</button>
+                        <button className={configTab === 'interior' ? 'active' : ''} onClick={() => setConfigTab('interior')}>Interior</button>
+                        <button className={configTab === 'wheels' ? 'active' : ''} onClick={() => setConfigTab('wheels')}>Wheels</button>
+                      </div>
+
+                      {configTab === 'exterior' && (
+                        <div className="configSection">
+                          <p className="configSectionLabel">Body colour — {bodyColours.length} options available across all 500 cars</p>
+                          <div className="colourGrid">
+                            {bodyColours.map(colour => (
+                              <button
+                                key={colour.name}
+                                className={`colourSwatch${configBodyColour.name === colour.name ? ' selected' : ''}`}
+                                style={{ background: colour.css }}
+                                onClick={() => setConfigBodyColour(colour)}
+                                title={`${colour.name} — ${colour.made} made`}
+                              >
+                                {colour.css === '#fafafa' || colour.css === '#f5f2ec' || colour.css === '#f0ebe0' ? <span className="swatchBorder" /> : null}
+                              </button>
+                            ))}
+                          </div>
+                          <div className="selectedColourInfo">
+                            <strong>{configBodyColour.name}</strong>
+                            <span>{configBodyColour.made} of 500 cars built in this colour ({Math.round(configBodyColour.made/500*100)}%){configBodyColour.popular ? ' · Most popular' : ''}</span>
+                          </div>
+                        </div>
+                      )}
+
+                      {configTab === 'interior' && (
+                        <div className="configSection">
+                          <p className="configSectionLabel">Interior trim — Connolly hide throughout</p>
+                          <div className="colourGrid">
+                            {trimColours.map(colour => (
+                              <button
+                                key={colour.name}
+                                className={`colourSwatch${configTrimColour.name === colour.name ? ' selected' : ''}`}
+                                style={{ background: colour.css }}
+                                onClick={() => setConfigTrimColour(colour)}
+                                title={`${colour.name} — ${colour.made} made`}
+                              />
+                            ))}
+                          </div>
+                          <div className="selectedColourInfo">
+                            <strong>{configTrimColour.name}</strong>
+                            <span>{configTrimColour.made} of 500 cars trimmed in this colour{configTrimColour.popular ? ' · Most popular' : ''}</span>
+                          </div>
+                        </div>
+                      )}
+
+                      {configTab === 'wheels' && (
+                        <div className="configSection">
+                          <p className="configSectionLabel">Wheel specification</p>
+                          <div className="wheelOptions">
+                            {wheelOptions.map(w => (
+                              <button
+                                key={w.id}
+                                className={`wheelOption${configWheels.id === w.id ? ' selected' : ''}`}
+                                onClick={() => setConfigWheels(w)}
+                              >
+                                <div className="wheelOptionIcon">{w.id === 'wire' ? '◎' : '●'}</div>
+                                <div>
+                                  <strong>{w.name}</strong>
+                                  <p>{w.description}</p>
+                                  <span className="wheelPeriod">{w.period}</span>
+                                </div>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Lifestyle image */}
+              <div className="showroomLifestyle">
+                <img src="/showroom/cv8-lifestyle.jpg" alt="Jensen C-V8 — Deep Carriage Green" />
+                <div className="showroomLifestyleCaption">
+                  <p>Jensen C-V8 in Deep Carriage Green with Beige Connolly Hide interior.</p>
+                  <p>54 of the 500 cars built were finished in Deep Carriage Green.</p>
+                </div>
+              </div>
+
+              <footer className="showroomFooter">
+                <img src="/jensen-badge.png" alt="Jensen" className="showroomFooterBadge" />
+                <p>Jensen Motors Ltd · Kelvin Way, West Bromwich, England</p>
+                <p className="showroomFooterNote">This virtual showroom is a community tribute. Pricing and specifications are approximate, based on period documentation and the Jensen C-V8 Registry.</p>
+                <button className="showroomExitBtn" onClick={() => setAppMode('home')}>← Return to Workshop Companion</button>
+              </footer>
             </main>
           );
         })()}
