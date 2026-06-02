@@ -1715,14 +1715,13 @@ function App() {
                           </div>
                         )}
                         <div className="summaryRow price"><span>Total today</span><strong>{formatPrice(totalToday)}</strong></div>
-                      </div>
-                        );
-                      })()}
                         <div className="configuratorActions">
                           <button className="configActionBtn primary" onClick={shareConfig}>Share configuration</button>
                           <button className="configActionBtn" onClick={() => window.print()}>Print summary</button>
                         </div>
                       </div>
+                        );
+                      })()}
                     </div>
 
                     {/* Right: Selectors */}
