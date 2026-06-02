@@ -895,3 +895,8 @@
 .colourStandard{font-size:11px;color:#2d7d46;font-weight:600;letter-spacing:.05em}
 .colourSpecial{font-size:11px;color:#b85c00;font-weight:600;letter-spacing:.05em}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.dayNightToggle{display:flex;border:1px solid #e8e8e8;border-radius:4px;overflow:hidden;margin-bottom:24px;width:fit-content}
+.dayNightBtn{border:none;background:transparent;color:#888;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:10px 20px;cursor:pointer;transition:all .2s}
+.dayNightBtn:hover{color:#111}
+.dayNightBtn.active{background:#111;color:#fff}
+.nightModeWrap{background:#0a0a0f}

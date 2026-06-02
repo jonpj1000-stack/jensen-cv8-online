@@ -407,6 +407,7 @@ function App() {
     return 'home';
   }); // 'home' | 'workshop' | 'manual' | 'restoration' | 'showroom'
   const [showroomMark, setShowroomMark] = useState('mk2');
+  const [nightMode, setNightMode] = useState(false);
   const [configBodyColour, setConfigBodyColour] = useState(bodyColours[0]);
   const [configTrimColour, setConfigTrimColour] = useState(trimColours[0]);
   const [configWheels, setConfigWheels] = useState(wheelOptions[0]);
@@ -1647,12 +1648,16 @@ function App() {
                   <div className="configuratorLayout">
                     {/* Left: Car preview */}
                     <div className="configuratorPreview">
-                      <div className="configuratorCarWrap">
+                      <div className={`configuratorCarWrap${nightMode ? ' nightModeWrap' : ''}`}>
                         <img
-                          src={model.colourImages?.[configBodyColour.name] || model.heroImage}
+                          src={
+                            nightMode
+                              ? (model.colourNightImages?.[configBodyColour.name] || model.heroNightImage || model.heroImage)
+                              : (model.colourImages?.[configBodyColour.name] || model.heroImage)
+                          }
                           alt={`${model.name} in ${configBodyColour.name}`}
                           className="configuratorCarImg"
-                          key={configBodyColour.name}
+                          key={`${configBodyColour.name}-${nightMode}`}
                         />
                       </div>
                       <div className="configuratorColourPreview">
@@ -1684,6 +1689,21 @@ function App() {
 
                     {/* Right: Selectors */}
                     <div className="configuratorSelectors">
+                      {/* Day / Night toggle */}
+                      <div className="dayNightToggle">
+                        <button
+                          className={`dayNightBtn${!nightMode ? ' active' : ''}`}
+                          onClick={() => setNightMode(false)}
+                        >
+                          ☀ Day
+                        </button>
+                        <button
+                          className={`dayNightBtn${nightMode ? ' active' : ''}`}
+                          onClick={() => setNightMode(true)}
+                        >
+                          ☾ Night
+                        </button>
+                      </div>
                       <div className="configTabs">
                         <button className={configTab === 'exterior' ? 'active' : ''} onClick={() => setConfigTab('exterior')}>Exterior</button>
                         <button className={configTab === 'interior' ? 'active' : ''} onClick={() => setConfigTab('interior')}>Interior</button>
