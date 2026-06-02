@@ -717,6 +717,103 @@ export const restorationArticles = [
     ]
   },
 
+  // ── Body & Seals ────────────────────────────────────────────────────────────
+  {
+    id: 'door-draught-excluders',
+    category: 'body',
+    title: 'Door Draught Excluders & Seals',
+    subtitle: 'Replacing worn door seals with a snap-on moquette-covered draught excluder',
+    models: ['all'],
+    difficulty: 'easy',
+    readTime: '5 min read',
+    severity: null,
+    tags: ['door seals', 'draught excluder', 'weatherproofing', 'body', 'trim', 'moquette', 'interior'],
+    contributors: ['Jensen C-V8 community'],
+    lastUpdated: '2025',
+
+    intro: `Worn or missing door seals are one of the most common sources of wind noise, water ingress and draughts on a classic Jensen C-V8. The original rubber door seals deteriorate over time and are increasingly difficult to source as an exact replacement. A practical and period-sympathetic alternative is a snap-on moquette-covered draught excluder, which fits a wide range of door opening edges without adhesive and is available in colours to match the interior.`,
+
+    sections: [
+      {
+        type: 'heading',
+        content: 'The Recommended Product'
+      },
+      {
+        type: 'parts',
+        content: [
+          {
+            name: 'Draught Excluder — Snap-on, plush moquette cover, 16mm bead',
+            partNumber: 'SKU: 769',
+            notes: 'Snap-on fitting with a large 16mm diameter soft sponge bead. Plush moquette covered. Reinforced carrier grips a wide range of door opening edge profiles without adhesive. Available in Black, Dark Blue, Brown and Red. Sold by the metre. Approximately £20.54 per metre (inc. VAT). Supplier: Vintage Car Parts — vintagecarparts.co.uk/products/769-container-large-plush-door-draught-excluder',
+          }
+        ]
+      },
+      {
+        type: 'tip',
+        content: 'The snap-on design means no adhesive is required and the seal can be removed and repositioned during fitting. This makes it far easier to work with than a glued rubber seal, particularly on a car being worked on over time.'
+      },
+
+      {
+        type: 'heading',
+        content: 'Measuring Up — How Much Do You Need?'
+      },
+      {
+        type: 'paragraph',
+        content: 'The product is sold by the metre, so accurate measurement before ordering will avoid waste. Measure the full perimeter of each door opening with a flexible tape measure, following the contour of the door shut face. The C-V8 is a two-door car, so you will need to measure both apertures.'
+      },
+      {
+        type: 'list',
+        content: [
+          'Measure the full perimeter of each door opening separately — left and right apertures may differ slightly.',
+          'Add 10–15% to your total measurement to allow for trimming, corner forming and any fitting errors.',
+          'A typical full-size classic car door opening runs to approximately 3–4 metres per door. Budget for at least 7–8 metres for both doors combined, plus contingency.',
+          'If also sealing the boot lid, measure that aperture separately and add to your order.'
+        ]
+      },
+
+      {
+        type: 'heading',
+        content: 'Colour Selection'
+      },
+      {
+        type: 'paragraph',
+        content: 'The draught excluder is available in four colours: Black, Dark Blue, Brown and Red. For most C-V8 interiors, black or brown will be the most sympathetic match. The moquette texture is period-appropriate for a 1960s British car interior. If the existing door shut faces are in good condition, the colour of the excluder will be visible when the door is open, so it is worth matching to the interior trim rather than purely the door rubber colour.'
+      },
+
+      {
+        type: 'heading',
+        content: 'Fitting'
+      },
+      {
+        type: 'steps',
+        content: [
+          'Remove all traces of the old seal — peel away the existing rubber or adhesive residue. Clean the door shut face with a mild solvent to remove any adhesive, grease or corrosion.',
+          'Inspect the door shut face for rust or damage. Any rust should be treated and primed before the new seal is fitted, as sealing over rust will trap moisture.',
+          'Start at the bottom of the door opening (the sill area) where any slight misalignment will be least visible.',
+          'Press the snap-on carrier over the door shut face edge and work progressively around the aperture. The reinforced carrier will grip the edge firmly without adhesive.',
+          'At corners, cut the bead at an angle rather than stretching it around the bend — this gives a neater result and avoids the seal lifting off the carrier at the corner.',
+          'Where the two ends of the seal meet (usually at the bottom of the door), cut both ends squarely and butt them together neatly. A small dab of contact adhesive at the join will prevent the ends lifting.',
+          'Close the door gently and check the compression — the 16mm sponge bead should compress evenly around the full aperture without the door requiring excessive force to close.',
+          'Adjust any sections that appear compressed unevenly by gently pulling the carrier slightly outward or inward on the door lip to reposition.'
+        ]
+      },
+
+      {
+        type: 'heading',
+        content: 'Boot Lid Seal'
+      },
+      {
+        type: 'paragraph',
+        content: 'The alternative parts list for the C-V8 references Woolies part no. 268 for the boot rubber seal as a direct replacement. The Vintage Car Parts snap-on draught excluder (SKU 769) may also be suitable for the boot lid aperture, depending on the profile of the boot shut face — the snap-on carrier accommodates a wide range of edge profiles. If the original Woolies boot seal is not available, this snap-on alternative is worth considering as a practical replacement.'
+      },
+
+      {
+        type: 'tip',
+        content: 'The original Woolies part numbers for C-V8 door and boot seals (264 for doors, 268 for boot) from the Eric Christoffersen parts list are listed in the Alternative Parts section of this site and are worth checking for availability before ordering a universal replacement.'
+      }
+    ]
+  },
+
   // ── Upgrades & Modifications ────────────────────────────────────────────────
   {
     id: 'power-steering-conversion',
