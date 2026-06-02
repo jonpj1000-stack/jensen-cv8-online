@@ -39,7 +39,7 @@ export const showroomModels = [
     originalPriceGBP: 2895,
     originalPriceNote: 'approx. 1963 list price',
     todayEquivalentGBP: 64000,
-    heroImage: '/showroom/cv8-hero.jpg',
+    heroImage: '/showroom/cv8-mk2-hero.jpg',
     description: 'The Mk II refined and consolidated the C-V8 formula, bringing improved interior appointments and detail changes that would define the car\'s character. With 216 built, the Mk II represents the heart of C-V8 production — and the version most closely associated with the car\'s golden era.',
     highlights: [
       'Refined interior and improved detail finish',
