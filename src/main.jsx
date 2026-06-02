@@ -815,6 +815,21 @@ function App() {
                 <span className="homeSectionArrow">→</span>
               </button>
 
+              {/* Showroom tile — full-width feature */}
+              <a href="/showroom" className="homeSection showroomFeatureTile">
+                <div className="showroomFeatureBadge">New</div>
+                <div className="showroomFeatureContent">
+                  <p className="showroomFeatureEyebrow">Parallel Universe</p>
+                  <h3 className="showroomFeatureTitle">What if you could order a Jensen C-V8 today?</h3>
+                  <p className="showroomFeatureCopy">How much would it cost? What colour would you choose? Every option, every surcharge — exactly as Jensen Motors offered them in 1962. Configure yours in this what-if experience and find out what your car would have cost then, and what that means in today's money.</p>
+                  <span className="showroomFeatureCta">Enter the showroom →</span>
+                </div>
+                <div className="showroomFeatureImages">
+                  <img src="/showroom/cv8-mk3-hero.jpg" alt="Jensen C-V8 Mk III" className="showroomFeatureImg showroomFeatureImgMain" />
+                  <img src="/showroom/cv8-mk2-hero.jpg" alt="Jensen C-V8 Mk II" className="showroomFeatureImg showroomFeatureImgSub" />
+                </div>
+              </a>
+
               {/* Community tile — full-width, links to forums, social & chat */}
               <div className="homeSection communitySection">
                 <div className="communitySectionHeader">
