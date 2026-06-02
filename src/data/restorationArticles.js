@@ -16,15 +16,16 @@
  */
 
 export const restorationCategories = [
-  { id: 'known-issues', label: 'Known Issues',           emoji: '⚠️' },
+  { id: 'known-issues', label: 'Known Issues',             emoji: '⚠️' },
   { id: 'upgrades',     label: 'Upgrades & Modifications', emoji: '🚀' },
-  { id: 'ignition',     label: 'Ignition & Electrics',  emoji: '⚡' },
-  { id: 'engine',       label: 'Engine',                emoji: '🔧' },
-  { id: 'fuel',         label: 'Fuel System',           emoji: '⛽' },
-  { id: 'suspension',   label: 'Suspension',            emoji: '⚙️' },
-  { id: 'body',         label: 'Body & Paint',          emoji: '🎨' },
-  { id: 'interior',     label: 'Interior',              emoji: '🪑' },
-  { id: 'suppliers',    label: 'Parts & Suppliers',     emoji: '📦' },
+  { id: 'ignition',     label: 'Ignition & Electrics',     emoji: '⚡' },
+  { id: 'engine',       label: 'Engine',                   emoji: '🔧' },
+  { id: 'fuel',         label: 'Fuel System',              emoji: '⛽' },
+  { id: 'wheels',       label: 'Wheels & Tyres',           emoji: '🔵' },
+  { id: 'suspension',   label: 'Suspension',               emoji: '⚙️' },
+  { id: 'body',         label: 'Body & Paint',             emoji: '🎨' },
+  { id: 'interior',     label: 'Interior',                 emoji: '🪑' },
+  { id: 'suppliers',    label: 'Parts & Suppliers',        emoji: '📦' },
 ];
 
 export const restorationArticles = [
@@ -609,6 +610,109 @@ export const restorationArticles = [
       {
         type: 'tip',
         content: 'At idle on a warm day, the electric fans should cycle on and off as they maintain temperature just above the thermostat opening point. If the fans run continuously without the temperature stabilising, the system does not have sufficient cooling capacity for idle conditions — almost always a fan or thermostat issue. If the car runs cool on the road but overheats in traffic, it is an idle-speed cooling capacity problem. If it overheats at all speeds, suspect blockage, thermostat, or water pump.'
+      }
+    ]
+  },
+
+  // ── Wheels & Tyres ──────────────────────────────────────────────────────────
+  {
+    id: 'wheel-dimensions',
+    category: 'wheels',
+    title: 'C-V8 Wheel Dimensions — Critical Specifications',
+    subtitle: 'PCD, width, backspace and centre bore for sourcing replacement or alternative wheels',
+    models: ['all'],
+    difficulty: 'easy',
+    readTime: '4 min read',
+    severity: null,
+    tags: ['wheels', 'PCD', 'backspace', 'centre bore', 'Austin Westminster', 'tyres', '15 inch', 'dimensions'],
+    contributors: ['Jensen C-V8 community — measured from original C-V8 wheels'],
+    lastUpdated: '2025',
+
+    intro: `Finding correct replacement wheels for the Jensen C-V8 requires knowing the precise critical dimensions — PCD, rim width, backspace and centre bore. These are not commonly documented in one place, and getting any one of them wrong means the wheel will not fit correctly or safely. The dimensions below have been measured from original C-V8 wheels and are provided as a practical reference for owners sourcing replacements or alternatives.`,
+
+    sections: [
+      {
+        type: 'heading',
+        content: 'Standard C-V8 Wheel Dimensions'
+      },
+      {
+        type: 'parts',
+        content: [
+          {
+            name: 'Rim diameter',
+            partNumber: '15 inch',
+            notes: 'Standard diameter across all C-V8 marks.',
+          },
+          {
+            name: 'Rim width',
+            partNumber: '4.5 inch',
+            notes: 'Standard width of the original C-V8 wheel.',
+          },
+          {
+            name: 'PCD (Pitch Circle Diameter)',
+            partNumber: '5 × 5 inch  /  5 × 127 mm',
+            notes: '5-stud pattern on a 5-inch (127mm) pitch circle. Both measurements are the same dimension — use whichever your supplier requires.',
+          },
+          {
+            name: 'Backspace',
+            partNumber: '4 3/16 inch  (approx. 106 mm)',
+            notes: 'Measured from the inner lip of the wheel to the mounting face. Critical for ensuring correct clearance with the brake callipers and suspension components.',
+          },
+          {
+            name: 'Centre bore',
+            partNumber: '3 1/8 inch  (approx. 79 mm)',
+            notes: 'Diameter of the centre hole. The wheel must clear the hub/axle flange — if fitting a wheel with a larger centre bore, a hub-centric ring is recommended.',
+          },
+        ]
+      },
+      {
+        type: 'warning',
+        content: 'Always verify backspace and centre bore against your own car before purchasing wheels. Minor variations can exist between individual cars and marks. The backspace dimension in particular is critical — too little clearance will result in the wheel fouling the brake calliper or suspension.'
+      },
+
+      {
+        type: 'heading',
+        content: 'Factory Tyre Specification'
+      },
+      {
+        type: 'list',
+        content: [
+          'Original specification: Dunlop 6.70 × 15 road speed rating',
+          'Tyre pressure: 24 psi all round (see manual for laden/unladen notes)',
+          'Recommended modern equivalent: 205/70-15 — increase pressure by approximately 10% to compensate for the different section width',
+        ]
+      },
+      {
+        type: 'tip',
+        content: 'The 205/70-15 is the most commonly recommended modern tyre for the C-V8. It is close in overall diameter to the original 6.70 × 15, preserving speedometer accuracy. Wider tyres are possible but may require checking for mudguard clearance.'
+      },
+
+      {
+        type: 'heading',
+        content: 'Cross-Reference: Austin Westminster'
+      },
+      {
+        type: 'paragraph',
+        content: 'The original C-V8 wheels are said to share their dimensions with the BMC Austin Westminster, and this cross-reference appears in the wider Jensen community. However, this has not been independently verified by the contributor of these measurements. If you are sourcing Austin Westminster wheels as an alternative, confirm the PCD, backspace and centre bore match against the dimensions above before fitting.'
+      },
+      {
+        type: 'paragraph',
+        content: 'The alternative parts list on this site also notes the Rover P5, Vauxhall PA Cresta/Velox and Austin Westminster as potential 15-inch wheel donors, based on the original Eric Christoffersen parts list. Again, physical verification of dimensions is strongly recommended before purchase.'
+      },
+
+      {
+        type: 'heading',
+        content: 'Important Notes When Sourcing Wheels'
+      },
+      {
+        type: 'list',
+        content: [
+          'PCD is the most commonly quoted specification and is easy to verify — use a PCD gauge or measure centre-to-centre between opposite studs and multiply by 1.0515, or measure adjacent studs using standard formulas.',
+          'Backspace is not the same as offset — backspace is measured from the inner lip; offset is measured from the centre line. Confirm which your supplier is quoting.',
+          'Centre bore can often be enlarged by a machine shop to fit a hub-centric ring if you find a wheel with correct PCD but slightly wrong bore.',
+          'Period-correct steel wheels in good condition are increasingly difficult to find. Have any used wheels inspected for cracks or corrosion around the stud holes before fitting.',
+          'The original lug nuts are a specific thread — confirm compatibility when sourcing period or aftermarket wheels from different vehicles.',
+        ]
       }
     ]
   },
