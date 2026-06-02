@@ -62,7 +62,7 @@ export const showroomModels = [
     todayEquivalentGBP: 81000,
     todayEquivalentManualGBP: 83000,
     priceListImage: '/showroom/mk3-price-list.jpg',
-    heroImage: '/showroom/cv8-mk3-side.jpg',
+    heroImage: '/showroom/cv8-mk3-hero.jpg',
     frontImage: '/showroom/cv8-mk3-front.jpg',
     standardColours: ['Black','Indigo Blue','Princess Grey','Regal Red','Oyster Grey','Deep Carriage Green','Californian Sage','Peony','Botticelli Blue'],
     standardTrim: ['Beige','Bright Red','Blue Grey','Dark Red','Light Mushroom','Grey','Green','Black'],
