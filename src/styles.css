@@ -900,3 +900,9 @@
 .dayNightBtn:hover{color:#111}
 .dayNightBtn.active{background:#111;color:#fff}
 .nightModeWrap{background:#0a0a0f}
+.specialColourLabel{margin-top:20px;border-top:1px solid #eee;padding-top:16px}
+.originalPrice{font-weight:400;color:#bbb;font-size:10px;letter-spacing:.05em}
+.surchargeTag{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#b85c00;font-weight:600;margin-left:6px}
+.surchargeRow span{color:#b85c00}
+.surchargeList{display:flex;flex-direction:column;gap:2px;text-align:right}
+.surchargeList span{font-size:12px;color:#b85c00;font-weight:500}

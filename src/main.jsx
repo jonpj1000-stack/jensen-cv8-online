@@ -1686,13 +1686,38 @@ function App() {
                         </div>
                       </div>
                       {/* Summary */}
+                      {(() => {
+                        const extSpecial = model.standardColours && !model.standardColours.includes(configBodyColour.name);
+                        const trimSpecial = model.standardTrim && !model.standardTrim.includes(configTrimColour.name);
+                        const extSurcharge = extSpecial ? (model.specialExteriorSurcharge?.todayGBP || 0) : 0;
+                        const trimSurcharge = trimSpecial ? (model.specialInteriorSurcharge?.todayGBP || 0) : 0;
+                        const totalToday = model.todayEquivalentGBP + extSurcharge + trimSurcharge;
+                        return (
                       <div className="configuratorSummary">
                         <h4>Your Configuration</h4>
                         <div className="summaryRow"><span>Model</span><strong>{model.name}</strong></div>
-                        <div className="summaryRow"><span>Exterior</span><strong>{configBodyColour.name}</strong></div>
-                        <div className="summaryRow"><span>Interior</span><strong>{configTrimColour.name} Connolly Hide</strong></div>
+                        <div className="summaryRow">
+                          <span>Exterior</span>
+                          <strong>{configBodyColour.name}{extSpecial ? <span className="surchargeTag"> + special</span> : ''}</strong>
+                        </div>
+                        <div className="summaryRow">
+                          <span>Interior</span>
+                          <strong>{configTrimColour.name} Connolly Hide{trimSpecial ? <span className="surchargeTag"> + special</span> : ''}</strong>
+                        </div>
                         <div className="summaryRow"><span>Wheels</span><strong>{configWheels.name}</strong></div>
-                        <div className="summaryRow price"><span>Equivalent today</span><strong>{formatPrice(model.todayEquivalentGBP)}</strong></div>
+                        {(extSpecial || trimSpecial) && (
+                          <div className="summaryRow surchargeRow">
+                            <span>Surcharges</span>
+                            <div className="surchargeList">
+                              {extSpecial && <span>+{formatPrice(extSurcharge)} special exterior</span>}
+                              {trimSpecial && <span>+{formatPrice(trimSurcharge)} special interior</span>}
+                            </div>
+                          </div>
+                        )}
+                        <div className="summaryRow price"><span>Total today</span><strong>{formatPrice(totalToday)}</strong></div>
+                      </div>
+                        );
+                      })()}
                         <div className="configuratorActions">
                           <button className="configActionBtn primary" onClick={shareConfig}>Share configuration</button>
                           <button className="configActionBtn" onClick={() => window.print()}>Print summary</button>
@@ -1723,56 +1748,87 @@ function App() {
                         <button className={configTab === 'wheels' ? 'active' : ''} onClick={() => setConfigTab('wheels')}>Wheels</button>
                       </div>
 
-                      {configTab === 'exterior' && (
-                        <div className="configSection">
-                          <p className="configSectionLabel">Body colour — {bodyColours.length} options available across all 500 cars</p>
-                          <div className="colourGrid">
-                            {bodyColours.map(colour => (
-                              <button
-                                key={colour.name}
-                                className={`colourSwatch${configBodyColour.name === colour.name ? ' selected' : ''}`}
-                                style={{ background: colour.css }}
-                                onClick={() => setConfigBodyColour(colour)}
-                                title={`${colour.name} — ${colour.made} made`}
-                              >
-                                {colour.css === '#fafafa' || colour.css === '#f5f2ec' || colour.css === '#f0ebe0' ? <span className="swatchBorder" /> : null}
-                              </button>
-                            ))}
+                      {configTab === 'exterior' && (() => {
+                        const stdColours = model.standardColours
+                          ? bodyColours.filter(c => model.standardColours.includes(c.name))
+                          : bodyColours;
+                        const splColours = model.standardColours
+                          ? bodyColours.filter(c => !model.standardColours.includes(c.name))
+                          : [];
+                        const isSpecial = model.standardColours && !model.standardColours.includes(configBodyColour.name);
+                        const renderSwatch = colour => (
+                          <button
+                            key={colour.name}
+                            className={`colourSwatch${configBodyColour.name === colour.name ? ' selected' : ''}`}
+                            style={{ background: colour.css }}
+                            onClick={() => setConfigBodyColour(colour)}
+                            title={`${colour.name} — ${colour.made} made`}
+                          >
+                            {['#fafafa','#f5f2ec','#f0ebe0'].includes(colour.css) ? <span className="swatchBorder" /> : null}
+                          </button>
+                        );
+                        return (
+                          <div className="configSection">
+                            <p className="configSectionLabel">Standard body colours — included in list price</p>
+                            <div className="colourGrid">{stdColours.map(renderSwatch)}</div>
+                            {splColours.length > 0 && <>
+                              <p className="configSectionLabel specialColourLabel">
+                                Special exterior colours — +{formatPrice(model.specialExteriorSurcharge?.todayGBP)} today
+                                <span className="originalPrice"> (original: {model.specialExteriorSurcharge?.label})</span>
+                              </p>
+                              <div className="colourGrid">{splColours.map(renderSwatch)}</div>
+                            </>}
+                            <div className="selectedColourInfo">
+                              <strong>{configBodyColour.name}</strong>
+                              <span>{configBodyColour.made} of 500 cars built in this colour ({Math.round(configBodyColour.made/500*100)}%)</span>
+                              {isSpecial
+                                ? <span className="colourSpecial">Special order — +{formatPrice(model.specialExteriorSurcharge?.todayGBP)} · original {model.specialExteriorSurcharge?.label}</span>
+                                : <span className="colourStandard">✓ Standard colour — included in list price</span>
+                              }
+                            </div>
                           </div>
-                          <div className="selectedColourInfo">
-                            <strong>{configBodyColour.name}</strong>
-                            <span>{configBodyColour.made} of 500 cars built in this colour ({Math.round(configBodyColour.made/500*100)}%){configBodyColour.popular ? ' · Most popular' : ''}</span>
-                            {model.standardColours && (
-                              <span className={model.standardColours.includes(configBodyColour.name) ? 'colourStandard' : 'colourSpecial'}>
-                                {model.standardColours.includes(configBodyColour.name)
-                                  ? '✓ Standard colour — included in list price'
-                                  : `Special order — +${model.specialColourSurcharge}`}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      )}
+                        );
+                      })()}
 
-                      {configTab === 'interior' && (
-                        <div className="configSection">
-                          <p className="configSectionLabel">Interior trim — Connolly hide throughout</p>
-                          <div className="colourGrid">
-                            {trimColours.map(colour => (
-                              <button
-                                key={colour.name}
-                                className={`colourSwatch${configTrimColour.name === colour.name ? ' selected' : ''}`}
-                                style={{ background: colour.css }}
-                                onClick={() => setConfigTrimColour(colour)}
-                                title={`${colour.name} — ${colour.made} made`}
-                              />
-                            ))}
+                      {configTab === 'interior' && (() => {
+                        const stdTrim = model.standardTrim
+                          ? trimColours.filter(c => model.standardTrim.includes(c.name))
+                          : trimColours;
+                        const splTrim = model.standardTrim
+                          ? trimColours.filter(c => !model.standardTrim.includes(c.name))
+                          : [];
+                        const isSpecial = model.standardTrim && !model.standardTrim.includes(configTrimColour.name);
+                        const renderTrimSwatch = colour => (
+                          <button
+                            key={colour.name}
+                            className={`colourSwatch${configTrimColour.name === colour.name ? ' selected' : ''}`}
+                            style={{ background: colour.css }}
+                            onClick={() => setConfigTrimColour(colour)}
+                            title={`${colour.name} — ${colour.made} made`}
+                          />
+                        );
+                        return (
+                          <div className="configSection">
+                            <p className="configSectionLabel">Standard interior trim — Connolly hide, included in list price</p>
+                            <div className="colourGrid">{stdTrim.map(renderTrimSwatch)}</div>
+                            {splTrim.length > 0 && <>
+                              <p className="configSectionLabel specialColourLabel">
+                                Special interior colours — +{formatPrice(model.specialInteriorSurcharge?.todayGBP)} today
+                                <span className="originalPrice"> (original: {model.specialInteriorSurcharge?.label})</span>
+                              </p>
+                              <div className="colourGrid">{splTrim.map(renderTrimSwatch)}</div>
+                            </>}
+                            <div className="selectedColourInfo">
+                              <strong>{configTrimColour.name}</strong>
+                              <span>{configTrimColour.made} of 500 cars trimmed in this colour</span>
+                              {isSpecial
+                                ? <span className="colourSpecial">Special order — +{formatPrice(model.specialInteriorSurcharge?.todayGBP)} · original {model.specialInteriorSurcharge?.label}</span>
+                                : <span className="colourStandard">✓ Standard trim — included in list price</span>
+                              }
+                            </div>
                           </div>
-                          <div className="selectedColourInfo">
-                            <strong>{configTrimColour.name}</strong>
-                            <span>{configTrimColour.made} of 500 cars trimmed in this colour{configTrimColour.popular ? ' · Most popular' : ''}</span>
-                          </div>
-                        </div>
-                      )}
+                        );
+                      })()}
 
                       {configTab === 'wheels' && (
                         <div className="configSection">

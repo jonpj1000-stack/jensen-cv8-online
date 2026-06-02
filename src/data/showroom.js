@@ -82,9 +82,12 @@ export const showroomModels = [
     },
     frontImage: '/showroom/cv8-mk3-front.jpg',
     standardColours: ['Black','Indigo Blue','Princess Grey','Regal Red','Oyster Grey','Deep Carriage Green','Californian Sage','Peony','Botticelli Blue'],
-    standardTrim: ['Beige','Bright Red','Blue Grey','Dark Red','Light Mushroom','Grey','Green','Black'],
-    specialColourSurcharge: '£15.0.0 + purchase tax',
-    specialTrimSurcharge: '£30.0.0 + purchase tax',
+    standardTrim: ['Beige','Bright Red','Blue-Grey','Dark Red','Light Mushroom','Grey','Green','Black'],
+    // Surcharges from official price list KS/BP/665/10M/I
+    // Special exterior: £15.0.0 + £3.2.6 p.t. = £18.125 in 1965 → approx. £399 today (×22 CPI)
+    // Special interior: £30.0.0 + £6.5.0 p.t. = £36.25 in 1965 → approx. £798 today (×22 CPI)
+    specialExteriorSurcharge: { originalGBP: 18, todayGBP: 399, label: '£15.0.0 + £3.2.6 p.t.' },
+    specialInteriorSurcharge: { originalGBP: 36, todayGBP: 798, label: '£30.0.0 + £6.5.0 p.t.' },
     description: 'The final and most accomplished expression of the C-V8. The Mk III brought electric windows, a revised interior, and the Armstrong Selectaride electrically-adjustable shock absorbers as standard — one of the first production cars in the world to offer this feature. Jensen\'s ambition was at its highest.',
     highlights: [
       'Electric windows as standard',
