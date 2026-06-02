@@ -1561,15 +1561,49 @@ function App() {
                       </ul>
                       <div className="showroomPricing">
                         <div className="showroomPrice original">
-                          <span className="priceLabel">Original list price ({model.originalPriceNote})</span>
+                          <span className="priceLabel">
+                            {model.originalPriceManualGBP ? 'Original price — automatic' : `Original list price (${model.originalPriceNote})`}
+                          </span>
                           <span className="priceValue">{formatPrice(model.originalPriceGBP)}</span>
                         </div>
                         <div className="showroomPrice today">
                           <span className="priceLabel">Equivalent today (CPI adjusted)</span>
                           <span className="priceValue">{formatPrice(model.todayEquivalentGBP)}</span>
                         </div>
+                        {model.originalPriceManualGBP && <>
+                          <div className="showroomPrice original">
+                            <span className="priceLabel">Original price — manual transmission</span>
+                            <span className="priceValue">{formatPrice(model.originalPriceManualGBP)}</span>
+                          </div>
+                          <div className="showroomPrice today">
+                            <span className="priceLabel">Equivalent today (CPI adjusted)</span>
+                            <span className="priceValue">{formatPrice(model.todayEquivalentManualGBP)}</span>
+                          </div>
+                        </>}
                       </div>
-                      <p className="showroomPriceNote">Pricing is approximate. Original price excludes options. Today's equivalent uses Bank of England CPI data.</p>
+                      <p className="showroomPriceNote">
+                        {model.originalPriceSource
+                          ? <>Source: {model.originalPriceSource}. Prices include Purchase Tax. Today's equivalent uses Bank of England CPI data.</>
+                          : <>Pricing is approximate. Today's equivalent uses Bank of England CPI data.</>
+                        }
+                      </p>
+
+                      {/* Price list image */}
+                      {model.priceListImage && (
+                        <div className="priceListImageWrap">
+                          <p className="priceListLabel">Original factory price list</p>
+                          <img src={model.priceListImage} alt="Original Jensen C-V8 Mk III Price List" className="priceListImg" />
+                        </div>
+                      )}
+
+                      {/* Standard colours note */}
+                      {model.standardColours && (
+                        <div className="standardColoursNote">
+                          <p className="priceListLabel">Standard colours included in list price</p>
+                          <p className="standardColoursList">{model.standardColours.join(' · ')}</p>
+                          <p className="showroomPriceNote">Special exterior colours: +{model.specialColourSurcharge}. Special interior colours: +{model.specialTrimSurcharge}.</p>
+                        </div>
+                      )}
                       <button className="showroomCta" onClick={() => setShowroomSection('configure')}>
                         Configure your C-V8 →
                       </button>
@@ -1670,6 +1704,13 @@ function App() {
                           <div className="selectedColourInfo">
                             <strong>{configBodyColour.name}</strong>
                             <span>{configBodyColour.made} of 500 cars built in this colour ({Math.round(configBodyColour.made/500*100)}%){configBodyColour.popular ? ' · Most popular' : ''}</span>
+                            {model.standardColours && (
+                              <span className={model.standardColours.includes(configBodyColour.name) ? 'colourStandard' : 'colourSpecial'}>
+                                {model.standardColours.includes(configBodyColour.name)
+                                  ? '✓ Standard colour — included in list price'
+                                  : `Special order — +${model.specialColourSurcharge}`}
+                              </span>
+                            )}
                           </div>
                         </div>
                       )}
