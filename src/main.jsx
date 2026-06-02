@@ -1652,6 +1652,12 @@ function App() {
                         <img
                           src={(() => {
                             if (configTab === 'interior') {
+                              if (nightMode) {
+                                return model.trimNightImages?.[configTrimColour.name]
+                                  || model.defaultInteriorNightImage
+                                  || model.defaultInteriorImage
+                                  || model.heroImage;
+                              }
                               return model.trimImages?.[configTrimColour.name]
                                 || model.defaultInteriorImage
                                 || model.heroImage;

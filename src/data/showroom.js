@@ -71,9 +71,14 @@ export const showroomModels = [
       'Botticelli Blue': '/showroom/cv8-mk3-botticelli-blue-night.jpg',
     },
     defaultInteriorImage: '/showroom/interior-bright-red.jpg',
+    defaultInteriorNightImage: '/showroom/interior-bright-red-night.jpg',
     trimImages: {
       'Blue-Grey': '/showroom/interior-blue-grey.jpg',
       'Bright Red': '/showroom/interior-bright-red.jpg',
+    },
+    trimNightImages: {
+      'Blue-Grey': '/showroom/interior-blue-grey-night.jpg',
+      'Bright Red': '/showroom/interior-bright-red-night.jpg',
     },
     frontImage: '/showroom/cv8-mk3-front.jpg',
     standardColours: ['Black','Indigo Blue','Princess Grey','Regal Red','Oyster Grey','Deep Carriage Green','Californian Sage','Peony','Botticelli Blue'],
