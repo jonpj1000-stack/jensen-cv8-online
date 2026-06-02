@@ -21,7 +21,7 @@ export const restorationCategories = [
   { id: 'ignition',     label: 'Ignition & Electrics',     emoji: '⚡' },
   { id: 'engine',       label: 'Engine',                   emoji: '🔧' },
   { id: 'fuel',         label: 'Fuel System',              emoji: '⛽' },
-  { id: 'wheels',       label: 'Wheels & Tyres',           emoji: '🔵' },
+  { id: 'wheels',       label: 'Wheels & Tyres',           emoji: '🛞' },
   { id: 'suspension',   label: 'Suspension',               emoji: '⚙️' },
   { id: 'body',         label: 'Body & Paint',             emoji: '🎨' },
   { id: 'interior',     label: 'Interior',                 emoji: '🪑' },

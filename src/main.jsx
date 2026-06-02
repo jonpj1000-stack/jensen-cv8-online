@@ -1193,7 +1193,7 @@ function App() {
                     </button>
                   </div>
 
-                  {restorationTab === 'parts' ? (
+                  {restorationTab === 'parts' && (
                     /* ── Parts List ── */
                     <div className="partsListView">
                       <div className="partsListHeader">
@@ -1306,9 +1306,10 @@ function App() {
                         });
                       })()}
                     </div>
-                  ) : (
-                  /* ── Article list (existing) ── */
-                  <>
+                  )}
+
+                  {/* ── Article list ── */}
+                  {restorationTab === 'articles' && <>
                   {/* Model filter */}
                   <div className="modelFilterRow">
                     <span className="modelFilterLabel">Model:</span>
@@ -1358,8 +1359,7 @@ function App() {
                       </div>
                     )}
                   </div>
-                  </>
-                  )} {/* end restorationTab === 'parts' ? ... : */}
+                  </>}
 
                   {/* ── Lucas Parts Reference ── */}
                   {restorationTab === 'lucas' && (
