@@ -1509,13 +1509,14 @@ function App() {
             <main className="showroomMain">
               {/* Header */}
               <div className="showroomHeader">
-                <img src="/jensen-badge.png" alt="Jensen" className="showroomBadge" />
-                <div className="showroomHeaderText">
-                  <p className="showroomEyebrow">Jensen Motors Ltd · West Bromwich, England</p>
-                  <h1 className="showroomTitle">C-V8 Virtual Showroom</h1>
-                  <p className="showroomSubtitle">1962 – 1966</p>
+                <div className="showroomHeaderLeft">
+                  <img src="/jensen-badge.png" alt="Jensen" className="showroomBadge" />
+                  <div className="showroomHeaderText">
+                    <p className="showroomEyebrow">Jensen Motors Ltd · West Bromwich</p>
+                    <h1 className="showroomTitle">C-V8 Virtual Showroom</h1>
+                  </div>
                 </div>
-                <button className="showroomExitBtn" onClick={() => setAppMode('home')}>← Back to Workshop</button>
+                <button className="showroomExitBtn" onClick={() => setAppMode('home')}>← Workshop Companion</button>
               </div>
 
               {/* Hero image */}
