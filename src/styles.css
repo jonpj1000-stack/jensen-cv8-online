@@ -721,12 +721,12 @@
 .showroomMain{background:#fff;color:#111;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif}
 
 /* ── HEADER ─────────────────────────────────────────── */
-.showroomHeader{display:flex;align-items:center;justify-content:space-between;padding:24px 48px;background:#fff;border-bottom:1px solid #e8e8e8;position:sticky;top:0;z-index:50;gap:20px}
-.showroomHeaderLeft{display:flex;align-items:center;gap:20px}
-.showroomBadge{height:36px;width:auto;object-fit:contain}
-.showroomHeaderText{}
-.showroomEyebrow{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#999;margin:0;font-weight:500}
-.showroomTitle{font-size:15px;font-weight:600;color:#111;margin:0;letter-spacing:.02em}
+.showroomHeader{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:#fff;border-bottom:1px solid #e8e8e8;position:sticky;top:0;z-index:50;gap:16px;flex-wrap:nowrap}
+.showroomHeaderLeft{display:flex;align-items:center;gap:14px;min-width:0;flex-shrink:1}
+.showroomBadge{height:32px;width:auto;object-fit:contain;flex-shrink:0}
+.showroomHeaderText{min-width:0}
+.showroomEyebrow{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#999;margin:0;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.showroomTitle{font-size:14px;font-weight:600;color:#111;margin:0;letter-spacing:.01em;white-space:nowrap}
 .showroomSubtitle{display:none}
 .showroomExitBtn{border:1px solid #ddd;background:transparent;color:#666;border-radius:4px;padding:8px 16px;font-size:12px;font-weight:500;cursor:pointer;letter-spacing:.08em;text-transform:uppercase;transition:all .15s;white-space:nowrap}
 .showroomExitBtn:hover{border-color:#111;color:#111}
@@ -870,7 +870,11 @@
   .showroomProductionGrid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:700px){
-  .showroomHeader{padding:16px 20px}
+  .showroomHeader{padding:12px 16px;gap:10px}
+  .showroomBadge{height:26px}
+  .showroomEyebrow{display:none}
+  .showroomTitle{font-size:13px}
+  .showroomExitBtn{font-size:10px;padding:6px 10px;white-space:nowrap}
   .showroomHero{height:60vw;min-height:240px}
   .showroomHeroOverlay{padding:24px}
   .showroomSectionNav{gap:16px;padding:0 20px}

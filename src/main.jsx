@@ -403,7 +403,9 @@ function App() {
   const [wiringZoom, setWiringZoom] = useState(100);
 
   const [appMode, setAppMode] = useState(() => {
-    if (typeof window !== 'undefined' && window.location.search.includes('showroom')) return 'showroom';
+    if (typeof window !== 'undefined') {
+      if (window.__SHOWROOM_MODE__ || window.location.search.includes('showroom') || window.location.pathname.includes('/showroom')) return 'showroom';
+    }
     return 'home';
   }); // 'home' | 'workshop' | 'manual' | 'restoration' | 'showroom'
   const [showroomMark, setShowroomMark] = useState('mk2');
