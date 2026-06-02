@@ -20,7 +20,7 @@ export const showroomModels = [
     originalPriceGBP: 2780,
     originalPriceNote: 'approx. 1962 list price',
     todayEquivalentGBP: 61000,
-    heroImage: '/showroom/cv8-hero.jpg',
+    heroImage: '/showroom/cv8-mk1-hero.jpg',
     description: 'The car that announced Jensen Motors to the world as a serious grand tourer manufacturer. The Mk I introduced the unmistakable fibreglass body — sculpted in West Bromwich — over a steel chassis, powered by Chrysler\'s formidable 383 cubic inch V8. Just 70 were built, making every surviving example a genuine rarity.',
     highlights: [
       'Hand-built fibreglass body — each car unique',
