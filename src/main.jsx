@@ -409,7 +409,7 @@ function App() {
   const [showroomMark, setShowroomMark] = useState('mk2');
   const [nightMode, setNightMode] = useState(false);
   const [configBodyColour, setConfigBodyColour] = useState(bodyColours[0]);
-  const [configTrimColour, setConfigTrimColour] = useState(trimColours[0]);
+  const [configTrimColour, setConfigTrimColour] = useState(() => trimColours.find(t => t.name === 'Bright Red') || trimColours[0]);
   const [configWheels, setConfigWheels] = useState(wheelOptions[0]);
   const [configTab, setConfigTab] = useState('exterior'); // 'exterior' | 'interior' | 'wheels'
   const [showroomSection, setShowroomSection] = useState('models'); // 'models' | 'configure' | 'specs'
