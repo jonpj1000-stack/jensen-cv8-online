@@ -1648,7 +1648,12 @@ function App() {
                     {/* Left: Car preview */}
                     <div className="configuratorPreview">
                       <div className="configuratorCarWrap">
-                        <img src={model.heroImage} alt={model.name} className="configuratorCarImg" />
+                        <img
+                          src={model.colourImages?.[configBodyColour.name] || model.heroImage}
+                          alt={`${model.name} in ${configBodyColour.name}`}
+                          className="configuratorCarImg"
+                          key={configBodyColour.name}
+                        />
                       </div>
                       <div className="configuratorColourPreview">
                         <div className="colourPreviewBlock" style={{ background: configBodyColour.css }}>
