@@ -1575,7 +1575,7 @@ function App() {
                       </button>
                     </div>
                     <div className="showroomOverviewImages">
-                      <img src="/showroom/cv8-front.jpg" alt="Jensen C-V8 front" className="showroomOverviewImg" />
+                      <img src={model.frontImage || '/showroom/cv8-front.jpg'} alt={`${model.name} front`} className="showroomOverviewImg" />
                       <img src="/showroom/cv8-engine.jpg" alt="Chrysler 383 V8 engine" className="showroomOverviewImg" />
                     </div>
                   </div>

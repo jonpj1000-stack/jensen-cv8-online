@@ -58,7 +58,8 @@ export const showroomModels = [
     originalPriceGBP: 3142,
     originalPriceNote: 'approx. 1965 list price',
     todayEquivalentGBP: 69000,
-    heroImage: '/showroom/cv8-lifestyle.jpg',
+    heroImage: '/showroom/cv8-mk3-side.jpg',
+    frontImage: '/showroom/cv8-mk3-front.jpg',
     description: 'The final and most accomplished expression of the C-V8. The Mk III brought electric windows, a revised interior, and the Armstrong Selectaride electrically-adjustable shock absorbers as standard — one of the first production cars in the world to offer this feature. Jensen\'s ambition was at its highest.',
     highlights: [
       'Electric windows as standard',
