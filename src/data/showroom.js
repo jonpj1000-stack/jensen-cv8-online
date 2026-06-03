@@ -67,10 +67,13 @@ export const showroomModels = [
     colourImages: {
       'Botticelli Blue': '/showroom/cv8-mk3-botticelli-blue-day.jpg',
       'Princess Grey':   '/showroom/cv8-mk3-princess-grey-day.jpg',
+      'Regal Red':       '/showroom/cv8-mk3-regal-red-day.jpg',
+      'Indigo Blue':     '/showroom/cv8-mk3-indigo-blue-day.jpg',
     },
     colourNightImages: {
       'Botticelli Blue': '/showroom/cv8-mk3-botticelli-blue-night.jpg',
-      'Princess Grey': '/showroom/cv8-mk3-princess-grey-night.jpg',
+      'Princess Grey':   '/showroom/cv8-mk3-princess-grey-night.jpg',
+      'Regal Red':       '/showroom/cv8-mk3-regal-red-night.jpg',
     },
     defaultInteriorImage: '/showroom/interior-bright-red.jpg',
     defaultInteriorNightImage: '/showroom/interior-bright-red-night.jpg',
