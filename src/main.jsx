@@ -1694,6 +1694,20 @@ function App() {
                       <img src={model.frontImage || '/showroom/cv8-front.jpg'} alt={`${model.name} front`} className="showroomOverviewImg" />
                       <img src="/showroom/cv8-engine.jpg" alt="Chrysler 383 V8 engine" className="showroomOverviewImg" />
                     </div>
+                    {/* Original period advertisements */}
+                    {model.adImages && model.adImages.length > 0 && (
+                      <div className="showroomAdImages">
+                        <p className="showroomAdLabel">Original factory advertisements</p>
+                        <div className="showroomAdGrid">
+                          {model.adImages.map((ad, i) => (
+                            <div key={i} className="showroomAdWrap">
+                              <img src={ad.src} alt={ad.caption} className="showroomAdImg" />
+                              <p className="showroomAdCaption">{ad.caption}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}

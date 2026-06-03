@@ -93,14 +93,17 @@ export const showroomModels = [
     // Special interior: £30.0.0 + £6.5.0 p.t. = £36.25 in 1965 → approx. £798 today (×22 CPI)
     specialExteriorSurcharge: { originalGBP: 18, todayGBP: 399, label: '£15.0.0 + £3.2.6 p.t.' },
     specialInteriorSurcharge: { originalGBP: 36, todayGBP: 798, label: '£30.0.0 + £6.5.0 p.t.' },
-    description: 'The final and most accomplished expression of the C-V8. The Mk III brought electric windows, a revised interior, and the Armstrong Selectaride electrically-adjustable shock absorbers as standard — one of the first production cars in the world to offer this feature. Jensen\'s ambition was at its highest.',
+    description: 'Docile but powerful — sleeker and more luxurious than ever before. The Mk III was the final and most accomplished expression of the C-V8, bringing the Armstrong Selectaride electrically-adjustable shock absorbers as standard — one of the first production cars in the world to offer this feature. A car for the top man. Calm. But very powerful. Very safe.',
     highlights: [
-      'Electric windows as standard',
       'Armstrong Selectaride adjustable dampers — a world first',
       'Most refined interior of the three marks',
-      'Individual chrome JENSEN letters across the bonnet',
+      'Individual chrome JENSEN letters across the bonnet lid',
+      'Snetterton 24-hour record: 1,866 miles at 79 mph average — Commander\'s Cup',
     ],
-    differences: 'The most complete C-V8. Selectaride dampers, electric windows and a more lavishly appointed interior set it apart.',
+    differences: 'The most complete C-V8. Selectaride dampers and a more lavishly appointed interior set it apart. Proven at Snetterton — 24 hours, requiring only refuelling.',
+    adImages: [
+      { src: '/showroom/mk3-ad-commanders-cup.jpg', caption: 'Original Jensen advertisement — "New to Jensen: The C-V8 Mk III & The Commanders Cup"' },
+    ],
   },
 ];
 
