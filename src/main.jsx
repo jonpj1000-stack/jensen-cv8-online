@@ -1170,6 +1170,48 @@ function App() {
                     ))}
                   </div>
                 );
+              case 'images':
+                return (
+                  <div key={idx} className="articleImageGrid">
+                    {section.content.map((img, i) => (
+                      <div key={i} className="articleImageWrap">
+                        <img src={img.src} alt={img.caption} className="articleImage" />
+                        {img.caption && <p className="articleImageCaption">{img.caption}</p>}
+                      </div>
+                    ))}
+                  </div>
+                );
+              case 'suspensionParts': {
+                const availLabel = { available: 'MGB/BMC', healey: 'Austin-Healey', unavailable: 'Not available', possible: 'Possible alt.', check: 'Verify' };
+                const availClass = { available: 'availGreen', healey: 'availYellow', unavailable: 'availRed', possible: 'availBlue', check: 'availGrey' };
+                return (
+                  <div key={idx}>
+                    {section.availabilityKey && (
+                      <div className="suspAvailKey">
+                        <strong>Availability key:</strong>
+                        {Object.entries(availLabel).map(([k,v]) => (
+                          <span key={k} className={`suspAvailBadge ${availClass[k]}`}>{v}</span>
+                        ))}
+                      </div>
+                    )}
+                    <div className="suspPartsTable">
+                      <div className="suspPartsHeader">
+                        <span>Ref</span><span>Description</span><span>Part No.</span><span>Qty</span><span>Applications</span><span>Notes</span>
+                      </div>
+                      {section.content.map((row, i) => (
+                        <div key={i} className={`suspPartsRow ${availClass[row.availability] || ''}`}>
+                          <span className="suspRef">{row.ref || ''}</span>
+                          <span className="suspDesc">{row.description}</span>
+                          <span className="suspPart">{row.partNumber ? <code>{row.partNumber}</code> : <em className="paintUnknown">TBC</em>}</span>
+                          <span className="suspQty">{row.qty || ''}</span>
+                          <span className="suspApps">{row.applications || '—'}</span>
+                          <span className="suspNote">{row.notes || ''}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
               case 'paintTable':
                 return (
                   <div key={idx} className="paintTable">

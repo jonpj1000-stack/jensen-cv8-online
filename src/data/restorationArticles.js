@@ -717,6 +717,110 @@ export const restorationArticles = [
     ]
   },
 
+  // ── Suspension Parts ────────────────────────────────────────────────────────
+  {
+    id: 'front-suspension-parts',
+    category: 'suspension',
+    title: 'Front Suspension — Parts, Numbers & Sourcing',
+    subtitle: 'Original BMC part numbers, cross-car applications and sourcing notes for all front suspension components',
+    models: ['all'],
+    difficulty: 'advanced',
+    readTime: '10 min read',
+    severity: null,
+    tags: ['front suspension', 'kingpin', 'swivel pin', 'trunnion', 'parts', 'BMC', 'MGB', 'Austin Healey', 'sourcing'],
+    contributors: ['Jensen C-V8 community — compiled from AKD 3520 Mechanical Service Parts List'],
+    lastUpdated: '2025',
+
+    intro: `The Jensen C-V8 front suspension uses components shared with, or adapted from, other BMC vehicles — particularly the MGB and Austin-Healey range. This makes sourcing significantly easier than for purely Jensen-specific parts. The table below cross-references every component with its original BMC part number, known alternative applications, and practical sourcing notes. Availability is indicated for each part.`,
+
+    sections: [
+      {
+        type: 'heading',
+        content: 'Parts Diagram — Plate K2 (AKD 3520)'
+      },
+      {
+        type: 'paragraph',
+        content: 'The numbered diagram below corresponds to the reference numbers in the parts table. All part numbers are from the AKD 3520 Mechanical Service Parts List, Issue 2.'
+      },
+      {
+        type: 'images',
+        content: [
+          { src: '/suspension/front-suspension-diagram.jpg', caption: 'Front suspension exploded diagram — Plate K2, AKD 3520' },
+          { src: '/suspension/front-suspension-parts-list.jpg', caption: 'Original parts list — AKD 3520' },
+        ]
+      },
+      {
+        type: 'heading',
+        content: 'Parts List with Sourcing Information'
+      },
+      {
+        type: 'tip',
+        content: 'Many parts are shared with the MGB and Austin-Healey BN1–BJ8. Classic car specialists stocking those marques are often the most reliable source. Parts highlighted as unavailable (original BMC number no longer supplied) will need to be sourced from specialists or fabricated.'
+      },
+      {
+        type: 'suspensionParts',
+        availabilityKey: true,
+        content: [
+          { ref: '1',      description: 'Kingpin / Swivel pin',                    partNumber: '8G4176',       qty: 1,   applications: null,                                     availability: 'check', notes: null },
+          { ref: null,     description: 'Pin — swivel',                            partNumber: 'NSP',          qty: null, applications: null,                                    availability: 'unavailable', notes: 'Not a service part' },
+          { ref: '1',      description: 'Kingpin / Swivel pin + bushes (set)',      partNumber: '8G4207',       qty: 1,   applications: null,                                     availability: 'check', notes: null },
+          { ref: '2',      description: 'Axle assembly — LHS',                     partNumber: 'ATC4242 / 21B253', qty: 1, applications: null,                                  availability: 'check', notes: null },
+          { ref: null,     description: 'Axle assembly — LHS (Mk II)',              partNumber: 'BTC420',       qty: 1,   applications: null,                                     availability: 'check', notes: 'Mk II — possibly bigger bush' },
+          { ref: null,     description: 'Axle assembly — RHS',                     partNumber: 'ATC4243 / 21B254', qty: 1, applications: null,                                  availability: 'check', notes: null },
+          { ref: null,     description: 'Axle assembly — RHS (Mk II)',              partNumber: 'BTC421',       qty: 1,   applications: null,                                     availability: 'check', notes: 'Mk II — possibly bigger bush' },
+          { ref: '6',      description: 'Bush — top',                              partNumber: 'ATC4246',      qty: 2,   applications: 'Lower Sprite/Midget · Upper MGB',        availability: 'available', notes: 'MGB: Ream top bushing to 0.7815–0.7820"' },
+          { ref: '7',      description: 'Bush — bottom',                           partNumber: 'ATC4247',      qty: 2,   applications: 'MGB lower',                              availability: 'available', notes: 'MGB: Ream bottom bushing to 0.9075–0.9080"' },
+          { ref: '8',      description: 'Lubricator — swivel axle upper',          partNumber: 'UHN490',       qty: 2,   applications: 'AH Spares',                              availability: 'available', notes: '1/4" UNF, 45° grease nipple' },
+          { ref: '9',      description: 'Lubricator — swivel axle lower',          partNumber: '3H3028',       qty: 2,   applications: null,                                     availability: 'available', notes: '1/4" UNF, 90° grease nipple' },
+          { ref: '11',     description: 'Ring — swivel axle (cork)',               partNumber: 'ATC4248',      qty: 2,   applications: null,                                     availability: 'possible', notes: 'Possibly MGB 264-940 (o-ring equivalent)' },
+          { ref: '12',     description: 'Tube — dust excluder, bottom',            partNumber: 'ATC4240',      qty: 2,   applications: 'MGB',                                    availability: 'available', notes: null },
+          { ref: '13',     description: 'Ring — sealing, bottom dust excluder',    partNumber: '21B252',       qty: 2,   applications: 'MGB',                                    availability: 'available', notes: null },
+          { ref: '14',     description: 'Spring — dust excluder',                  partNumber: '2K8951',       qty: 2,   applications: 'MGB',                                    availability: 'available', notes: null },
+          { ref: '15',     description: 'Tube — dust excluder, top',               partNumber: '1G4271',       qty: 2,   applications: 'MGB',                                    availability: 'available', notes: null },
+          { ref: '16',     description: 'Washer — thrust',                         partNumber: 'ATC4264',      qty: 2,   applications: 'MGB',                                    availability: 'available', notes: null },
+          { ref: '17',     description: 'Washer — floating thrust (0.052–0.057")', partNumber: 'ATC4261',      qty: null, applications: 'MGB',                                   availability: 'available', notes: 'Select shims to achieve correct clearance — fit minimum 4' },
+          { ref: '17',     description: 'Washer — floating thrust (0.058–0.063")', partNumber: 'ATC4262',      qty: null, applications: 'MGB',                                   availability: 'available', notes: null },
+          { ref: '17',     description: 'Washer — floating thrust (0.064–0.069")', partNumber: 'ATC4263',      qty: null, applications: 'MGB',                                   availability: 'available', notes: 'Note: a seal should be fitted here' },
+          { ref: '18',     description: 'Trunnion — suspension link',              partNumber: 'ATC4249',      qty: 2,   applications: 'MGB',                                    availability: 'available', notes: null },
+          { ref: '19',     description: 'Nut — trunnion to swivel pin',            partNumber: 'ATC4265',      qty: 2,   applications: 'MGB',                                    availability: 'available', notes: null },
+          { ref: null,     description: 'Split pin',                               partNumber: 'GHF505',       qty: 2,   applications: 'MGB',                                    availability: 'available', notes: '9/64"' },
+          { ref: '20',     description: 'Link — lower, LH front / RH rear',       partNumber: 'ACB4067',      qty: 2,   applications: null,                                     availability: 'unavailable', notes: 'Jensen-specific — not available new. Source second-hand.' },
+          { ref: '21',     description: 'Link — lower, LH rear / RH front',       partNumber: 'ACB4068',      qty: 2,   applications: null,                                     availability: 'unavailable', notes: 'Jensen-specific — not available new. Source second-hand.' },
+          { ref: '22',     description: 'Pin — fulcrum, lower link',               partNumber: '1A4788',       qty: 2,   applications: 'Austin-Healey BN1–BJ8',                  availability: 'healey', notes: null },
+          { ref: '23',     description: 'Pin — fulcrum pin (cork)',                partNumber: '1G4505',       qty: 4,   applications: 'Austin-Healey BN1–BJ8',                  availability: 'healey', notes: null },
+          { ref: '24',     description: 'Pin — cotter',                            partNumber: '53K1764',      qty: 2,   applications: 'Austin-Healey BN1–BJ8 (alt: 53K1770)',   availability: 'healey', notes: null },
+          { ref: '25',     description: 'Nut',                                     partNumber: 'FNZ104',       qty: 2,   applications: 'Austin-Healey BN1–BJ8',                  availability: 'healey', notes: null },
+          { ref: '26',     description: 'Washer — spring',                         partNumber: 'LWZ204',       qty: 2,   applications: 'Austin-Healey BN1–BJ8',                  availability: 'healey', notes: null },
+          { ref: '27',     description: 'Bush — front link to swivel',             partNumber: '1G4346',       qty: 2,   applications: 'Austin-Healey BN1–BJ8',                  availability: 'healey', notes: null },
+          { ref: '28',     description: 'Bush — rear link to swivel',              partNumber: '1G4348',       qty: 2,   applications: 'Austin-Healey BN1–BJ8',                  availability: 'healey', notes: null },
+          { ref: '29',     description: 'Lubricator (straight)',                   partNumber: 'UHN400',       qty: 2,   applications: 'MG Midget · Austin-Healey Sprite',        availability: 'available', notes: 'Straight grease nipple' },
+          { ref: '30',     description: 'Pin — cotter, link to bush',              partNumber: '1H4071',       qty: 4,   applications: 'Austin-Healey BN1–BJ8 (alt: 1G4350)',    availability: 'healey', notes: 'Also: Austin A55/A60, Wolseley 15/60 & 16/60, Riley 4/68 & 4/72, MG Magnette Mk3 & 5' },
+          { ref: '31',     description: 'Nut — Nyloc jam nut (comes with 1G4350)', partNumber: '53K1662',      qty: 4,   applications: null,                                     availability: 'healey', notes: '5/16-24, thin, fine thread' },
+          { ref: '32',     description: 'Lever — steering, left hand',             partNumber: 'ATC4250',      qty: 1,   applications: null,                                     availability: 'check', notes: 'Jensen-specific — Jensen part CT633. ATC4250 not same as standard BMC.' },
+          { ref: '33',     description: 'Lever — steering, right hand',            partNumber: 'ATC4251',      qty: 1,   applications: null,                                     availability: 'check', notes: 'Jensen-specific — Jensen part CT634. ATC4251 not same as standard BMC.' },
+          { ref: 'missing',description: 'Seal — top trunnion',                     partNumber: null,           qty: 2,   applications: null,                                     availability: 'check', notes: 'Not listed in original catalogue — should be present' },
+          { ref: '42',     description: 'Wheel bearing — inner',                   partNumber: 'Timken 07087X', qty: 2,  applications: 'Austin-Healey BN7–BJ8 (to chassis 26704)', availability: 'available', notes: 'Timken 07087X — widely available' },
+          { ref: '44',     description: 'Wheel bearing — outer',                   partNumber: 'Timken LM67049', qty: 2, applications: null,                                    availability: 'available', notes: 'Timken LM67049 — very commonly available' },
+        ]
+      },
+      {
+        type: 'heading',
+        content: 'Sourcing Summary'
+      },
+      {
+        type: 'list',
+        content: [
+          'MGB parts (green) are readily available from Moss Motors, MGOC Spares, Leacy Classics and most MG specialists worldwide.',
+          'Austin-Healey parts (yellow) are available from Healey specialists including Moss, AH Spares, and Heritage Motorsports.',
+          'The lower wishbone links (ACB4067, ACB4068) are Jensen-specific and no longer available new — sourcing from dismantled cars or specialist fabrication is the only route.',
+          'Jensen steering levers (ATC4250/ATC4251) are different from equivalent BMC parts despite sharing similar part number series — do not substitute without verification.',
+          'Timken wheel bearings (07087X and LM67049) are standard catalogue bearings available from any bearing supplier.',
+          'For grease nipples, standard 1/4" UNF fittings in 45° and 90° configurations are available from most fastener suppliers.',
+        ]
+      },
+    ]
+  },
+
   // ── Paint Colours ───────────────────────────────────────────────────────────
   {
     id: 'paint-colours-codes',

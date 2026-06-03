@@ -943,3 +943,29 @@
 .paintUnknown{color:#aaa;font-style:italic;font-size:12px}
 .paintNoteCell{font-size:12px;color:#666;line-height:1.4}
 @media(max-width:800px){.paintTableHeader,.paintTableRow{grid-template-columns:1fr 1fr;gap:8px}.paintTableHeader span:nth-child(n+3),.paintTableRow span:nth-child(n+3){display:none}}
+
+/* ── Suspension parts table ─────────────────────────────────────────── */
+.suspAvailKey{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:14px;font-size:12px;font-weight:600;color:#555}
+.suspAvailBadge{border-radius:5px;padding:3px 9px;font-size:11px;font-weight:700}
+.availGreen{background:#d4edda;color:#1a5c2a}.availYellow{background:#fff3cd;color:#7a5200}
+.availRed{background:#fde8e8;color:#8b1c1c}.availBlue{background:#d1ecf1;color:#1a4a5c}.availGrey{background:#f0ebe0;color:#555}
+.suspPartsTable{border:1px solid #e3d9be;border-radius:16px;overflow:hidden;margin:0 0 16px;font-size:12px}
+.suspPartsHeader{display:grid;grid-template-columns:48px 1fr 140px 36px 1fr 1fr;background:#0b3d2e;color:#c9a34e;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:9px 12px;gap:8px}
+.suspPartsRow{display:grid;grid-template-columns:48px 1fr 140px 36px 1fr 1fr;padding:8px 12px;gap:8px;border-top:1px solid #e3d9be;align-items:start;background:white}
+.suspPartsRow:nth-child(even){background:#faf7f0}
+.suspPartsRow.availGreen{border-left:3px solid #4cae6a}
+.suspPartsRow.availYellow{border-left:3px solid #e8a020}
+.suspPartsRow.availRed{border-left:3px solid #cc3333}
+.suspPartsRow.availBlue{border-left:3px solid #3a9ab8}
+.suspRef{color:#999;font-weight:700;font-size:11px}
+.suspDesc{color:#0b3d2e;font-weight:600;line-height:1.4}
+.suspPart code{background:#f0ebe0;color:#5c3a00;border-radius:4px;padding:2px 6px;font-size:11px;font-weight:700}
+.suspQty{color:#555;text-align:center}
+.suspApps{color:#555;line-height:1.4;font-size:11px}
+.suspNote{color:#888;line-height:1.4;font-size:11px;font-style:italic}
+/* Article images */
+.articleImageGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:0 0 20px}
+.articleImageWrap{border:1px solid #e3d9be;border-radius:12px;overflow:hidden}
+.articleImage{width:100%;display:block}
+.articleImageCaption{padding:8px 12px;font-size:11px;color:#888;text-align:center;border-top:1px solid #e3d9be;background:#faf7f0;margin:0}
+@media(max-width:700px){.suspPartsHeader,.suspPartsRow{grid-template-columns:40px 1fr 110px 30px;}.suspPartsHeader span:nth-child(n+5),.suspPartsRow span:nth-child(n+5){display:none}}
