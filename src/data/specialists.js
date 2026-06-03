@@ -52,6 +52,7 @@ export const specialists = [
     phone:       '0115 932 5320',
     email:       'sales@jensen.co.uk',
     logo:        '/specialists/appleyard-parts-logo.png',
+    logoScale:   2.2,
     tagline:     'Parts · Car Sales · Servicing',
     description: 'Richard Appleyard Parts Ltd specialises exclusively in classic Jensen sports cars, covering the full range of Jensen models: 541, C-V8, Interceptor/FF and Healey/GT. Based at Quarry Hill Industrial Park, Ilkeston, they supply Jensen spare parts, carry out Jensen servicing and repair, and undertake restoration work. An active supporter of the Jensen Owners Club.',
     services:    ['Parts supply', 'Servicing', 'Repairs', 'Restoration', 'Vehicle sales', 'Jensen Owners Club supporter'],

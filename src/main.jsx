@@ -1666,7 +1666,7 @@ function App() {
                               <div key={s.id} className={`specialistCard${s.featured ? ' featured' : ''}`}>
                                 {s.logo && (
                                   <div className="specialistLogoWrap">
-                                    <img src={s.logo} alt={`${s.name} logo`} className="specialistLogo" />
+                                    <img src={s.logo} alt={`${s.name} logo`} className="specialistLogo" style={s.logoScale ? { transform: `scale(${s.logoScale})`, transformOrigin: 'left center' } : {}} />
                                   </div>
                                 )}
                                 <div className="specialistCardTop">
