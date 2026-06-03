@@ -1861,6 +1861,10 @@ function App() {
                             <div className="selectedColourInfo">
                               <strong>{configBodyColour.name}</strong>
                               <span>{configBodyColour.made} of 500 cars built in this colour ({Math.round(configBodyColour.made/500*100)}%)</span>
+                              {configBodyColour.iciCode
+                                ? <span className="colourIci">Paint code <code>{configBodyColour.iciCode}</code></span>
+                                : <span className="colourIci colourIciUnknown">Paint code unknown</span>
+                              }
                               {isSpecial
                                 ? <span className="colourSpecial">Special order — +{formatPrice(model.specialExteriorSurcharge?.todayGBP)} · original {model.specialExteriorSurcharge?.label}</span>
                                 : <span className="colourStandard">✓ Standard colour — included in list price</span>
