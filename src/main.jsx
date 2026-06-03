@@ -1664,6 +1664,11 @@ function App() {
                           <div className="specialistGrid">
                             {filtered.map(s => (
                               <div key={s.id} className={`specialistCard${s.featured ? ' featured' : ''}`}>
+                                {s.logo && (
+                                  <div className="specialistLogoWrap">
+                                    <img src={s.logo} alt={`${s.name} logo`} className="specialistLogo" />
+                                  </div>
+                                )}
                                 <div className="specialistCardTop">
                                   <div>
                                     <div className="specialistCardMeta">

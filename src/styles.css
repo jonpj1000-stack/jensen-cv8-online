@@ -1000,3 +1000,5 @@
 .specialistContacts{display:flex;flex-wrap:wrap;gap:12px;border-top:1px solid #e3d9be;padding-top:12px;margin-top:4px}
 .specialistLink{font-size:12px;color:#0b3d2e;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
 .specialistLink:hover{text-decoration:underline}
+.specialistLogoWrap{padding:16px 0 4px;border-bottom:1px solid #f0ebe0;margin-bottom:12px}
+.specialistLogo{height:36px;width:auto;max-width:240px;object-fit:contain;display:block}
