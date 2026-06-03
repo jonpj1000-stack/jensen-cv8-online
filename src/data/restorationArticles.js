@@ -717,6 +717,143 @@ export const restorationArticles = [
     ]
   },
 
+  // ── Body Off ────────────────────────────────────────────────────────────────
+  {
+    id: 'body-off-procedure',
+    category: 'body',
+    title: 'Removing the Body from the Chassis',
+    subtitle: 'Procedure, fastener locations and hard-won advice from owners who have done it',
+    models: ['all'],
+    difficulty: 'advanced',
+    readTime: '12 min read',
+    severity: null,
+    tags: ['body off', 'body removal', 'chassis', 'restoration', 'body-off restoration', 'fasteners', 'body-to-chassis'],
+    contributors: ['Josh Sabah (fastener location diagram)', 'JOC Forum community accounts'],
+    lastUpdated: '2025',
+
+    intro: `Removing the fibreglass body from the Jensen C-V8 chassis is one of the most significant steps in a full restoration. It gives full access to the chassis, fuel lines, wiring and structural members — but it requires careful preparation, good documentation and a realistic understanding of what you are taking on. This article combines Josh Sabah's comprehensive body-to-chassis fastener diagram with first-hand accounts from owners who have completed the procedure.`,
+
+    sections: [
+      {
+        type: 'warning',
+        content: 'Body removal is a major, irreversible step. Many fasteners will shear. Filler will be disturbed. Brittle fibreglass cracks easily under uneven stress. Plan carefully, photograph everything, and do not start unless you have the space, time and budget to see it through. Owners have been known to be parted from their cars for over 25 years after starting this process.',
+      },
+      {
+        type: 'heading',
+        content: 'Body-to-Chassis Fastener Diagram',
+      },
+      {
+        type: 'paragraph',
+        content: 'The diagram below, produced by Josh Sabah, documents every fastener between the body and chassis — its location, type and quantity. Each colour-coded dot corresponds to a specific fastener specification listed in the key. This is the most comprehensive visual reference available for this procedure.',
+      },
+      {
+        type: 'images',
+        content: [
+          { src: '/suspension/body-chassis-connections.jpg', caption: 'Body-to-chassis fastener locations — all fixings mapped by Josh Sabah. Each coloured dot represents a specific fastener type; see key on diagram.' },
+        ]
+      },
+      {
+        type: 'heading',
+        content: 'Fastener Key',
+      },
+      {
+        type: 'list',
+        content: [
+          'Yellow: 1/4" Flat Phillips machine screw @ hinge (2 per side) with nut',
+          'Small green: #8 round head × 1 1/4"',
+          'Large green: 1/4" Round head machine screw × 1" (2 @ bottom of front wheel well)',
+          'Blue: #8 × 1" round head SM screw (2 @ bottom of rear wheel well)',
+          'Purple: #10 × 5/8" slot round head machine screw/nut (2 @ each bracket)',
+          'Dark: #10 hex bolt w/ nut × 3/4" (1 @ each bracket)',
+          'Teal: 1/4" hex bolt × 1 1/4" w/ nut (8 @ boot)',
+          'Orange: #6 SS oval SM screw × 7/8" (4 — rocker cover to rocker)',
+          'Dark orange: #6 SS oval 5/8" sill cover (4 @ top & 4 @ side)',
+          'Dark red: Round head SM screw × 1 1/4" (6 @ face of body panel)',
+          'Brown: #10 × 1/2" flat machine screw w/ nut (4 @ centre to heater box)',
+          'Pink: 1/4" × 1 3/8" flat machine bolt w/ nut (3 @ seat belt)',
+          'Upper legend — #4 SS oval head Phillips 5/8": 4 @ lower trim & 19 upper',
+          'Upper legend — #4 SS truss head 5/8": 5 on A-pillar jamb (= 1 on SS trim)',
+          'Upper legend — #6 SS oval head Phillips 7/8": 3 @ A-pillar & 4 @ rear window bottom',
+          'Upper legend — #10 × 3/4" round head machine screw w/ Special T-nuts: 9 @ roof',
+          'Upper legend — #10 flat head Phillips machine screw 7/8" w/ T-nut: 7 @ jamb',
+          'Right side — #8 round head SM screw 1 1/4": at rear of quarter panel & 2 × 3/4" at front of quarter panel',
+          'Right side — 10 round machine screw × 3/4" w/ nut: at rear of quarter panel',
+          'Rectangle (blue-grey): 11 × 1" × 1/8" rubber sheet',
+        ]
+      },
+      {
+        type: 'heading',
+        content: 'Before You Start — Preparation'
+      },
+      {
+        type: 'steps',
+        content: [
+          'Remove all interior trim and glass including the windscreen. Label everything clearly with masking tape and permanent ink.',
+          'Remove both doors.',
+          'Remove the dashboard and wiring harness.',
+          'Remove the heater box complete — matrix, blower fan, and temperature control (Ranco) valve. Note: a capillary tube passes from the valve through the bulkhead and clips inside the heater box. Do not break it.',
+          'Check whether the heater air box is still bonded to the body under the windscreen. If so, remove the self-tappers screwing up into it through the top edge of the bulkhead before attempting to lift the body.',
+          'Remove the bonnet hinges — they screw through the body into brackets on the side frames.',
+          'Take extensive photographs of everything before disturbing any fastener.',
+          'Prepare adequate space — you will need at least another car\'s worth of floor area for the body once removed.',
+          'Have suitable props ready to support the body off the ground without putting it under stress.',
+        ]
+      },
+      {
+        type: 'heading',
+        content: 'Locating the Fasteners'
+      },
+      {
+        type: 'paragraph',
+        content: 'The fixings are not all obvious. Several are hidden behind trim, under filler, or only accessible once other components are removed. Work through the following systematically:'
+      },
+      {
+        type: 'list',
+        content: [
+          'Cill sections: Bolts screw into captive nuts in the cill side sections. Access is through holes in the tops of the cills, visible once the aluminium kick panels are removed.',
+          'B-pillars: The body is screwed to the B-pillars. Fasteners are visible once the door lock striker plates and aluminium finishers are removed.',
+          'A-pillars / windscreen sides: There are 3 hidden screws in each A-pillar at the sides of the windscreen. These have been filled over — lightly sand the inner surface of the A-post and the filler will show as a different colour to the gel coat, revealing the holes.',
+          'Rear section: A large number of nuts and bolts hold the rear section to the boot floor and rear wheel arches.',
+          'Side frames: The body is attached to the side frames on the lower edge of the rear side windows as well as over the top. If you wish to leave the side frames attached to the chassis, remove the 40-odd self-tappers securing the frames to the body (visible once rear side windows and chrome trims are removed, both sides).',
+        ]
+      },
+      {
+        type: 'heading',
+        content: 'Lifting the Body — In One Piece or Cut?'
+      },
+      {
+        type: 'paragraph',
+        content: 'There are two schools of thought on how to remove the body once all fixings are released:'
+      },
+      {
+        type: 'list',
+        content: [
+          'Traditional method: Cut through the C-pillars approximately 4 inches up from the top of the rear wings. Jensen Motors themselves did it this way — the body is too large to lift off in one piece in normal conditions.',
+          'Alternative (one piece): At least one owner has successfully removed the body in one piece by lifting the front (windscreen) end high and sliding it rearward off the chassis. There is enough flex in the fibreglass bodyshell to allow this with two people. Results may vary depending on the condition of the body.',
+        ]
+      },
+      {
+        type: 'warning',
+        content: 'Be prepared for sheared fasteners. Many Phillips No.1 screwdriver bits will shear. Many bolts will shear. Have plenty of sharp drill bits and small masonry bits for extraction. You will need patience — and possibly stitches.',
+      },
+      {
+        type: 'heading',
+        content: 'Practical Tips from Owners'
+      },
+      {
+        type: 'list',
+        content: [
+          'Take more photographs than you think you need — then take more. You will thank yourself six months later when you cannot remember which way a bracket faces.',
+          'Label every nut, bolt and bracket with masking tape and permanent ink at the moment of removal, not afterwards.',
+          'The side frames are often in poor condition. If they are, leaving them attached to the chassis makes breaking the joint between the frames and body easier.',
+          'Work slowly. Fibreglass is brittle, captive nuts strip easily, and haste causes irreversible damage.',
+          'Have a plan for where the body will live. It needs to be propped securely and not under stress. An improperly stored body will distort over time.',
+          'Budget for the procedure to take significantly longer than you expect. One contributor to this article was parted from his car for over 25 years after beginning.',
+        ]
+      },
+    ]
+  },
+
   // ── Suspension Parts ────────────────────────────────────────────────────────
   {
     id: 'front-suspension-parts',
