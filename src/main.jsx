@@ -1691,8 +1691,15 @@ function App() {
                       </button>
                     </div>
                     <div className="showroomOverviewImages">
-                      <img src={model.frontImage || '/showroom/cv8-front.jpg'} alt={`${model.name} front`} className="showroomOverviewImg" />
-                      <img src="/showroom/cv8-engine.jpg" alt="Chrysler 383 V8 engine" className="showroomOverviewImg" />
+                      {model.overviewImages
+                        ? model.overviewImages.map((img, i) => (
+                            <img key={i} src={img.src} alt={img.alt} className="showroomOverviewImg" />
+                          ))
+                        : <>
+                            <img src={model.frontImage || '/showroom/cv8-front.jpg'} alt={`${model.name} front`} className="showroomOverviewImg" />
+                            <img src="/showroom/cv8-engine.jpg" alt="Chrysler 383 V8 engine" className="showroomOverviewImg" />
+                          </>
+                      }
                     </div>
                     {/* Original period advertisements */}
                     {model.adImages && model.adImages.length > 0 && (
@@ -1954,12 +1961,15 @@ function App() {
                 </div>
               )}
 
-              {/* Lifestyle image */}
+              {/* Lifestyle / closing image */}
               <div className="showroomLifestyle">
-                <img src="/showroom/cv8-lifestyle.jpg" alt="Jensen C-V8 — Deep Carriage Green" />
+                <img
+                  src={model.lifestyleImage || '/showroom/cv8-lifestyle.jpg'}
+                  alt={model.lifestyleCaption || 'Jensen C-V8 — Deep Carriage Green'}
+                />
                 <div className="showroomLifestyleCaption">
-                  <p>Jensen C-V8 in Deep Carriage Green with Beige Connolly Hide interior.</p>
-                  <p>54 of the 500 cars built were finished in Deep Carriage Green.</p>
+                  <p>{model.lifestyleCaption || 'Jensen C-V8 in Deep Carriage Green with Beige Connolly Hide interior.'}</p>
+                  {!model.lifestyleCaption && <p>54 of the 500 cars built were finished in Deep Carriage Green.</p>}
                 </div>
               </div>
 

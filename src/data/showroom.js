@@ -71,7 +71,16 @@ export const showroomModels = [
     todayEquivalentManualGBP: 83000,
     priceListImage: '/showroom/mk3-price-list.jpg',
     heroImage: '/showroom/cv8-mk3-hero.jpg',
-    heroNightImage: '/showroom/cv8-mk3-hero.jpg',   // default night fallback (same until a dedicated night hero is added)
+    heroNightImage: '/showroom/cv8-mk3-hero.jpg',
+    frontImage: '/showroom/mk3-front-side.jpg',
+    overviewImages: [
+      { src: '/showroom/mk3-rear.jpg',          alt: 'Jensen C-V8 Mk III — rear view' },
+      { src: '/showroom/mk3-rear-side.jpg',     alt: 'Jensen C-V8 Mk III — three-quarter rear' },
+      { src: '/showroom/mk3-close-up-artie.jpg', alt: 'Jensen C-V8 Mk III — bonnet badge' },
+      { src: '/showroom/cv8-engine.jpg',         alt: 'Chrysler 383 V8 engine' },
+    ],
+    lifestyleImage: '/showroom/mk3-close-up-artie.jpg',
+    lifestyleCaption: 'Jensen C-V8 Mk III — Indigo Blue. The Jensen winged badge, West Bromwich, England.',
     colourImages: {
       'Botticelli Blue': '/showroom/cv8-mk3-botticelli-blue-day.jpg',
       'Princess Grey':   '/showroom/cv8-mk3-princess-grey-day.jpg',
