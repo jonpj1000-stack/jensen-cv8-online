@@ -930,3 +930,16 @@
   .showroomFeatureImgMain{position:absolute}
   .showroomFeatureCopy{font-size:13px}
 }
+
+/* ── Paint colour table ─────────────────────────────────────────────── */
+.paintTable{border:1px solid #e3d9be;border-radius:16px;overflow:hidden;margin:0 0 16px}
+.paintTableHeader{display:grid;grid-template-columns:200px 160px 1fr 1fr;background:#0b3d2e;color:#c9a34e;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:10px 14px;gap:12px}
+.paintTableRow{display:grid;grid-template-columns:200px 160px 1fr 1fr;padding:10px 14px;gap:12px;font-size:13px;border-top:1px solid #e3d9be;align-items:center;background:white}
+.paintTableRow:nth-child(even){background:#faf7f0}
+.paintColourCell{display:flex;align-items:center;gap:10px}
+.paintSwatch{width:24px;height:24px;border-radius:50%;flex-shrink:0;border:1px solid rgba(0,0,0,.1)}
+.paintColourCell strong{font-size:13px;color:#0b3d2e}
+.paintCode{font-family:monospace;font-size:12px;color:#5c3a00;font-weight:600}
+.paintUnknown{color:#aaa;font-style:italic;font-size:12px}
+.paintNoteCell{font-size:12px;color:#666;line-height:1.4}
+@media(max-width:800px){.paintTableHeader,.paintTableRow{grid-template-columns:1fr 1fr;gap:8px}.paintTableHeader span:nth-child(n+3),.paintTableRow span:nth-child(n+3){display:none}}

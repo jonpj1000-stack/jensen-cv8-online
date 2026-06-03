@@ -1170,6 +1170,28 @@ function App() {
                     ))}
                   </div>
                 );
+              case 'paintTable':
+                return (
+                  <div key={idx} className="paintTable">
+                    <div className="paintTableHeader">
+                      <span>Colour</span>
+                      <span>ICI Code</span>
+                      <span>Modern Alternative</span>
+                      <span>Notes</span>
+                    </div>
+                    {section.content.map((row, i) => (
+                      <div key={i} className="paintTableRow">
+                        <span className="paintColourCell">
+                          <span className="paintSwatch" style={{ background: row.css }} />
+                          <strong>{row.colour}</strong>
+                        </span>
+                        <span className="paintCode">{row.iciCode || <em className="paintUnknown">Unknown</em>}</span>
+                        <span>{row.alternative || '—'}</span>
+                        <span className="paintNoteCell">{row.notes || '—'}</span>
+                      </div>
+                    ))}
+                  </div>
+                );
               default:
                 return null;
             }
