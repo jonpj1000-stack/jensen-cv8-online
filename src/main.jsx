@@ -1651,7 +1651,7 @@ function App() {
                       {/* Specialist cards */}
                       {(() => {
                         const filtered = specialists.filter(s =>
-                          (specialistType === 'all' || s.type === specialistType) &&
+                          (specialistType === 'all' || (s.types || [s.type]).includes(specialistType)) &&
                           (specialistCountry === 'all' || s.countryCode === specialistCountry)
                         );
                         if (filtered.length === 0) return (
@@ -1672,7 +1672,10 @@ function App() {
                                 <div className="specialistCardTop">
                                   <div>
                                     <div className="specialistCardMeta">
-                                      <span className="specialistType">{specialistTypes.find(t => t.id === s.type)?.emoji} {specialistTypes.find(t => t.id === s.type)?.label}</span>
+                                      {(s.types || [s.type]).map(typeId => {
+                                        const t = specialistTypes.find(t => t.id === typeId);
+                                        return t ? <span key={typeId} className="specialistType">{t.emoji} {t.label}</span> : null;
+                                      })}
                                       <span className="specialistLocation">📍 {s.city}, {s.region}, {s.country}</span>
                                     </div>
                                     <h3 className="specialistName">{s.name}</h3>
