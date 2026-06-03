@@ -30,6 +30,7 @@ import { getSelectarideForModel } from './data/selectaride.js';
 import { repairCards, repairCategories } from './data/repairCards.js';
 import { restorationArticles, restorationCategories } from './data/restorationArticles.js';
 import { alternativeParts, partsCategories, partsSourceCredit } from './data/alternativeParts.js';
+import { specialists, specialistTypes, specialistCountries } from './data/specialists.js';
 import { lucasParts, lucasSystems, lucasDocumentInfo } from './data/lucasParts.js';
 import { showroomModels, bodyColours, trimColours, wheelOptions, specifications } from './data/showroom.js';
 import './styles.css';
@@ -448,7 +449,9 @@ function App() {
   const [showroomSection, setShowroomSection] = useState('models'); // 'models' | 'configure' | 'specs'
   const [activeArticleId, setActiveArticleId] = useState(null);
   const [restorationCategory, setRestorationCategory] = useState('all');
-  const [restorationTab, setRestorationTab] = useState('articles'); // 'articles' | 'parts' | 'lucas'
+  const [restorationTab, setRestorationTab] = useState('articles'); // 'articles' | 'parts' | 'lucas' | 'specialists'
+  const [specialistType, setSpecialistType] = useState('all');
+  const [specialistCountry, setSpecialistCountry] = useState('all');
   const [lucasSystem, setLucasSystem] = useState('all');
   const [lucasQuery, setLucasQuery] = useState('');
   const [restorationModelFilter, setRestorationModelFilter] = useState('all');
@@ -1344,6 +1347,9 @@ function App() {
                     <button className={restorationTab === 'lucas' ? 'active' : ''} onClick={() => setRestorationTab('lucas')}>
                       <Gauge size={15} /> Lucas Parts Reference
                     </button>
+                    <button className={restorationTab === 'specialists' ? 'active' : ''} onClick={() => setRestorationTab('specialists')}>
+                      <Wrench size={15} /> Find a Specialist
+                    </button>
                   </div>
 
                   {restorationTab === 'parts' && (
@@ -1612,6 +1618,77 @@ function App() {
                         <span>‡ Order separately</span>
                         <span>‖ Serviced by Vehicle Manufacturer</span>
                       </div>
+                    </div>
+                  )}
+
+                  {/* ── Find a Specialist ── */}
+                  {restorationTab === 'specialists' && (
+                    <div className="partsListView">
+                      <div className="partsListHeader">
+                        <p className="partsCredit">🔧 Restoration specialists, Jensen dealers and parts suppliers. <strong>Know of a specialist not listed? Get in touch.</strong></p>
+                      </div>
+
+                      {/* Filters */}
+                      <div className="specialistFilters">
+                        <div className="modelFilterRow">
+                          <span className="modelFilterLabel">Type:</span>
+                          {specialistTypes.map(t => (
+                            <button key={t.id} className={specialistType === t.id ? 'active' : ''} onClick={() => setSpecialistType(t.id)}>
+                              {t.emoji} {t.label}
+                            </button>
+                          ))}
+                        </div>
+                        <div className="modelFilterRow">
+                          <span className="modelFilterLabel">Country:</span>
+                          {specialistCountries.map(c => (
+                            <button key={c.code} className={specialistCountry === c.code ? 'active' : ''} onClick={() => setSpecialistCountry(c.code)}>
+                              {c.name}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Specialist cards */}
+                      {(() => {
+                        const filtered = specialists.filter(s =>
+                          (specialistType === 'all' || s.type === specialistType) &&
+                          (specialistCountry === 'all' || s.countryCode === specialistCountry)
+                        );
+                        if (filtered.length === 0) return (
+                          <div className="emptyChecklist" style={{marginTop:16}}>
+                            <Wrench size={24} />
+                            <p>No specialists listed for this filter yet. More will be added as the community contributes them.</p>
+                          </div>
+                        );
+                        return (
+                          <div className="specialistGrid">
+                            {filtered.map(s => (
+                              <div key={s.id} className={`specialistCard${s.featured ? ' featured' : ''}`}>
+                                <div className="specialistCardTop">
+                                  <div>
+                                    <div className="specialistCardMeta">
+                                      <span className="specialistType">{specialistTypes.find(t => t.id === s.type)?.emoji} {specialistTypes.find(t => t.id === s.type)?.label}</span>
+                                      <span className="specialistLocation">📍 {s.city}, {s.region}, {s.country}</span>
+                                    </div>
+                                    <h3 className="specialistName">{s.name}</h3>
+                                    {s.tagline && <p className="specialistTagline">"{s.tagline}"</p>}
+                                  </div>
+                                  {s.featured && <span className="specialistFeatured">Featured</span>}
+                                </div>
+                                <p className="specialistDesc">{s.description}</p>
+                                <div className="specialistServices">
+                                  {s.services.map(sv => <span key={sv} className="sectionCardTag">{sv}</span>)}
+                                </div>
+                                <div className="specialistContacts">
+                                  {s.website && <a href={s.website} target="_blank" rel="noopener noreferrer" className="specialistLink"><ExternalLink size={13} /> {s.website.replace('https://','').replace('http://','')}</a>}
+                                  {s.phone && <span className="specialistLink">📞 {s.phone}</span>}
+                                  {s.email && <a href={`mailto:${s.email}`} className="specialistLink">✉ {s.email}</a>}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        );
+                      })()}
                     </div>
                   )}
                 </>

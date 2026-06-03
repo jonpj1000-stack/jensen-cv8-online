@@ -982,3 +982,21 @@
 .registryLiveStats span{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);line-height:1.3}
 @media(max-width:600px){.registryLiveStats{grid-template-columns:repeat(2,1fr)}}
 .registryLiveIndicator{font-size:10px;color:rgba(201,163,78,.6);letter-spacing:.1em;text-transform:uppercase;margin-top:4px;display:block}
+
+/* ── Specialist directory ────────────────────────────────────────────── */
+.specialistFilters{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.specialistGrid{display:grid;gap:16px}
+.specialistCard{background:white;border:1px solid #e3d9be;border-radius:20px;padding:20px 22px;display:flex;flex-direction:column;gap:12px}
+.specialistCard.featured{border-color:#c9a34e;border-width:2px}
+.specialistCardTop{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.specialistCardMeta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.specialistType{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#c9a34e}
+.specialistLocation{font-size:11px;color:#888}
+.specialistName{font-size:17px;color:#0b3d2e;font-weight:800;margin:0}
+.specialistTagline{font-size:13px;color:#555;font-style:italic;margin:0}
+.specialistFeatured{background:#c9a34e;color:#06281f;border-radius:6px;padding:3px 10px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;flex-shrink:0}
+.specialistDesc{font-size:13px;color:#444;line-height:1.6;margin:0}
+.specialistServices{display:flex;flex-wrap:wrap;gap:6px}
+.specialistContacts{display:flex;flex-wrap:wrap;gap:12px;border-top:1px solid #e3d9be;padding-top:12px;margin-top:4px}
+.specialistLink{font-size:12px;color:#0b3d2e;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.specialistLink:hover{text-decoration:underline}
