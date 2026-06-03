@@ -976,3 +976,8 @@
 .showroomAdWrap{border:1px solid #e8e8e8}
 .showroomAdImg{width:100%;display:block;filter:grayscale(20%)}
 .showroomAdCaption{padding:10px 14px;font-size:11px;color:#888;font-style:italic;margin:0;border-top:1px solid #e8e8e8;background:#fafaf8}
+.registryLiveStats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.15);border-radius:10px;overflow:hidden;margin:12px 0}
+.registryLiveStats>div{background:rgba(0,0,0,.25);padding:12px;display:flex;flex-direction:column;gap:3px;text-align:center}
+.registryLiveStats strong{font-family:Georgia,'Times New Roman',serif;font-size:26px;font-weight:400;color:#fff;display:block}
+.registryLiveStats span{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);line-height:1.3}
+@media(max-width:600px){.registryLiveStats{grid-template-columns:repeat(2,1fr)}}
