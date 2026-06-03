@@ -408,7 +408,7 @@ function App() {
     }
     return 'home';
   }); // 'home' | 'workshop' | 'manual' | 'restoration' | 'showroom'
-  const [showroomMark, setShowroomMark] = useState('mk2');
+  const [showroomMark, setShowroomMark] = useState('mk3');
   const [nightMode, setNightMode] = useState(false);
   const [configBodyColour, setConfigBodyColour] = useState(bodyColours[0]);
   const [configTrimColour, setConfigTrimColour] = useState(() => trimColours.find(t => t.name === 'Bright Red') || trimColours[0]);
