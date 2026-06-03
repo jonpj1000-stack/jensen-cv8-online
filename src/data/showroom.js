@@ -70,7 +70,7 @@ export const showroomModels = [
     },
     colourNightImages: {
       'Botticelli Blue': '/showroom/cv8-mk3-botticelli-blue-night.jpg',
-      // 'Princess Grey': '/showroom/cv8-mk3-princess-grey-night.jpg',  ← add when night image is saved
+      'Princess Grey': '/showroom/cv8-mk3-princess-grey-night.jpg',
     },
     defaultInteriorImage: '/showroom/interior-bright-red.jpg',
     defaultInteriorNightImage: '/showroom/interior-bright-red-night.jpg',
