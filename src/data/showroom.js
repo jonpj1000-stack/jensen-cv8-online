@@ -66,9 +66,11 @@ export const showroomModels = [
     heroNightImage: '/showroom/cv8-mk3-hero.jpg',   // default night fallback (same until a dedicated night hero is added)
     colourImages: {
       'Botticelli Blue': '/showroom/cv8-mk3-botticelli-blue-day.jpg',
+      'Princess Grey':   '/showroom/cv8-mk3-princess-grey-day.jpg',
     },
     colourNightImages: {
       'Botticelli Blue': '/showroom/cv8-mk3-botticelli-blue-night.jpg',
+      // 'Princess Grey': '/showroom/cv8-mk3-princess-grey-night.jpg',  ← add when night image is saved
     },
     defaultInteriorImage: '/showroom/interior-bright-red.jpg',
     defaultInteriorNightImage: '/showroom/interior-bright-red-night.jpg',
