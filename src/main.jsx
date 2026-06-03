@@ -395,7 +395,10 @@ function App() {
   const [sectionFilter, setSectionFilter] = useState('all');
   const [activePageTag, setActivePageTag] = useState(null);
   const [showWiring, setShowWiring] = useState(false);
-  const [registryStats, setRegistryStats] = useState(null);
+  // Static fallback numbers — always show, updated live when token available
+  const [registryStats, setRegistryStats] = useState({
+    recorded: 91, undiscovered: 163, snapped: 395, missing: 37, live: false
+  });
 
   useEffect(() => {
     const token = import.meta.env.VITE_AIRTABLE_TOKEN;
@@ -410,18 +413,16 @@ function App() {
           all = [...all, ...(data.records || [])];
           offset = data.offset;
         } while (offset);
-
         const cutoff = new Date(); cutoff.setFullYear(cutoff.getFullYear() - 1);
         const cutoffStr = cutoff.toISOString().split('T')[0];
-
         setRegistryStats({
-          total:        all.length,
           recorded:     all.filter(r => r.fields['Last Seen'] >= cutoffStr).length,
           undiscovered: all.filter(r => !r.fields['Last Seen']).length,
           snapped:      all.filter(r => r.fields['Photographs']?.length > 0).length,
           missing:      all.filter(r => r.fields['Status'] === 'Missing').length,
+          live: true,
         });
-      } catch (e) { /* silently fail — static tile still shows */ }
+      } catch (e) { /* keep fallback numbers */ }
     };
     fetchStats();
   }, []);
@@ -836,14 +837,13 @@ function App() {
                 <h3>Registry</h3>
                 <p className="registryTagline">Tracking Every Jensen C-V8</p>
                 <p>A global community effort to locate every surviving car — restored, mid-project or barn find. Every detail helps tell the story.</p>
-                {registryStats && (
-                  <div className="registryLiveStats">
+                <div className="registryLiveStats">
                     <div><strong>{registryStats.recorded}</strong><span>Recorded in last 12 months</span></div>
                     <div><strong>{registryStats.undiscovered}</strong><span>Yet to be found</span></div>
                     <div><strong>{registryStats.snapped}</strong><span>Photos recorded</span></div>
                     <div><strong>{registryStats.missing}</strong><span>Not been seen since</span></div>
                   </div>
-                )}
+                  {registryStats.live && <span className="registryLiveIndicator">● live</span>}
                 <p className="registryCta">Update your car · Explore survivors ↗</p>
               </a>
               <button className="homeSection" onClick={() => { setAppMode('restoration'); setActiveArticleId(null); }}>
