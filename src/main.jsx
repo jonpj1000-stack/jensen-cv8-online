@@ -1642,7 +1642,7 @@ function App() {
                           <span className="modelFilterLabel">Country:</span>
                           {specialistCountries.map(c => (
                             <button key={c.code} className={specialistCountry === c.code ? 'active' : ''} onClick={() => setSpecialistCountry(c.code)}>
-                              {c.name}
+                              {c.flag} {c.name}
                             </button>
                           ))}
                         </div>
@@ -1664,6 +1664,11 @@ function App() {
                           <div className="specialistGrid">
                             {filtered.map(s => (
                               <div key={s.id} className={`specialistCard${s.featured ? ' featured' : ''}`}>
+                                {/* Country flag badge */}
+                                {(() => {
+                                  const country = specialistCountries.find(c => c.code === s.countryCode);
+                                  return country ? <span className="specialistCountryFlag">{country.flag}</span> : null;
+                                })()}
                                 {s.logo && (
                                   <div className="specialistLogoWrap">
                                     <img src={s.logo} alt={`${s.name} logo`} className="specialistLogo" style={s.logoScale ? { transform: `scale(${s.logoScale})`, transformOrigin: 'left center' } : {}} />

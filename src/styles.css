@@ -986,7 +986,7 @@
 /* ── Specialist directory ────────────────────────────────────────────── */
 .specialistFilters{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
 .specialistGrid{display:grid;gap:16px}
-.specialistCard{background:white;border:1px solid #e3d9be;border-radius:20px;padding:20px 22px;display:flex;flex-direction:column;gap:12px}
+.specialistCard{background:white;border:1px solid #e3d9be;border-radius:20px;padding:20px 22px;display:flex;flex-direction:column;gap:12px;position:relative}
 .specialistCard.featured{border-color:#c9a34e;border-width:2px}
 .specialistCardTop{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
 .specialistCardMeta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
@@ -1002,3 +1002,4 @@
 .specialistLink:hover{text-decoration:underline}
 .specialistLogoWrap{padding:16px 0 4px;border-bottom:1px solid #f0ebe0;margin-bottom:12px}
 .specialistLogo{height:36px;width:auto;max-width:240px;object-fit:contain;display:block}
+.specialistCountryFlag{position:absolute;top:14px;right:16px;font-size:22px;line-height:1}

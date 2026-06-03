@@ -13,12 +13,12 @@ export const specialistTypes = [
 ];
 
 export const specialistCountries = [
-  { code: 'all', name: 'All Countries' },
-  { code: 'GB',  name: 'United Kingdom' },
-  { code: 'AU',  name: 'Australia' },
-  { code: 'US',  name: 'United States' },
-  { code: 'NL',  name: 'Netherlands' },
-  { code: 'DE',  name: 'Germany' },
+  { code: 'all', name: 'All Countries', flag: '🌍' },
+  { code: 'GB',  name: 'United Kingdom', flag: '🇬🇧' },
+  { code: 'AU',  name: 'Australia',      flag: '🇦🇺' },
+  { code: 'US',  name: 'United States',  flag: '🇺🇸' },
+  { code: 'NL',  name: 'Netherlands',    flag: '🇳🇱' },
+  { code: 'DE',  name: 'Germany',        flag: '🇩🇪' },
 ];
 
 export const specialists = [
