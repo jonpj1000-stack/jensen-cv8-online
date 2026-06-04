@@ -1013,3 +1013,12 @@
 .registryEmbedWrap{flex:1;padding:0 40px 40px;min-height:0}
 .registryEmbedFrame{width:100%;height:calc(100vh - 200px);min-height:600px;border:none;border-radius:16px;background:white}
 @media(max-width:700px){.registryEmbedHeader{padding:16px 14px}.registryEmbedWrap{padding:0 14px 20px}.registryEmbedFrame{height:calc(100vh - 180px)}}
+
+/* ── JOC featured banner ────────────────────────────────────────────── */
+.jocFeatureBanner{display:flex;align-items:center;justify-content:space-between;gap:16px;background:rgba(255,255,255,.06);border:1px solid rgba(201,163,78,.35);border-radius:14px;padding:18px 20px;margin-bottom:20px;text-decoration:none;transition:background .15s;flex-wrap:wrap}
+.jocFeatureBanner:hover{background:rgba(255,255,255,.1)}
+.jocBannerLeft{display:flex;align-items:center;gap:16px;flex:1;min-width:0}
+.jocBannerLogo{height:40px;width:auto;object-fit:contain;flex-shrink:0;filter:brightness(10)}
+.jocBannerTitle{display:block;color:white;font-size:15px;font-weight:800;margin-bottom:4px}
+.jocBannerDesc{margin:0;color:rgba(255,255,255,.65);font-size:12px;line-height:1.5}
+.jocBannerCta{color:#c9a34e;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;flex-shrink:0}

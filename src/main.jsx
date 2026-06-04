@@ -875,10 +875,22 @@ function App() {
 
               {/* Community tile — full-width, links to forums, social & chat */}
               <div className="homeSection communitySection">
+                {/* JOC featured banner */}
+                <a href="https://joc.org.uk" target="_blank" rel="noopener noreferrer" className="jocFeatureBanner">
+                  <div className="jocBannerLeft">
+                    <img src="/joc-logo.png" alt="Jensen Owners Club" className="jocBannerLogo" />
+                    <div>
+                      <strong className="jocBannerTitle">Jensen Owners Club</strong>
+                      <p className="jocBannerDesc">The international club for Jensen enthusiasts since 1971. Join thousands of owners worldwide — access the technical forum, club magazine, events, regional sections and a community that keeps Jensen knowledge alive.</p>
+                    </div>
+                  </div>
+                  <span className="jocBannerCta">Join the JOC ↗</span>
+                </a>
+
                 <div className="communitySectionHeader">
                   <span className="homeSectionIcon">💬</span>
                   <div>
-                    <h3>Community</h3>
+                    <h3>Community channels</h3>
                     <p>Forums, social groups and owner networks.</p>
                   </div>
                 </div>
