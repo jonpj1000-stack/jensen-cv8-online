@@ -1696,6 +1696,7 @@ function App() {
                                   {s.website && <a href={s.website} target="_blank" rel="noopener noreferrer" className="specialistLink"><ExternalLink size={13} /> {s.website.replace('https://','').replace('http://','')}</a>}
                                   {s.phone && <span className="specialistLink">📞 {s.phone}</span>}
                                   {s.email && <a href={`mailto:${s.email}`} className="specialistLink">✉ {s.email}</a>}
+                                  {s.social?.facebook && <a href={s.social.facebook} target="_blank" rel="noopener noreferrer" className="specialistLink">📘 Facebook</a>}
                                 </div>
                               </div>
                             ))}
