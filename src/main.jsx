@@ -1697,6 +1697,7 @@ function App() {
                                   {s.phone && <span className="specialistLink">📞 {s.phone}</span>}
                                   {s.email && <a href={`mailto:${s.email}`} className="specialistLink">✉ {s.email}</a>}
                                   {s.social?.facebook && <a href={s.social.facebook} target="_blank" rel="noopener noreferrer" className="specialistLink">📘 Facebook</a>}
+                                  {s.social?.instagram && <a href={s.social.instagram} target="_blank" rel="noopener noreferrer" className="specialistLink">📷 Instagram</a>}
                                 </div>
                               </div>
                             ))}
