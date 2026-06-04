@@ -130,7 +130,7 @@ export const specialists = [
       facebook:  'https://www.facebook.com/Jensen-Heritage-Center-130745504325238',
       instagram: 'https://www.instagram.com/vanrijnt/',
     },
-    logo:        null,
+    logo:        '/specialists/jensen-heritage-center-logo.jpg',
     tagline:     'Dedicated to preserving the Jensen marque',
     description: 'The Jensen Heritage Center was founded by Ton van Rijn and is based in the former Tomos factory in Epe, Netherlands. Ton is a passionate Jensen enthusiast who has transformed his dedication into a specialist operation — and is particularly well known in the community for his concours-winning restoration of a Jensen C-V8, a result he is justifiably proud of. The center offers full service, restoration, redesign, maintenance and parts for Jensen vehicles across the range, serving the European Jensen community.',
     services:    ['Full restoration', 'Concours preparation', 'Servicing & maintenance', 'Redesign', 'Jensen parts', 'Vehicle sales'],
