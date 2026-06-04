@@ -33,6 +33,11 @@ export const specialists = [
     website:     'https://cropredybridge.com',
     phone:       '+44 (0)1295 758444',
     email:       'sales@cropredybridge.com',
+    social:      {
+      facebook:  'https://www.facebook.com/cropredybridge',
+      twitter:   'https://twitter.com/cropredybridge',
+      instagram: 'https://www.instagram.com/cropredybridgecars',
+    },
     logo:        '/specialists/cropredy-bridge-logo.svg',
     tagline:     'The largest Jensen specialist in the world',
     description: 'Cropredy Bridge Garage has been the world\'s foremost Jensen specialist for over 50 years. Based at Riverside Works in Oxfordshire, they offer a full range of services for Jensen vehicles including the C-V8 — restoration, classic car paint studio, trim studio, servicing, maintenance, upgrades and vehicle sales. "Where passion meets precision."',

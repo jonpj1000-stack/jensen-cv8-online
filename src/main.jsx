@@ -1698,6 +1698,7 @@ function App() {
                                   {s.email && <a href={`mailto:${s.email}`} className="specialistLink">✉ {s.email}</a>}
                                   {s.social?.facebook && <a href={s.social.facebook} target="_blank" rel="noopener noreferrer" className="specialistLink">📘 Facebook</a>}
                                   {s.social?.instagram && <a href={s.social.instagram} target="_blank" rel="noopener noreferrer" className="specialistLink">📷 Instagram</a>}
+                                  {s.social?.twitter && <a href={s.social.twitter} target="_blank" rel="noopener noreferrer" className="specialistLink">𝕏 Twitter</a>}
                                   {s.social?.ebay && <a href={s.social.ebay} target="_blank" rel="noopener noreferrer" className="specialistLink">🛒 eBay shop</a>}
                                 </div>
                               </div>
