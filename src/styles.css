@@ -1003,3 +1003,13 @@
 .specialistLogoWrap{padding:16px 0 4px;border-bottom:1px solid #f0ebe0;margin-bottom:12px}
 .specialistLogo{height:36px;width:auto;max-width:240px;object-fit:contain;display:block}
 .specialistCountryFlag{position:absolute;top:14px;right:16px;font-size:22px;line-height:1}
+
+/* ── Registry embed ─────────────────────────────────────────────────── */
+.registryWrapper{width:100%;display:flex;flex-direction:column}
+.registryEmbedMain{display:flex;flex-direction:column;width:100%;min-height:calc(100vh - 70px)}
+.registryEmbedHeader{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:28px 40px 20px;flex-wrap:wrap}
+.registryEmbedTitle{font-family:Georgia,'Times New Roman',serif;font-size:32px;font-weight:400;color:white;margin:8px 0 6px;letter-spacing:-.01em}
+.registryEmbedSub{color:rgba(255,255,255,.65);font-size:14px;margin:0;max-width:600px}
+.registryEmbedWrap{flex:1;padding:0 40px 40px;min-height:0}
+.registryEmbedFrame{width:100%;height:calc(100vh - 200px);min-height:600px;border:none;border-radius:16px;background:white}
+@media(max-width:700px){.registryEmbedHeader{padding:16px 14px}.registryEmbedWrap{padding:0 14px 20px}.registryEmbedFrame{height:calc(100vh - 180px)}}

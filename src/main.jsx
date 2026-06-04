@@ -437,9 +437,10 @@ function App() {
   const [appMode, setAppMode] = useState(() => {
     if (typeof window !== 'undefined') {
       if (window.__SHOWROOM_MODE__ || window.location.search.includes('showroom') || window.location.pathname.includes('/showroom')) return 'showroom';
+      if (window.location.search.includes('registry')) return 'registry';
     }
     return 'home';
-  }); // 'home' | 'workshop' | 'manual' | 'restoration' | 'showroom'
+  }); // 'home' | 'workshop' | 'manual' | 'restoration' | 'showroom' | 'registry'
   const [showroomMark, setShowroomMark] = useState('mk3');
   const [nightMode, setNightMode] = useState(false);
   const [configBodyColour, setConfigBodyColour] = useState(bodyColours[0]);
@@ -776,6 +777,7 @@ function App() {
           <button className={appMode === 'home' ? 'active' : ''} onClick={() => { setAppMode('home'); setActiveCardId(null); setActiveArticleId(null); }}>Home</button>
           <button className={appMode === 'workshop' ? 'active' : ''} onClick={() => { setAppMode('workshop'); setActiveCardId(null); }}>Workshop</button>
           <button className={appMode === 'restoration' ? 'active' : ''} onClick={() => { setAppMode('restoration'); setActiveArticleId(null); }}>Restoration</button>
+          <button className={appMode === 'registry' ? 'active' : ''} onClick={() => setAppMode('registry')}>Registry</button>
           <button className={appMode === 'manual' ? 'active' : ''} onClick={() => setAppMode('manual')}>Manuals</button>
         </nav>
 
@@ -796,7 +798,7 @@ function App() {
         </div>
       </header>
 
-      <div className={appMode === 'manual' ? 'layout' : appMode === 'showroom' ? 'showroomWrapper' : 'layoutFull'}>
+      <div className={appMode === 'manual' ? 'layout' : appMode === 'showroom' ? 'showroomWrapper' : appMode === 'registry' ? 'registryWrapper' : 'layoutFull'}>
 
         {/* ── Home Mode ─────────────────────────────────── */}
         {appMode === 'home' && (
@@ -834,7 +836,7 @@ function App() {
                 <p>Easily search the original manuals, wiring diagrams and scanned pages.</p>
                 <span className="homeSectionArrow">→</span>
               </button>
-              <a href="https://airtable.com/appqtFw9HrvLwGDRV/shrc1eGBCmNryrv0M" target="_blank" rel="noopener noreferrer" className="homeSection registrySection">
+              <button onClick={() => setAppMode('registry')} className="homeSection registrySection" style={{cursor:'pointer'}}>
                 <div className="registryBadge">500 built · 1962–1966</div>
                 <img src="/jensen-badge.png" alt="Jensen Motors Ltd." className="homeSectionIcon registryBadgeIcon" />
                 <h3>Registry</h3>
@@ -847,8 +849,8 @@ function App() {
                     <div><strong>{registryStats.missing}</strong><span>Not been seen since</span></div>
                   </div>
                   {registryStats.live && <span className="registryLiveIndicator">● live</span>}
-                <p className="registryCta">Update your car · Explore survivors ↗</p>
-              </a>
+                <p className="registryCta">Update your car · Explore survivors →</p>
+              </button>
               <button className="homeSection" onClick={() => { setAppMode('restoration'); setActiveArticleId(null); }}>
                 <span className="homeSectionIcon">🔩</span>
                 <h3>Restoration Knowledge</h3>
@@ -1713,6 +1715,32 @@ function App() {
             </main>
           );
         })()}
+
+        {/* ── Registry ─────────────────────────────────────────────── */}
+        {appMode === 'registry' && (
+          <main className="registryEmbedMain">
+            <div className="registryEmbedHeader">
+              <div>
+                <button className="backBtn" onClick={() => setAppMode('home')}>← Back to home</button>
+                <h2 className="registryEmbedTitle">Jensen C-V8 Registry</h2>
+                <p className="registryEmbedSub">Tracking every surviving Jensen C-V8 — 500 built between 1962 and 1966. If you own one, please update your entry.</p>
+              </div>
+              <a href="https://airtable.com/appqtFw9HrvLwGDRV/shrc1eGBCmNryrv0M" target="_blank" rel="noopener noreferrer" className="dlBtn">
+                <ExternalLink size={14} /> Open full screen
+              </a>
+            </div>
+            <div className="registryEmbedWrap">
+              <iframe
+                className="registryEmbedFrame"
+                src="https://airtable.com/embed/appqtFw9HrvLwGDRV/shrc1eGBCmNryrv0M"
+                frameBorder="0"
+                onWheel={() => {}}
+                title="Jensen C-V8 Registry"
+                allowFullScreen
+              />
+            </div>
+          </main>
+        )}
 
         {/* ── Virtual Showroom ─────────────────────────────────────── */}
         {appMode === 'showroom' && (() => {
