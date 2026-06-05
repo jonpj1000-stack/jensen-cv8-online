@@ -115,7 +115,7 @@ export const specialists = [
     social:      { facebook: 'https://www.facebook.com/riverbourneclassics' },
     logo:        '/specialists/riverbourne-classics-logo.png',
     tagline:     'Restorations, trim, Jensen parts and classic car sales',
-    description: 'Riverbourne Classics is based at Williams Garage in Otterbourne, Winchester, Hampshire. They offer a comprehensive range of services for Jensen owners including full restoration, trim work, Jensen parts supply and classic car sales. An established Jensen specialist in the south of England.',
+    description: 'Riverbourne Classics is based at Williams Garage in Otterbourne, Winchester, Hampshire. The business is run by Jason Lawrence, who brings 45 years of experience working on Jensen cars — a depth of knowledge that is rare in the classic car world. They offer a comprehensive range of services for Jensen owners including full restoration, trim work, Jensen parts supply and classic car sales.',
     services:    ['Full restoration', 'Trimming', 'Jensen parts', 'Classic car sales', 'Servicing'],
     models:      ['all'],
     featured:    true,
