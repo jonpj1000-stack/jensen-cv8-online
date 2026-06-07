@@ -873,8 +873,10 @@
   .showroomHeader{padding:12px 16px;gap:10px}
   .showroomBadge{height:26px}
   .showroomEyebrow{display:none}
-  .showroomTitle{font-size:13px}
+  .showroomTitle{font-size:12px}
   .showroomExitBtn{font-size:10px;padding:6px 10px;white-space:nowrap}
+  .showroomExitBtnLong{display:none}
+  .showroomExitBtnShort{display:inline}
   .showroomHero{height:60vw;min-height:240px}
   .showroomHeroOverlay{padding:24px}
   .showroomSectionNav{gap:16px;padding:0 20px}
@@ -1015,10 +1017,12 @@
 @media(max-width:700px){.registryEmbedHeader{padding:16px 14px}.registryEmbedWrap{padding:0 14px 20px}.registryEmbedFrame{height:calc(100vh - 180px)}}
 
 /* ── JOC featured banner ────────────────────────────────────────────── */
-.jocFeatureBanner{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;background:rgba(255,255,255,.06);border:1px solid rgba(201,163,78,.35);border-radius:14px;padding:16px 18px;margin-bottom:20px;text-decoration:none;transition:background .15s}
-.jocFeatureBanner:hover{background:rgba(255,255,255,.1)}
-.jocBannerLeft{display:flex;align-items:flex-start;gap:12px;flex:1;min-width:0}
-.jocBannerLogo{height:36px;width:auto;object-fit:contain;flex-shrink:0;filter:brightness(10);margin-top:2px}
-.jocBannerTitle{display:block;color:white;font-size:14px;font-weight:800;margin-bottom:3px}
-.jocBannerDesc{margin:0;color:rgba(255,255,255,.65);font-size:11px;line-height:1.5}
-.jocBannerCta{color:#c9a34e;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.jocFeatureBanner{display:flex;align-items:center;justify-content:space-between;gap:14px;background:rgba(255,255,255,.08);border:1px solid rgba(201,163,78,.4);border-radius:14px;padding:14px 16px;margin-bottom:20px;text-decoration:none;transition:background .15s}
+.jocFeatureBanner:hover{background:rgba(255,255,255,.13)}
+.jocBannerLeft{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
+.jocBannerLogo{height:32px;width:auto;object-fit:contain;flex-shrink:0;filter:brightness(10)}
+.jocBannerText{min-width:0}
+.jocBannerTitle{display:block;color:#fff;font-size:14px;font-weight:800;margin-bottom:2px;white-space:nowrap}
+.jocBannerDesc{margin:0;color:rgba(255,255,255,.8);font-size:11px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.jocBannerCta{color:#c9a34e;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.showroomExitBtnShort{display:none}

@@ -879,9 +879,9 @@ function App() {
                 <a href="https://joc.org.uk" target="_blank" rel="noopener noreferrer" className="jocFeatureBanner">
                   <div className="jocBannerLeft">
                     <img src="/joc-logo.png" alt="Jensen Owners Club" className="jocBannerLogo" />
-                    <div>
+                    <div className="jocBannerText">
                       <strong className="jocBannerTitle">Jensen Owners Club</strong>
-                      <p className="jocBannerDesc">The international club for Jensen enthusiasts since 1971. Join thousands of owners worldwide — access the technical forum, club magazine, events, regional sections and a community that keeps Jensen knowledge alive.</p>
+                      <p className="jocBannerDesc">The international club for Jensen enthusiasts since 1971 — technical forum, club magazine, events and regional sections worldwide.</p>
                     </div>
                   </div>
                   <span className="jocBannerCta">Join the JOC ↗</span>
@@ -943,6 +943,17 @@ function App() {
                     <div>
                       <strong>C-V8 Owners WhatsApp Group</strong>
                       <span>Direct chat with fellow owners</span>
+                    </div>
+                    <ExternalLink size={14} className="communityArrow" />
+                  </a>
+
+                  <a href="https://worldsfastestjensen.co.uk" target="_blank" rel="noopener noreferrer" className="communityLink">
+                    <div className="communityLinkIconWrap" style={{ background: '#c9a34e' }}>
+                      <span style={{ fontSize: 20, color: '#06281f', fontWeight: 900 }}>🏎</span>
+                    </div>
+                    <div>
+                      <strong>World's Fastest Jensen</strong>
+                      <span>The 200 mph C-V8 — Bonneville Salt Flats project</span>
                     </div>
                     <ExternalLink size={14} className="communityArrow" />
                   </a>
@@ -1770,7 +1781,10 @@ function App() {
                     <h1 className="showroomTitle">C-V8 Virtual Showroom</h1>
                   </div>
                 </div>
-                <button className="showroomExitBtn" onClick={() => setAppMode('home')}>← Workshop Companion</button>
+                <button className="showroomExitBtn" onClick={() => setAppMode('home')}>
+                  <span className="showroomExitBtnLong">← Workshop Companion</span>
+                  <span className="showroomExitBtnShort">← Back</span>
+                </button>
               </div>
 
               {/* Hero image */}
