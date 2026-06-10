@@ -948,12 +948,12 @@ function App() {
                   </a>
 
                   <a href="https://worldsfastestjensen.co.uk" target="_blank" rel="noopener noreferrer" className="communityLink">
-                    <div className="communityLinkIconWrap" style={{ background: '#c9a34e' }}>
-                      <span style={{ fontSize: 20, color: '#06281f', fontWeight: 900 }}>🏎</span>
+                    <div className="communityLinkIconWrap" style={{ background: '#1a0a0a' }}>
+                      <img src="/community/wfj-badge.png" alt="World's Fastest Jensen" style={{ width: 34, height: 'auto', objectFit: 'contain' }} />
                     </div>
                     <div>
                       <strong>World's Fastest Jensen</strong>
-                      <span>The 200 mph C-V8 — Bonneville Salt Flats project</span>
+                      <span>A Jensen C-V8 land speed record project, developed to prove just how fast Jensen's iconic grand tourer can go.</span>
                     </div>
                     <ExternalLink size={14} className="communityArrow" />
                   </a>
