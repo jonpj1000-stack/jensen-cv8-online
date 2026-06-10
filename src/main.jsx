@@ -773,13 +773,15 @@ function App() {
           </div>
         </div>
 
-        <nav className="appNav">
-          <button className={appMode === 'home' ? 'active' : ''} onClick={() => { setAppMode('home'); setActiveCardId(null); setActiveArticleId(null); }}>Home</button>
-          <button className={appMode === 'workshop' ? 'active' : ''} onClick={() => { setAppMode('workshop'); setActiveCardId(null); }}>Workshop</button>
-          <button className={appMode === 'restoration' ? 'active' : ''} onClick={() => { setAppMode('restoration'); setActiveArticleId(null); }}>Restoration</button>
-          <button className={appMode === 'registry' ? 'active' : ''} onClick={() => setAppMode('registry')}>Registry</button>
-          <button className={appMode === 'manual' ? 'active' : ''} onClick={() => setAppMode('manual')}>Manuals</button>
-        </nav>
+        <div className="appNavScroll">
+          <nav className="appNav">
+            <button className={appMode === 'home' ? 'active' : ''} onClick={() => { setAppMode('home'); setActiveCardId(null); setActiveArticleId(null); }}>Home</button>
+            <button className={appMode === 'workshop' ? 'active' : ''} onClick={() => { setAppMode('workshop'); setActiveCardId(null); }}>Workshop</button>
+            <button className={appMode === 'restoration' ? 'active' : ''} onClick={() => { setAppMode('restoration'); setActiveArticleId(null); }}>Restoration</button>
+            <button className={appMode === 'registry' ? 'active' : ''} onClick={() => setAppMode('registry')}>Registry</button>
+            <button className={appMode === 'manual' ? 'active' : ''} onClick={() => setAppMode('manual')}>Manuals</button>
+          </nav>
+        </div>
 
         <div className="headerRight">
           {appMode === 'manual' && (
@@ -1234,6 +1236,15 @@ function App() {
                         <span>{row.item}</span><span>{row.usd}</span><span>{row.gbp}</span><span>{row.eur}</span>
                       </div>
                     ))}
+                  </div>
+                );
+              case 'table':
+                return (
+                  <div key={idx} className="articleTableWrap">
+                    <table className="articleTable">
+                      {section.headers && <thead><tr>{section.headers.map((h,i) => <th key={i}>{h}</th>)}</tr></thead>}
+                      <tbody>{section.rows.map((row, i) => <tr key={i}>{row.map((cell, j) => <td key={j}>{cell}</td>)}</tr>)}</tbody>
+                    </table>
                   </div>
                 );
               case 'images':

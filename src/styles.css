@@ -113,7 +113,7 @@
 .interactiveChecklist li.checked p{text-decoration:line-through;color:#777}
 .checkbox{width:28px;height:28px;border-radius:50%;border:2px solid #0b3d2e;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#2e7d32;flex:0 0 28px;background:white}
 .interactiveChecklist li.checked .checkbox{background:#0b3d2e;color:white;border-color:#0b3d2e}
-.interactiveChecklist li p{margin:4px 0 0;line-height:1.5}@media(max-width:900px){.hamburger{display:block}.layout{display:block;padding:14px}.sidebar{position:fixed;left:0;top:0;bottom:0;height:100vh;width:88vw;max-width:360px;z-index:50;border-radius:0;transform:translateX(-100%);transition:.22s}.sidebar.open{transform:translateX(0)}.mobileClose{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.mobileClose button{border:none;background:white;border-radius:12px;padding:8px}.card{padding:20px;border-radius:24px}.pageHeader h2{font-size:32px}header{padding:12px;flex-wrap:wrap;overflow-x:hidden}.badge{width:36px;height:36px}h1{font-size:16px}header p{font-size:9px}.openPdf{font-size:12px}.viewer iframe{height:66vh}.ocrText{font-size:13px}}.modelCard {
+.interactiveChecklist li p{margin:4px 0 0;line-height:1.5}@media(max-width:900px){.hamburger{display:block}.layout{display:block;padding:14px}.sidebar{position:fixed;left:0;top:0;bottom:0;height:100vh;width:88vw;max-width:360px;z-index:50;border-radius:0;transform:translateX(-100%);transition:.22s}.sidebar.open{transform:translateX(0)}.mobileClose{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.mobileClose button{border:none;background:white;border-radius:12px;padding:8px}.card{padding:20px;border-radius:24px}.pageHeader h2{font-size:32px}header{padding:12px;flex-wrap:wrap}.badge{width:36px;height:36px}h1{font-size:16px}header p{font-size:9px}.openPdf{font-size:12px}.viewer iframe{height:66vh}.ocrText{font-size:13px}}.modelCard {
   margin-top: 1rem;
   padding: 1.35rem;
   border-radius: 24px;
@@ -449,7 +449,8 @@
 
 /* ── App Navigation ────────────────────────────────────────────────────────── */
 /* appNav — must override the generic nav{flex-direction:column} rule */
-.appNav{display:flex;flex-direction:row !important;gap:6px;align-items:center;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;flex-shrink:1;min-width:0}
+.appNavScroll{flex-shrink:1;min-width:0;overflow:visible}
+.appNav{display:flex;flex-direction:row !important;gap:6px;align-items:center;flex-wrap:nowrap;flex-shrink:1;min-width:0}
 .appNav::-webkit-scrollbar{display:none}
 .appNav button{border:1px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.85);border-radius:999px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;transition:background .12s,color .12s;white-space:nowrap;flex-shrink:0;display:inline-block}
 .appNav button:hover{background:rgba(255,255,255,.1);color:white}
@@ -580,7 +581,9 @@
   .topBar{flex-wrap:wrap;row-gap:8px;padding:10px 14px}
   .brand{margin-right:0}
   .headerRight{margin-left:auto}
-  .appNav{order:10;width:100%;border-top:1px solid rgba(255,255,255,.1);padding-top:8px;gap:6px;margin-right:0}
+  .appNavScroll{order:10;width:calc(100% + 24px);margin-left:-12px;overflow-x:scroll;overflow-y:visible;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-top:1px solid rgba(255,255,255,.1);padding:8px 12px 0}
+  .appNavScroll::-webkit-scrollbar{display:none}
+  .appNav{gap:6px;padding-right:12px}
   .appNav button{padding:7px 13px;font-size:12px}
   .cardDetailHeader h2{font-size:28px}
   .workshopView,.repairCardDetail,.homePage{grid-column:1}
@@ -636,6 +639,15 @@
 .articleSteps li{display:flex;gap:14px;align-items:flex-start;background:white;border:1px solid #e3d9be;border-radius:14px;padding:14px;margin:8px 0}
 .articleSteps li span{width:30px;height:30px;border-radius:50%;background:#0b3d2e;color:white;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;flex:0 0 30px}
 .articleSteps li p{margin:0;line-height:1.55;font-size:14px;color:#333}
+.articleTableWrap{overflow-x:auto;margin:0 0 20px;border-radius:14px;border:1px solid #e3d9be}
+.articleTable{width:100%;border-collapse:collapse;font-size:14px;min-width:480px}
+.articleTable thead tr{background:#0b3d2e}
+.articleTable thead th{color:#c9a34e;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:10px 14px;text-align:left;white-space:nowrap}
+.articleTable tbody tr:nth-child(even){background:#f7f3ea}
+.articleTable tbody tr:nth-child(odd){background:#fff}
+.articleTable td{padding:10px 14px;color:#17211d;line-height:1.5;vertical-align:top;border-bottom:1px solid #e3d9be}
+.articleTable tbody tr:last-child td{border-bottom:none}
+.articleTable td:first-child{font-weight:700;color:#0b3d2e;white-space:nowrap}
 .articlePartsTable{display:grid;gap:10px;margin:0 0 16px}
 .articlePart{background:white;border:1px solid #e3d9be;border-radius:12px;padding:14px}
 .articlePartTop{display:flex;align-items:center;gap:10px;margin-bottom:4px;flex-wrap:wrap}

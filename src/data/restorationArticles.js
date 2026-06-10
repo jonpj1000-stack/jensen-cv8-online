@@ -16,6 +16,7 @@
  */
 
 export const restorationCategories = [
+  { id: 'model-history', label: 'Model History',            emoji: '📋' },
   { id: 'known-issues', label: 'Known Issues',             emoji: '⚠️' },
   { id: 'upgrades',     label: 'Upgrades & Modifications', emoji: '🚀' },
   { id: 'ignition',     label: 'Ignition & Electrics',     emoji: '⚡' },
@@ -29,6 +30,146 @@ export const restorationCategories = [
 ];
 
 export const restorationArticles = [
+
+  // ── Model History ────────────────────────────────────────────────────────────
+  {
+    id: 'mk1-mk2-mk3-differences',
+    category: 'model-history',
+    title: 'Mk I, Mk II & Mk III — Model Differences & Dating Guide',
+    subtitle: 'How to identify your car, what changed between marks, and a complete chassis number dating reference',
+    models: ['all'],
+    difficulty: 'beginner',
+    readTime: '8 min read',
+    tags: ['Mk I', 'Mk II', 'Mk III', 'chassis number', 'dating', 'identification', 'production', 'differences'],
+    contributors: ['Jensen Motors Limited factory records', 'Motor Sport / Autocar production data (published)'],
+    lastUpdated: '2025',
+
+    intro: `The Jensen C-V8 was produced in three distinct marks between October 1962 and October 1966, with a total of approximately 500 cars built. While the three marks share the same fundamental fibreglass body and Chrysler V8 architecture, there are meaningful differences in specification, engine, trim and fittings that allow any car to be accurately identified — and dated to within a few months — using the chassis number alone. This guide covers those differences in full, drawing on the original Jensen Motors factory dating records.`,
+
+    sections: [
+      {
+        type: 'heading',
+        content: 'How to Read Your Chassis Number',
+      },
+      {
+        type: 'paragraph',
+        content: `The chassis number is stamped on a plate on the front of the scuttle (firewall) and also on the front cross member of the chassis frame. It takes the form of a three-digit prefix followed by a four-digit sequential number — for example 104/2001 or 112/2315. The prefix encodes both the mark and the gearbox type:`,
+      },
+      {
+        type: 'table',
+        headers: ['Prefix', 'Mark', 'Gearbox', 'Production period'],
+        rows: [
+          ['104', 'Mk I & Mk II', 'Automatic', 'Oct 1962 – Jan 1965'],
+          ['105', 'Mk II', 'Manual', 'Oct 1964 – Jul 1965'],
+          ['112', 'Mk III', 'Automatic', 'Jul 1965 – Oct 1966'],
+          ['113', 'Mk III', 'Manual', 'Jul 1965 – Oct 1966'],
+        ],
+      },
+      {
+        type: 'tip',
+        content: `A prefix of 104 does not by itself tell you whether you have a Mk I or Mk II — you need to check the sequential number against the dating table below. 104/2001–104/2066 are Mk I; 104/2067 onward are Mk II.`,
+      },
+      {
+        type: 'heading',
+        content: 'At-a-Glance Model Comparison',
+      },
+      {
+        type: 'paragraph',
+        content: `The table below summarises the key differences between marks. Changes introduced mid-production are noted in the dating table further down.`,
+      },
+      {
+        type: 'table',
+        headers: ['Feature', 'Mk I', 'Mk II', 'Mk III'],
+        rows: [
+          ['Production', 'Oct 1962 – Oct 1963', 'Oct 1963 – Jul 1965', 'Jul 1965 – Oct 1966'],
+          ['Chassis prefix (auto)', '104/2001 – 104/2066', '104/2067 – 104/2314', '112/2315 – 112/2493'],
+          ['Chassis prefix (manual)', '—', '105/2274 – 105/2298', '113/2315 – 113/2366'],
+          ['Engine (auto)', '5916 cc (105 × 86 mm)', '5916 cc → 6276 cc from 104/2120 (Jan 1964)', '6276 cc (107.9 × 85.72 mm)'],
+          ['Engine (manual)', '—', '5916 cc', '6276 cc'],
+          ['Gearbox', 'Automatic only', 'Automatic + Manual (from Oct 1964)', 'Automatic + Manual'],
+          ['Overall length', '15 ft 4¾ in', '15 ft 4¾ in', '15 ft 3¾ in (reduced 1 in)'],
+          ['Wheelbase', '8 ft 9 in', '8 ft 9 in', '8 ft 9 in'],
+          ['Width', '5 ft 7½ in', '5 ft 7½ in', '5 ft 7½ in'],
+          ['Headlamps', 'Twin, set diagonally, chrome surround', 'As Mk I', 'Equal size, no chrome surround, set into recess'],
+          ['Front indicators', 'Sidelights on top of wings', 'Sidelights combined with flashers, below headlamps', 'Separate round flashers'],
+          ['Rear lights', '3 separate round units', '3 separate round units', '3 separate round units'],
+          ['Bumpers', 'Standard', 'Standard', 'New section with overriders'],
+          ['Bonnet handle', 'Chrome external handle', 'Lockable button replaces chrome handle (from Oct 1963)', 'Lockable button'],
+          ['Boot lid', 'Moulding in centre', 'Smooth, no moulding', 'Smooth, name on lid, internal hinges'],
+          ['Braking system', 'Single circuit', 'Single circuit', 'Dual circuit (servo-assisted)'],
+          ['Facia / dashboard', 'Standard', 'Standard', 'Redesigned with face-level ventilators'],
+          ['Front seats', 'Standard', 'Standard', 'Fully reclining'],
+          ['Heater outlets', 'Footwell', 'Footwell', 'Extended to rear footwells'],
+          ['Selectaride dampers', 'Not standard', 'Standard (from Oct 1963)', 'Standard'],
+          ['Radio aerial', 'Built into roof', 'External (from 104/2210, Jul 1964)', 'External'],
+          ['Rear demister control', 'Transmission tunnel', 'Moved off tunnel (from 104/2240, Nov 1964)', 'Removed from tunnel'],
+          ['Petrol filler', 'Standard', 'Chrome bead around base (from 104/2240, Nov 1964)', 'Chrome bead around base'],
+          ['Roof & bonnet panel', 'Original pressing', 'Changed from 104/2025 (during Mk I production)', 'As late Mk II'],
+        ],
+      },
+      {
+        type: 'heading',
+        content: 'Complete Chassis Number Dating Reference',
+      },
+      {
+        type: 'paragraph',
+        content: `The following table is derived from the original Jensen Motors factory dating records. Each entry marks a point in the chassis number sequence where a change was introduced. All cars from that number onward carry the new specification unless noted otherwise.`,
+      },
+      {
+        type: 'table',
+        headers: ['Chassis No.', 'Date', 'Event / Change'],
+        rows: [
+          ['104/2001', 'Oct 1962', 'Mk I Saloon introduced. 5916 cc engine, automatic gearbox standard. Resin-bonded fibreglass body, 4 individual seats.'],
+          ['104/2025', 'c.1962–63', 'Roof and bonnet panel pressing changed (applies through to 104/2066).'],
+          ['104/2067', 'Oct 1963', 'Mk II introduced. Sidelights combined with flashers, now below headlamps. Lockable button replaces chrome bonnet handle. Smooth boot lid (no centre moulding). Selectaride rear dampers now standard.'],
+          ['104/2119', 'Jan 1964', '5916 cc engine discontinued — final chassis with this unit.'],
+          ['104/2120', 'Jan 1964', '6276 cc (107.9 × 85.72 mm) engine introduced. Suffix "V" added to engine number prefix.'],
+          ['104/2209', 'Jul 1964', 'Bonnet shroud hinge assembly altered.'],
+          ['104/2210', 'Jul 1964', 'Radio aerial changed to external mounting (previously built into roof).'],
+          ['104/2229', 'Sep 1964', 'Door locking handle, assembly and remote control handle redesigned.'],
+          ['104/2240', 'Nov 1964', 'Rear demister control removed from transmission tunnel. Chrome bead added around base of petrol filler.'],
+          ['104/2258', 'Jan 1965', 'Saloon automatic production continues.'],
+          ['105/2274', 'Oct 1964', 'Mk II Manual introduced — body as automatic model.'],
+          ['104/2314', 'Jan 1965', 'Last recorded automatic Mk II date entry before Mk III.'],
+          ['105/2298', 'Jul 1965', 'Mk II Manual discontinued. Final chassis number for manual Mk II.'],
+          ['112/2315', 'Jul 1965', 'Mk III introduced (automatic). Headlamps equal size, no chrome surround, set into recess. New section bumpers with overriders. Separate round flashers. Dual braking system. Redesigned facia with face-level ventilators. Fully reclining front seats. Heater outlets extended to rear footwells. "Jensen" name on boot lid. Internal boot hinges. Overall length reduced by 1 inch.'],
+          ['113/2315', 'Jul 1965', 'Mk III Manual introduced — 6276 cc engine. Otherwise as automatic model.'],
+          ['112/2386', 'Jan 1966', 'Mk III automatic production continues.'],
+          ['113/2336', 'Jan 1966', 'Mk III manual production continues.'],
+          ['113/2366', 'Oct 1966', 'Mk III Manual discontinued. Final chassis number for manual Mk III.'],
+          ['112/2493', 'Oct 1966', 'Mk III discontinued. Final chassis number — end of C-V8 production.'],
+        ],
+      },
+      {
+        type: 'tip',
+        content: `Total C-V8 production was approximately 500 cars. Automatic models significantly outnumber manuals — only 25 manual Mk IIs and 52 manual Mk IIIs were built. If you own a manual C-V8, it is a rare car.`,
+      },
+      {
+        type: 'heading',
+        content: 'Engine Number Identification',
+      },
+      {
+        type: 'paragraph',
+        content: `The engine number is stamped on the left-hand (driver's side) bank of the cylinder block, immediately forward of No. 1 cylinder. Two Chrysler V8 engines were used across the production run:`,
+      },
+      {
+        type: 'table',
+        headers: ['Engine', 'Bore × stroke', 'Capacity', 'BHP', 'Fitted from', 'Fitted to'],
+        rows: [
+          ['Chrysler V8 (early)', '105 × 86 mm', '5916 cc (361 cu in)', '305 bhp at 4,800 rpm', '104/2001 (Oct 1962)', '104/2119 (Jan 1964)'],
+          ['Chrysler V8 (later)', '107.9 × 85.72 mm', '6276 cc (383 cu in)', 'c.330 bhp', '104/2120 (Jan 1964)', '112/2493 (Oct 1966)'],
+        ],
+      },
+      {
+        type: 'paragraph',
+        content: `The later 6276 cc engine can be identified by the suffix "V" added to the engine number prefix. Compression ratio on both engines was 9:1 in standard form. Firing order: 1–8–4–3–6–5–7–2. Cylinders are numbered R.H. bank front to rear: 2–4–6–8; L.H. bank front to rear: 1–3–5–7.`,
+      },
+      {
+        type: 'warning',
+        content: `Engine swaps are common on surviving C-V8s, so the engine number alone cannot confirm originality. The chassis number record (available from Martin Robey, who holds the original Jensen Motors factory documentation) is the definitive source for a car's original specification.`,
+      },
+    ],
+  },
 
   // ── Known Issues ────────────────────────────────────────────────────────────
   {
